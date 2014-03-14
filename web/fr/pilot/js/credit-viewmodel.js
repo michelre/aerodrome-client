@@ -1,11 +1,12 @@
 define(["knockout"], function (ko) {
-    return function creditVM() {
+    return function creditVM(baseVM) {
         var self = this;
-
+		var baseVM = baseVM;
         //OBSERVABLES
-		 self.pilotAccount = ko.observable(new pilot("","","","","","",""));
-		 self.credit=ko.observable("");
-		 self.nouveauCredit=ko.observable("");
+
+		 self.pilotAccount = ko.observable(baseVM.currentPilot());
+		
+		 //self.credit=ko.observable();
 		 self.montantCredit=ko.observable("");
 
 
@@ -15,6 +16,14 @@ define(["knockout"], function (ko) {
         //SERVICES
 
         //COMPUTED
+		
+		 self.nouveauCredit=ko.computed(function(){
+		 	
+			return self.pilotAccount().credit();
+		 
+		 });
+		 
+		 console.log(self.pilotAccount().credit());
 
     }
 });

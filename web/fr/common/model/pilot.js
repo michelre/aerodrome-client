@@ -6,7 +6,6 @@ define(["knockout"], function (ko) {
         self.lastName = ko.observable(lastName);
         self.phone = ko.observable(phone);
 		self.pass = ko.observable(pass);
-		//self.passConfirmation = ko.observable(passConfirmation);
 		self.mail = ko.observable(mail);
 		self.credit = ko.observable(credit);
     }
