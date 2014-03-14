@@ -2,7 +2,7 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax","a
     return{
         viewModel: function () {
             var self = this;
-
+            var servicesCurrent = services;
             //OBSERVABLES
             self.currentPage = ko.observable("Accueil");
             self.activeTemplate = ko.observable("home-admin-template");	
@@ -30,7 +30,7 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax","a
 			//Manager autocomplete
 			
 			self.getManagers = function(callback){
-                serviceMock.getManagers(function(data){
+                servicesCurrent.getManagers(function(data){
 					console.log(data);
                     for(var i = 0; i < data.length; i++){
                        self.managers.push(new manager(data[i].airbaseManager_id,data[i].airbaseManager_firstName,data[i].airbaseManager_lastName,data[i].airbaseManager_address,null,null,null));
@@ -61,7 +61,7 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax","a
 			
 			self.getAirbases = function(){
 				self.airbases.removeAll();
-				serviceMock.getAirbases(function(data){
+				servicesCurrent.getAirbases(function(data){
 					for(var i = 0 ; i < data.length; i++){
 						var airbaseManager = data[i].airbase_airbaseManager;
 						var _manager = new manager(airbaseManager.airbaseManager_id, airbaseManager.airbaseManager_firstName, airbaseManager.airbaseManager_lastName,airbaseManager.airbaseManager_address,null,null,null);
@@ -71,7 +71,7 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax","a
 			}
 			
 			self.getAirbase = function(id){
-				serviceMock.getAirbase(id,function(data){
+				servicesCurrent.getAirbase(id,function(data){
 					console.log(data);
 					var airbaseManager = data.airbase_airbaseManager;
 						var _manager = new manager(airbaseManager.airbaseManager_id, airbaseManager.airbaseManager_firstName, airbaseManager.airbaseManager_lastName,airbaseManager.airbaseManager_address,null,null,null);
@@ -98,17 +98,20 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax","a
 					var newAirbase={
 						airbase_name:self.name(),
 						airbase_address:self.address(),
-						airbase_managerId:self.selectedManagerCreate().id(),
+						airbaseManager_id:self.selectedManagerCreate().id(),
 					}
 					console.log(newAirbase);
-					services.createAirbase(newAirbase);	
+					if(servicesCurrent.createAirbase(newAirbase)){
+							window.location.hash="airbase";
+					};
+	
 				}else{
 					alert("Veuillez compléter le formulaire en entier.");	
 				}
 			}
 			
 			self.deleteAirbase = function(data){
-				services.deleteAirbase(data.id());	
+				servicesCurrent.deleteAirbase(data.id());	
 			}
 			
 			self.clicUpdateAirbase = function(){
@@ -117,10 +120,13 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax","a
 						airbase_id:self.modifiedAirbase().id(),
 						airbase_name:self.modifiedAirbase().name(),
 						airbase_address:self.modifiedAirbase().address(),
-						airbase_managerId:self.selectedManagerUpdate().id(),
+						airbaseManager_id:self.selectedManagerUpdate().id(),
 					}
 					console.log(newAirbase);
-					services.updateAirbase(newAirbase);	
+					if(servicesCurrent.updateAirbase(newAirbase)){
+						 window.location.hash="airbase";
+					};
+						
 				}else{
 					alert("Veuillez compléter le formulaire en entier.");	
 				}

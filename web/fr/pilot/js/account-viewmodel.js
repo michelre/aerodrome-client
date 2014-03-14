@@ -1,26 +1,29 @@
 define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","common/model/pilot"], function (ko,servicesMock,services,pilot) {
-    return function accountVM() {
+    return function accountVM(baseVM) {
         var self = this;
 
+		var baseVM = baseVM;
      	//ACCOUNT SETTINGS
 		//validator classes
 		var noErrorClasses = 'fa fa-check';
 		var errorClasses = 'fa fa-times';
 		//OBSERVABLES
 		//Modification
-		self.pilotAccount = ko.observable(new pilot("","","","","","",""));
+		self.pilotAccount = ko.observable(baseVM.currentPilot());
+		self.passConfirmation = ko.observable("");
+
 		self.createAccountFormValidatorError = ko.observable("");
 		//Suppression
-		self.idPilot = ko.observable();
-		//SERVICES
+		self.idPilot =ko.observable()//SERVICES
 		
-		self.getPilotAccount = function(){
-			services.getPilotAccount(9,function(data){
-				self.pilotAccount(new pilot(data.pilotAccount_id,data.pilotAccount_firstName,data.pilotAccount_lastName, data.pilotAccount_phone,data.pilotAccount_pass,data.pilotAccount_pass,data.pilotAccount_mail));
+		/*self.getPilotAccount = function(){
+			services.getPilotAccount(3,function(data){
+				self.pilotAccount(new pilot(data.pilotAccount_id,data.pilotAccount_firstName,data.pilotAccount_lastName, data.pilotAccount_phone,data.pilotAccount_pass,data.pilotAccount_pass,data.pilotAccount_mail,data.pilotAccount_credit));
 				self.idPilot(data.pilotAccount_id);
 			});
 		}
 		self.getPilotAccount();
+		*/
 		
 		self.clickModifyAccount = function(){
 			if(self.allValidator()){
@@ -67,7 +70,7 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		});
 		self.passValidator = ko.computed(function () {
 			var hasError = false;
-			if(self.pilotAccount().pass().length <6 || (self.pilotAccount().passConfirmation()!=self.pilotAccount().pass())) {
+			if(self.pilotAccount().pass().length <6 || (self.passConfirmation()!=self.pilotAccount().pass())) {
 			  hasError = true;
 			}
 			
@@ -133,5 +136,9 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 					return false;
 				}
 		});
+		
+		console.log(baseVM);
+		console.log(baseVM.currentPage());
+		console.log(baseVM.currentPilot());
     }
 });
