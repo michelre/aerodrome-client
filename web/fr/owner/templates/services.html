@@ -5,22 +5,21 @@
 		 	<label for="selectAirbase" >Sélection de l'aérodrome:</label>
 			<select id="selectAirbase" name="selectAirbase" data-bind="options: managerAirbases, optionsText : 'name',optionsValue : 'id', selectedOptions: chosenAirbase,optionsCaption: 'Selection...'"></select><span data-bind="text: chosenAirbase"></span>
 		 </section>
-			 <section id="servicesList">
+			 <section id="servicesList" data-bind="if: chosenAirbase">
 			  <table class="table">
 				<thead>
 					<tr>
 						<th>#</th>
 						<th>Nom</th>
-						<th>Type</th>
 						<th>Prix</th>
 						<th>Description</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tbody data-bind="foreach: airbaseServices">
 					<tr>
 						<td data-bind="text: id"></td>
 						<td data-bind="text: name"></td>
-						<td data-bind="text: type"></td>
 						<td data-bind="text: price"></td>
 						<td data-bind="text: desc"></td>
 						<td>
@@ -30,7 +29,7 @@
 					</tr>
 				<tbody>
 			 </table>
-			 <button id="addService" class="btn btn-primary">Ajouter</button>
+			<button id="addService" class="btn btn-primary">Ajouter</button>
 		 </section>
 	 </section>
 </script>

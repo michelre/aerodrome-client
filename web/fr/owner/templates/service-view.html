@@ -1,18 +1,52 @@
 <script type="text/html" id="service-view-owner-template">
 	 <section id="contenu">
-		 <h1>Gestion du  service</h1>
-		 <h2 data-bind="text: currentService"></h2>
-		 <form role="form">
-		 
-			<label for="name">Nom</label>
-			<input data-bind="value: service.name" id="address" type="text" name="name" class="form-control" placeholder="Nom du service"/> 		 
-			<section class="actions">
-				<button data-bind="click: clicUpdateService" class="btn btn-primary" >Modifier</button>
-				<button data-bind="click: clicCancelService" class="btn">Annuler</button>
+		 <h2 data-bind="text: displayCurrentService"></h2>
+			 <section id="editors">    
+			 <section id="globalEditor">
+			 	<h3>Configuration du service</h3>
+				 <form role="form">
+				 	Type de service:
+					<label><input type="radio" value="Forfait" data-bind="checked: radioSelectedSerivceType" /> Forfait</label>
+		            <label><input type="radio" value="Tonnage" data-bind="checked: radioSelectedSerivceType" /> Tonnage</label><br/>
+					<label for="name">Nom</label>
+					<input data-bind="value: service().name" id="name" type="text" name="name" class="form-control" placeholder="Nom du service"/> 	
+					<label for="description">Description</label>	 
+					<input data-bind="value: service().desc" id="description" type="text" name="description" class="form-control" placeholder="Description du service"/> 			<section id="price" data-bind="if: radioSelectedSerivceType() == 'Forfait'"> 
+						<label for="price">Prix</label>	 
+						<input data-bind="value: service().price" id="price" type="text" name="price" class="form-control" placeholder="Prix du service"/>
+					</section><br/>
+					<section class="actions">
+						<button data-bind="click: clicUpdateService" class="btn btn-primary" >Valider les modifications</button>
+						<button data-bind="click: clicCancelService" class="btn">Annuler</button>
+					</section>
+				 </form>
 			</section>
-		
-
-		 </form>
- 		 <section class="clear"></section>
+			<section id="weightEditor" data-bind="if: radioSelectedSerivceType() == 'Tonnage'">
+				<h3>Configuration du tonnage</h3>
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Tonnage Min</th>
+							<th>Tonnage Max</th>
+							<th>Prix</th>
+							<th>Supplément</th>
+						</tr>
+					</thead>
+					<tbody data-bind="foreach : service().weightRangeServices">
+						<tr>
+							<td><input type="text" class="form-control" data-bind="value: tonMin"/></td>
+							<td><input type="text" class="form-control" data-bind="value: tonMax"/></td>
+							<td><input type="text" class="form-control" data-bind="value: priceFixed"/></td>
+							<td><input type="text" class="form-control" data-bind="value: pricePerTon"/></td>
+							<td>
+								<button class="btn btn-danger" data-bind="click: $parent.deleteWeightRange"><i class="fa fa-trash-o"></i> Suppimer</button>
+							<td>
+						</tr>
+					<tbody>
+				 </table>
+				 <button class="btn btn-primary" data-bind="click: addWeightRange">Ajouter un tonnage</button>
+			</section>
+		</section>
+ 		<section class="clear"></section>
 	 </section>
 </script>

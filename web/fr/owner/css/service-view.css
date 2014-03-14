@@ -1,0 +1,25 @@
+#globalEditor{
+	display:inline-block;
+	float:left;	
+	width:40%;
+}
+
+#weightEditor{
+	display:inline-block;
+	float:right;
+	width:55%;	
+}
+
+#account{
+	width:100%;
+	margin-left: auto;
+	margin-right: auto;	
+}
+
+.fa-check{
+	color:#0F0;	
+}
+
+.fa-times{
+	color:#900;	
+}
