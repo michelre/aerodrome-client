@@ -1,5 +1,14 @@
 <script type="text/html" id="credit-pilot-template">
 	 <section id="contenu">
-        <h1>Credit</h1>
+        <h1>Credit son compte</h1>
+		<h2>Votre crédit : <span data-bind="text :  credit"><span></h2>
+		<h2>Votre nouveau credit : <span data-bind="text :  nouveauCredit" ><span></h2>
+		
+		<form role="form">
+		 	<div class="form-group">
+		 		<label for="name">Montant à créditer</label>
+				<input data-bind="value: montantCredit" id="montantCredit" type="text" name="montantCredit" class="form-control" placeholder="Entrer montant"/>
+			</div>
+		</form>
 	</section>
 </script>

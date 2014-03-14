@@ -3,6 +3,10 @@ define(["knockout"], function (ko) {
         var self = this;
 
         //OBSERVABLES
+		 self.pilotAccount = ko.observable(new pilot("","","","","","",""));
+		 self.credit=ko.observable("");
+		 self.nouveauCredit=ko.observable("");
+		 self.montantCredit=ko.observable("");
 
 
         //NOT OBSERVABLES
