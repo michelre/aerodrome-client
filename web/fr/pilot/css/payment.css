@@ -89,8 +89,8 @@ table{
     table-layout: fixed;
 }
 
-#payment-atterissage .services th:nth-child(1), th:nth-child(2) {
-    width: 45%;
+#payment-atterissage .services th:nth-child(1), th:nth-child(2), th:nth-child(3) {
+    width: 30%;
 }
 
 #payment-atterissage .my-breadcrumb {
