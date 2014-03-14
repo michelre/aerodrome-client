@@ -1,14 +1,16 @@
-define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","common/model/airbase"], function (ko,servicesMock,services,airbase) {
+define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","common/model/airbase","common/model/service"], function (ko,servicesMock,services,airbase,service) {
     return function servicesVM() {
         var self = this;
 
         //OBSERVABLES
 		self.managerAirbases = ko.observableArray([]);
-        chosenAirbase = ko.observable(); // Initially, only Germany is selected
-
-        //NOT OBSERVABLES
+        self.chosenAirbase = ko.observable("");
 
 
+		//services
+		self.airbaseServices = ko.observableArray([]);
+
+		
         //SERVICES
 
 		self.getManagerAirbases = function(){
@@ -22,7 +24,25 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 		}
 		
 		self.getManagerAirbases();
+		
+		self.selectService = function(item) {
+			window.location.hash="services/"+item.id();
+        };
+		
+		self.deleteService = function(data){
+			services.deleteService(data.id());	
+		}
+		
         //COMPUTED
-
+		self.getServicesByAirbase = ko.computed(function(){
+			self.airbaseServices.removeAll();
+			if(self.chosenAirbase()!=null && self.chosenAirbase()!=""){
+				servicesMock.getServicesByAirbase(self.chosenAirbase(),function(data){
+					for(var i = 0; i < data.length; i++){
+						self.airbaseServices.push(new service(data[i].service_id, data[i].service_name, data[i].service_type, data[i].service_price,data[i].service_desc,data[i].service_aircraftTypeCode,data[i].service_weightRangeServices));
+					}
+				});
+			}
+		});
     }
 });

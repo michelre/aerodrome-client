@@ -1,33 +1,36 @@
 <script type="text/html" id="services-owner-template">
-	 <section id="contenu" data-bind="with: currentVM">
+	 <section id="contenu">
 		 <h1>Gestion des  services</h1>
 		 <section id="airbaseSelect">
 		 	<label for="selectAirbase" >Sélection de l'aérodrome:</label>
 			<select id="selectAirbase" name="selectAirbase" data-bind="options: managerAirbases, optionsText : 'name',optionsValue : 'id', selectedOptions: chosenAirbase,optionsCaption: 'Selection...'"></select><span data-bind="text: chosenAirbase"></span>
 		 </section>
-		 <section id="servicesList">
+			 <section id="servicesList">
 			  <table class="table">
 				<thead>
 					<tr>
 						<th>#</th>
 						<th>Nom</th>
-						<th>Adresse</th>
-						<th>Manager</th>
+						<th>Type</th>
+						<th>Prix</th>
+						<th>Description</th>
 					</tr>
 				</thead>
-				<tbody data-bind="foreach: services">
+				<tbody data-bind="foreach: airbaseServices">
 					<tr>
 						<td data-bind="text: id"></td>
 						<td data-bind="text: name"></td>
-						<td data-bind="text: address"></td>
-						<td data-bind="text: manager"></td>
+						<td data-bind="text: type"></td>
+						<td data-bind="text: price"></td>
+						<td data-bind="text: desc"></td>
+						<td>
+							<button class="btn btn-danger" data-bind="click: $parent.deleteService"><i class="fa fa-trash-o"></i> Suppimer</button>
+							<button class="btn btn-primary" data-bind="click: $parent.selectService"><i class="fa fa-pencil"></i> Modifier</button>
+						<td>
 					</tr>
 				<tbody>
 			 </table>
 			 <button id="addService" class="btn btn-primary">Ajouter</button>
-			 <button id="modifyService" class="btn btn-primary">Modifier</button>
-			 <button id="deleteService" class="btn btn-danger">Supprimer</button>
-
 		 </section>
 	 </section>
 </script>

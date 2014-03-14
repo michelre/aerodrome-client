@@ -2,7 +2,6 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
     return function Service(id, name, type, price, desc, aircraftTypeCode, weightRangeServices) {
         var self = this;
 
-
         //OBSERVABLES
         self.id = ko.observable(id);
         self.name = ko.observable(name);
