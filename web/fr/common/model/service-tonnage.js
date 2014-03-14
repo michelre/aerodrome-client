@@ -36,7 +36,7 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
             if(self.aircraftWeight()){
                 var weightRange = self.findCorrectWeightRange(parseFloat(self.aircraftWeight()));
                 var diffWeightMax = self.aircraftWeight() - weightRange.tonMin();
-                return (weightRange.pricePerTon() > 0) ? weightRange.priceFixed() + (diffWeightMax * weightRange.pricePerTon()) : weightRange.priceFixed();
+                return (weightRange.pricePerTon() > 0) ? Math.round((weightRange.priceFixed() + (diffWeightMax * weightRange.pricePerTon()))*100)/100 : weightRange.priceFixed();
             }
             return null;
         });

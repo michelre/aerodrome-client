@@ -14,6 +14,7 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
 
             self.errorForm       = ko.observable(false);
             self.selectedServiceType = ko.observable("forfait");
+            self.total           = ko.observable(0);
 
 
             //NOT OBSERVABLES
@@ -165,7 +166,8 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
                     if(self.servicesTonnage()[i].checked())
                         total += self.servicesTonnage()[i].price();
                 }
-                return total;
+                self.total(total)
+                //return total;
             });
 
             self.init();
