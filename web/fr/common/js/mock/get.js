@@ -127,12 +127,14 @@ define([], function () {
 						"service_aircraftTypeCode" : "azerty",
 						"service_weightRangeServices":[
 								{
+									"weightRangeService_id" : 1,
 									"weightRangeService_tonMin" : 2,
 									"weightRangeService_tonMax" : 4,
 									"weightRangeService_priceFixed" : 15.0,
 									"weightRangeService_pricePerTon" : 2.0,							
 								},
 								{
+									"weightRangeService_id" : 2,
 									"weightRangeService_tonMin" : 4,
 									"weightRangeService_tonMax" : 6,
 									"weightRangeService_priceFixed" : 30,

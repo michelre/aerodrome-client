@@ -39,12 +39,12 @@
 							<td><input type="text" class="form-control" data-bind="value: priceFixed"/></td>
 							<td><input type="text" class="form-control" data-bind="value: pricePerTon"/></td>
 							<td>
-								<button class="btn btn-danger" data-bind="click: "><i class="fa fa-trash-o"></i> Suppimer</button>
+								<button class="btn btn-danger" data-bind="click: $parent.deleteWeightRange"><i class="fa fa-trash-o"></i> Suppimer</button>
 							<td>
 						</tr>
 					<tbody>
 				 </table>
-				 <button class="btn btn-primary" data-bind="click: ">Ajouter un tonnage</button>
+				 <button class="btn btn-primary" data-bind="click: addWeightRange">Ajouter un tonnage</button>
 			</section>
 		</section>
  		<section class="clear"></section>
