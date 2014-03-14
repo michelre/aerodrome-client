@@ -1,4 +1,4 @@
-define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","common/model/airbase","common/model/service"], function (ko,servicesMock,services,airbase,service) {
+define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","common/model/airbase","common/model/service-forfait","common/model/service-tonnage"], function (ko,servicesMock,services,airbase,serviceForfait,serviceTonnage) {
     return function servicesVM() {
         var self = this;
 
@@ -39,7 +39,11 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 			if(self.chosenAirbase()!=null && self.chosenAirbase()!=""){
 				servicesMock.getServicesByAirbase(self.chosenAirbase(),function(data){
 					for(var i = 0; i < data.length; i++){
-						self.airbaseServices.push(new service(data[i].service_id, data[i].service_name, data[i].service_type, data[i].service_price,data[i].service_desc,data[i].service_aircraftTypeCode,data[i].service_weightRangeServices));
+						if(data[i].service_type=="tonnage"){
+							self.airbaseServices.push(new serviceTonnage(data[i].service_id, data[i].service_name, data[i].service_price,data[i].service_desc,data[i].service_aircraftTypeCode,data[i].service_weightRangeServices));
+						}else{
+							self.airbaseServices.push(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,data[i].service_desc,data[i].service_aircraftTypeCode));
+						}
 					}
 				});
 			}
