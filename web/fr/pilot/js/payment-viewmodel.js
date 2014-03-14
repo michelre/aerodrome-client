@@ -1,17 +1,18 @@
-define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/binding/autocomplete-airbase" ,"common/model/airbase", "common/model/plane", "common/model/service", "common/model/landing"],
-    function (ko, typeahead, services, autocompleteAirbase, airbase, plane, service, landing) {
+define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/binding/autocomplete-airbase" ,"common/model/airbase", "common/model/plane", "common/model/service-forfait", "common/model/service-tonnage", "common/model/landing"],
+    function (ko, typeahead, services, autocompleteAirbase, airbase, plane, serviceForfait, serviceTonnage, landing) {
     return function paymentVM() {
             var self = this;
 
             //OBSERVABLES
-            self.currentStep  = ko.observable("atterissage");
-            self.airbases     = ko.observableArray([]);
-            self.services     = ko.observableArray([]);
-            self.plane        = ko.observable();
-            self.landing      = ko.observable();
-            self.airbaseInput = ko.observable("");
+            self.currentStep     = ko.observable("atterissage");
+            self.airbases        = ko.observableArray([]);
+            self.servicesForfait = ko.observableArray([]);
+            self.servicesTonnage = ko.observableArray([]);
+            self.plane           = ko.observable();
+            self.landing         = ko.observable();
+            self.airbaseInput    = ko.observable("");
 
-            self.errorForm    = ko.observable(false);
+            self.errorForm       = ko.observable(false);
 
 
             //NOT OBSERVABLES
@@ -36,8 +37,14 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
             self.getServicesByAirbase = function(id){
                 services.getServicesByAirbase(id, function(data){
                     for(var i = 0; i < data.length; i++){
-                        self.services.push(new service(data[i].service_id, data[i].service_name, data[i].service_type,
-                            data[i].service_price, data[i].service_desc, data[i].service_aircraftTypeCode, data[i].services_weightRangeServices));
+                        if(data[i].type === "forfait"){
+                            self.servicesForfait(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,
+                                data[i].service_desc, data[i].service_aircraftTypeCode));
+                        }
+                        if(data[i].type === "tonnage"){
+                            self.servicesTonnage.push(new serviceTonnage(data[i].service_id, data[i].service_name, data[i].service_price,
+                                data[i].service_desc, data[i].service_aircraftTypeCode, data[i].services_weightRangeServices));
+                        }
                     }
                 });
             };
@@ -136,9 +143,9 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
 
             self.totalPrice = ko.computed(function(){
                 var total = 0;
-                for(var i = 0; i < self.services().length; i++){
-                    if(self.services()[i].checked())
-                        total += self.services()[i].price();
+                for(var i = 0; i < self.servicesForfait().length; i++){
+                    if(self.servicesForfait()[i].checked())
+                        total += self.servicesForfaitl()[i].price();
                 }
                 return total;
             });
