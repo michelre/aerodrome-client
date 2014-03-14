@@ -2,12 +2,6 @@ requirejs.config({
 
     baseUrl: '.',
 	
-	shim:{
-        'typeahead': {
-            "deps": ["jquery"]
-        }
-    },
-	
     paths: {
         "owner": ".",
 		"common": "../common",

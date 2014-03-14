@@ -1,0 +1,18 @@
+<script type="text/html" id="service-view-owner-template">
+	 <section id="contenu">
+		 <h1>Gestion du  service</h1>
+		 <h2 data-bind="text: currentService"></h2>
+		 <form role="form">
+		 
+			<label for="name">Nom</label>
+			<input data-bind="value: service.name" id="address" type="text" name="name" class="form-control" placeholder="Nom du service"/> 		 
+			<section class="actions">
+				<button data-bind="click: clicUpdateService" class="btn btn-primary" >Modifier</button>
+				<button data-bind="click: clicCancelService" class="btn">Annuler</button>
+			</section>
+		
+
+		 </form>
+ 		 <section class="clear"></section>
+	 </section>
+</script>

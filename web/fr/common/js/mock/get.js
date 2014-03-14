@@ -115,6 +115,33 @@ define([], function () {
 				]
 			}
         },
+        getService: function (serviceId) {
+            return {
+				"service":
+                	{
+						"service_id":1,
+                    	"service_name": "atterissage",
+						"service_type": "tonnage",
+                    	"service_price": 30.00,
+						"service_desc" : "tapir",
+						"service_aircraftTypeCode" : "azerty",
+						"service_weightRangeServices":[
+								{
+									"weightRangeService_tonMin" : 2,
+									"weightRangeService_tonMax" : 4,
+									"weightRangeService_priceFixed" : 15.0,
+									"weightRangeService_pricePerTon" : 2.0,							
+								},
+								{
+									"weightRangeService_tonMin" : 4,
+									"weightRangeService_tonMax" : 6,
+									"weightRangeService_priceFixed" : 30,
+									"weightRangeService_pricePerTon" : 6,							
+								},
+							]
+                	}
+			}
+        },		
         getManagers: function () {
             return {
 				"managers":[
