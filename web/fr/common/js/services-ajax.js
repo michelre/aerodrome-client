@@ -140,5 +140,19 @@ define(["jquery", "common/js/mock/get",], function($, _get){
                     console.log("Error getOwner:", jqXHR);
                 })
         },
+		
+		crediterCompte: function (dataCredit,callback){
+			$.ajax({
+				url: SaNPoint+"pilot/"+dataCredit.pilotAccount_id+"/credit",
+			    dataType: "json",
+				data: JSON.stringify(dataCredit),
+				method:"PUT"
+			}).done(function(data){
+                    if(callback)
+                        callback(data)
+			}).fail(function(jqXHR){
+				console.log("Error crediterCompte:", jqXHR);
+			});
+		},
 	}
 })
