@@ -4,7 +4,7 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
             var self = this;
 
             //OBSERVABLES
-            self.currentStep     = ko.observable("atterissage");
+            self.currentStep     = ko.observable("services");
             self.airbases        = ko.observableArray([]);
             self.servicesForfait = ko.observableArray([]);
             self.servicesTonnage = ko.observableArray([]);
@@ -13,6 +13,8 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
             self.airbaseInput    = ko.observable("");
 
             self.errorForm       = ko.observable(false);
+            self.selectedServiceType = ko.observable("forfait");
+            self.total           = ko.observable(0);
 
 
             //NOT OBSERVABLES
@@ -35,14 +37,16 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
             };
 
             self.getServicesByAirbase = function(id){
+                self.servicesForfait.removeAll();
+                self.servicesTonnage.removeAll();
                 services.getServicesByAirbase(id, function(data){
                     for(var i = 0; i < data.length; i++){
-                        if(data[i].type === "forfait"){
-                            self.servicesForfait(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,
+                        if(data[i].service_type === "forfait"){
+                            self.servicesForfait.push(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,
                                 data[i].service_desc, data[i].service_aircraftTypeCode));
                         }
-                        if(data[i].type === "tonnage"){
-                            self.servicesTonnage.push(new serviceTonnage(data[i].service_id, data[i].service_name, data[i].service_price,
+                        if(data[i].service_type === "tonnage"){
+                            self.servicesTonnage.push(new serviceTonnage(data[i].service_id, data[i].service_name,
                                 data[i].service_desc, data[i].service_aircraftTypeCode, data[i].services_weightRangeServices));
                         }
                     }
@@ -71,6 +75,9 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
                 if(self.plane().allInputsFilled()){
                     self.errorForm(false);
                     self.currentStep("services");
+                    for(var i = 0; i < self.servicesTonnage().length; i++){
+                        self.servicesTonnage()[i].aircraftWeight(self.plane().weight());
+                    }
                 }else{
                     self.errorForm(true);
                 }
@@ -102,6 +109,14 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
 
             self.previousStepPaiementButton = function(){
                 self.currentStep("validation");
+            };
+
+            self.changeSelectedServiceTypeForfait = function(){
+                self.selectedServiceType("forfait");
+            };
+
+            self.changeSelectedServiceTypeTonnage = function(){
+                self.selectedServiceType("tonnage");
             };
 
             self.updateAirbaseSelected = ko.computed(function(){
@@ -145,12 +160,20 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
                 var total = 0;
                 for(var i = 0; i < self.servicesForfait().length; i++){
                     if(self.servicesForfait()[i].checked())
-                        total += self.servicesForfaitl()[i].price();
+                        total += self.servicesForfait()[i].price();
                 }
-                return total;
+                for(var i = 0; i < self.servicesTonnage().length; i++){
+                    if(self.servicesTonnage()[i].checked())
+                        total += self.servicesTonnage()[i].price();
+                }
+                self.total(total)
+                //return total;
             });
 
             self.init();
+
+            //PROVISOIRE
+            self.getServicesByAirbase(0)
 
         }
 });

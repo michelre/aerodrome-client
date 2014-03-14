@@ -63,25 +63,57 @@
 
             <div class="content services" data-bind="if: currentStep() === 'services' ">
                 <h2>Vos Services</h2>
+
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" data-bind="click: changeSelectedServiceTypeForfait, css: { active: selectedServiceType() === 'forfait' }">Forfait</button>
+                    <button type="button" class="btn btn-default" data-bind="click: changeSelectedServiceTypeTonnage, css: { active: selectedServiceType() === 'tonnage' }">Tonnage</button>
+                </div>
+
+                <!-- ko if: selectedServiceType() === 'forfait' -->
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>Services</th>
-                            <th>Prix Unitaire HT</th>
+                            <th>Nom</th>
+                            <th>Description</th>
+                            <th>Prix</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody data-bind="foreach: servicesForfait">
                         <tr>
                             <td data-bind="text: name"></td>
+                            <td data-bind="text: desc"></td>
                             <td data-bind="text: price"></td>
                             <td><input type="checkbox" data-bind="checked: checked"/></td>
                         </tr>
                     </tbody>
                 </table>
+                <!-- /ko -->
+
+                <!-- ko if: selectedServiceType() === 'tonnage' -->
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Prix</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody data-bind="foreach: servicesTonnage">
+                    <tr>
+                        <td data-bind="text: name"></td>
+                        <td data-bind="text: desc"></td>
+                        <td data-bind="text: price"></td>
+                        <td><input type="checkbox" data-bind="checked: checked"/></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <!-- /ko -->
                 <div>
                     <span>Prix total:</span>
-                    <b data-bind="text: totalPrice"></b>
+                    <b data-bind="text: total"></b>
                 </div>
                 <button class="btn btn-primary next-step" data-bind="click: previousStepServicesButton">Etape précédente</button>
                 <button class="btn btn-primary next-step" data-bind="click: nextStepServicesButton">Etape suivante</button>
@@ -122,7 +154,9 @@
 
             <div class="content validation" data-bind="if: currentStep() === 'paiement' ">
                 <h2>Paiement</h2>
-
+                <p>
+                    <b>Total à payer: <b data-bind="text: total"></b>€</b>
+                </p>
                 <button class="btn btn-primary next-step" data-bind="click: previousStepPaiementButton">Etape précédente</button>
                 <button class="btn btn-primary next-step" data-bind="click: payButton">Payer</button>
             </div>

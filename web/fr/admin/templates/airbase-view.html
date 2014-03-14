@@ -6,16 +6,16 @@
 		 <form role="form">
 		 	<div class="form-group">
 		 		<label for="name">Nom</label>
-				<input data-bind="value: modifiedAirbase().name" id="name" type="text" name="name" class="form-control" placeholder="Enter nom"/>
+				<input data-bind="value: modifiedAirbase().name" id="name" type="text" name="name" class="form-control" placeholder="Entrer nom"/>
 			</div> 
 			<div class="form-group">
 				<label for="address">Adresse</label>
-				<input data-bind="value: modifiedAirbase().address" id="address" type="text" name="address" class="form-control" placeholder="Enter adresse"/> 
+				<input data-bind="value: modifiedAirbase().address" id="address" type="text" name="address" class="form-control" placeholder="Entrer adresse"/> 
 			</div>
 			<div id="manager_group" class="form-group">
 				<label for="manager">Gestionnaire</label>
 				<!-- ko with: modifiedAirbase().manager -->
-				<input data-bind="value: fullName , autocompleteManager: $parent.managerJSON" id="manager" type="text" name="manager" class="form-control typeahead" placeholder="Enter Manager"/> 
+				<input data-bind="value: fullName , autocompleteManager: $parent.managerJSON" id="manager" type="text" name="manager" class="form-control typeahead" placeholder="Entrer Manager"/> 
 				<!-- /ko -->
 				<span class="tt-dropdown-menu"  style="position: absolute; top: 100%; left: 0px; z-index: 100; display: none; right: auto;">
 				<div class="tt-dataset-manager"></div>
