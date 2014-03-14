@@ -1,0 +1,22 @@
+{
+	"airbaseManager_List":[
+		{
+		"airbaseManager_lastName" :"Camiolo",
+		"airbaseManager_firstName" :"Marly",
+		"airbaseManager_adress" : "airbaseManager1@mail.fr",
+		"airbaseManager_phone" : "06060606"
+		},
+		{
+		"airbaseManager_lastName" :"Ramblas",
+		"airbaseManager_firstName" :"Joseph",
+		"airbaseManager_adress" : "airbaseManager2@mail.fr",
+		"airbaseManager_phone" : "06060606"
+		},
+		{
+		"airbaseManager_lastName" :"Giliani",
+		"airbaseManager_firstName" :"Taric",
+		"airbaseManager_adress" : "airbaseManager3@mail.fr",
+		"airbaseManager_phone" : "06060606"
+		}		
+	]
+}
