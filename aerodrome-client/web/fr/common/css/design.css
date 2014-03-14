@@ -1,0 +1,131 @@
+body{
+	background: #CCC !important;
+	padding:0px 10px !important;
+	
+	/*font-family:Verdana, Geneva, sans-serif;*/
+}
+
+a:hover{
+	text-decoration:none;
+}
+#aerodrome-content header{
+	height:75px;
+	background-color:#333;
+	font-size:40px;
+	color:white;
+	position:relative;
+	
+}
+
+#aerodrome-content header p{
+	height:75px;
+	paading-left:10px;
+	width:60%;
+	display:inline-block;
+	margin:0px;
+	padding-left:5px;
+	margin-top:15px;
+	font-weight:bold;
+	
+}
+
+#aerodrome-content header > i{
+	margin-left:10px;
+}
+
+#aerodrome-content header section#menu{
+	margin-top:15px;
+	display:inline-block;
+	text-align:right;
+	position:absolute;
+	right:10px;
+}
+
+#aerodrome-content header section#menu ul{
+	margin:0px;
+}
+
+#aerodrome-content header section#menu ul li{
+	display:inline-block;
+	list-style:none;
+	border-right: 3px groove white;
+	cursor:pointer;
+}
+
+#aerodrome-content header section#menu ul li:last-child{
+	border:none;
+}
+
+#aerodrome-content header section#menu ul li i{
+	
+	margin-right:10px;
+	
+}
+
+#aerodrome-content nav{
+	
+}
+
+#aerodrome-content nav ul {
+		margin-top:15px;
+}
+
+#aerodrome-content nav ul li{
+	list-style:none;
+	display:inline-block;
+	width: 18%;
+	height:75px;
+	border:1px solid black;
+	border-radius:5px;
+	text-align:center;
+	font-size:25px;
+	padding-top:10px;
+	font-weight:bold;
+	margin-right:10px;
+	cursor:pointer;
+	
+   background: rgb(218,187,78); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(218,187,78,1) 1%, rgba(248,143,6,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,rgba(218,187,78,1)), color-stop(100%,rgba(248,143,6,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(218,187,78,1) 1%,rgba(248,143,6,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(218,187,78,1) 1%,rgba(248,143,6,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(218,187,78,1) 1%,rgba(248,143,6,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(218,187,78,1) 1%,rgba(248,143,6,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dabb4e', endColorstr='#f88f06',GradientType=0 ); /* IE6-9 */
+
+}
+
+#aerodrome-content nav ul li.active{
+	background: rgb(145,147,236); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(145,147,236,1) 0%, rgba(55,24,156,1) 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(145,147,236,1)), color-stop(100%,rgba(55,24,156,1))); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  rgba(145,147,236,1) 0%,rgba(55,24,156,1) 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  rgba(145,147,236,1) 0%,rgba(55,24,156,1) 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  rgba(145,147,236,1) 0%,rgba(55,24,156,1) 100%); /* IE10+ */
+background: linear-gradient(to bottom,  rgba(145,147,236,1) 0%,rgba(55,24,156,1) 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#9193ec', endColorstr='#37189c',GradientType=0 ); /* IE6-9 */
+
+color:white;
+}
+
+#aerodrome-content nav ul li p{
+    margin:0px;
+    font-size:25px;
+}
+#aerodrome-content nav ul li a {
+	color:black;
+}
+
+#aerodrome-content nav ul li.active a{
+	color:white;
+}
+
+#aerodrome-content section#contenu{
+	background-color:#FFF;
+	padding:20px;
+	min-height:70%;
+}
+
+#aerodrome-content .clear{
+	clear:both;
+}

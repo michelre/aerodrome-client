@@ -1,0 +1,37 @@
+<script type="text/html" id="airbase-admin-template">
+     <nav  data-bind="template: { name: 'nav-admin-template'}"></nav>
+	 <section id="contenu">
+		 <h1>Gestion des  Plateformes</h1>
+		 
+		 <h2>liste des Plateformes</h2>
+		 <table class="table table-hover">
+		 	<thead>
+				<tr>
+					<th>#</th>
+					<th>Nom</th>
+					<th>Adresse</th>
+					<th>Gestionnaire</th>
+					<th></th>
+				</tr>
+			</thead>
+		 	<tbody data-bind="foreach: airbases">
+				<tr>
+					<td data-bind="text: id"></td>
+					<td data-bind="text: name"></td>
+					<td data-bind="text: address"></td>
+					<!-- ko with: manager -->
+					<td data-bind="text: fullName"></td>
+					<!-- /ko -->
+					<td>
+						<button class="btn btn-danger" data-bind="click: $parent.deleteAirbase"><i class="fa fa-trash-o"></i> Suppimer</button>
+						<button class="btn btn-primary" data-bind="click: $parent.selectAirbase"><i class="fa fa-pencil"></i> Modifier</button>
+					<td>
+				</tr>
+			<tbody>
+		 </table>
+		 <section class="actions">
+		 	<button data-bind="click: clicAddAirbase" class="btn btn-primary" >Ajouter</button>
+		 </section>
+		 <section class="clear"></section>
+	 </section>
+</script>
