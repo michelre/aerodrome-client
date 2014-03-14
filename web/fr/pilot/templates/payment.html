@@ -113,7 +113,7 @@
                 <!-- /ko -->
                 <div>
                     <span>Prix total:</span>
-                    <b data-bind="text: totalPrice"></b>
+                    <b data-bind="text: total"></b>
                 </div>
                 <button class="btn btn-primary next-step" data-bind="click: previousStepServicesButton">Etape précédente</button>
                 <button class="btn btn-primary next-step" data-bind="click: nextStepServicesButton">Etape suivante</button>
@@ -154,7 +154,9 @@
 
             <div class="content validation" data-bind="if: currentStep() === 'paiement' ">
                 <h2>Paiement</h2>
-
+                <p>
+                    <b>Total à payer: <b data-bind="text: total"></b>€</b>
+                </p>
                 <button class="btn btn-primary next-step" data-bind="click: previousStepPaiementButton">Etape précédente</button>
                 <button class="btn btn-primary next-step" data-bind="click: payButton">Payer</button>
             </div>
