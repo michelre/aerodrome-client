@@ -1,19 +1,20 @@
 <script type="text/html" id="service-view-owner-template">
 	 <section id="contenu">
-		 <h2 data-bind="text: displayCurrentService"></h2>
+		 <h2 data-bind="text: displayCurrentServiceId"></h2>
 			 <section id="editors">    
 			 <section id="globalEditor">
 			 	<h3>Configuration du service</h3>
 				 <form role="form">
 				 	Type de service:
-					<label><input type="radio" value="Forfait" data-bind="checked: radioSelectedSerivceType" /> Forfait</label>
-		            <label><input type="radio" value="Tonnage" data-bind="checked: radioSelectedSerivceType" /> Tonnage</label><br/>
+					<label><input type="radio" value="Forfait" data-bind="checked: radioSelectedServiceType" /> Forfait</label>
+		            <label><input type="radio" value="Tonnage" data-bind="checked: radioSelectedServiceType" /> Tonnage</label><br/>
 					<label for="name">Nom</label>
-					<input data-bind="value: service().name" id="name" type="text" name="name" class="form-control" placeholder="Nom du service"/> 	
+					<input data-bind="value: serviceAccordingType().name" id="name" type="text" name="name" class="form-control" placeholder="Nom du service"/> 	
 					<label for="description">Description</label>	 
-					<input data-bind="value: service().desc" id="description" type="text" name="description" class="form-control" placeholder="Description du service"/> 			<section id="price" data-bind="if: radioSelectedSerivceType() == 'Forfait'"> 
+					<input data-bind="value: serviceAccordingType().desc" id="description" type="text" name="description" class="form-control" placeholder="Description du service"/> 			
+					<section id="price" data-bind="if: radioSelectedServiceType() === 'Forfait'"> 
 						<label for="price">Prix</label>	 
-						<input data-bind="value: service().price" id="price" type="text" name="price" class="form-control" placeholder="Prix du service"/>
+						<input data-bind="value: serviceAccordingType().price" id="price" type="text" name="price" class="form-control" placeholder="Prix du service"/>
 					</section><br/>
 					<section class="actions">
 						<button data-bind="click: clicUpdateService" class="btn btn-primary" >Valider les modifications</button>
@@ -21,7 +22,7 @@
 					</section>
 				 </form>
 			</section>
-			<section id="weightEditor" data-bind="if: radioSelectedSerivceType() == 'Tonnage'">
+			<section id="weightEditor" data-bind="if: radioSelectedServiceType() === 'Tonnage'">
 				<h3>Configuration du tonnage</h3>
 				<table class="table">
 					<thead>
@@ -32,7 +33,7 @@
 							<th>Supplément</th>
 						</tr>
 					</thead>
-					<tbody data-bind="foreach : service().weightRangeServices">
+					<tbody data-bind="foreach : serviceAccordingType().weightRangeServices">
 						<tr>
 							<td><input type="text" class="form-control" data-bind="value: tonMin"/></td>
 							<td><input type="text" class="form-control" data-bind="value: tonMax"/></td>

@@ -1,74 +1,75 @@
 define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","common/model/service-forfait","common/model/service-tonnage","common/model/weight-range"], function (ko,servicesMock,services,serviceForfait,serviceTonnage,weightRange) {
-    return function serviceVM() {
+    return function serviceVM(idService) {
         var self = this;
 
-        //OBSERVABLES	
-		self.oldService = ko.observable();
-		self.service = ko.observable();
-		self.currentService = ko.observable();
-		self.radioSelectedSerivceType = ko.observable();
-
+        //OBSERVABLES
+		self.serviceForfait = null;
+		self.serviceTonnage = null;
+		self.currentServiceId = ko.observable(idService);
+		self.radioSelectedServiceType = ko.observable();
+		
         //SERVICES	
+		self.getService = function(){
+			console.log("Load:"+self.currentServiceId());
+			if(self.currentServiceId()!==null && self.currentServiceId()!=="new" && self.currentServiceId()!==undefined){
+				servicesMock.getService(self.currentServiceId(),function(data){ //edit service
+					//init all service types
+					self.serviceTonnage = new serviceTonnage(data.service_id, data.service_name,data.service_desc,data.service_aircraftTypeCode,data.service_weightRangeServices);
+					self.serviceForfait = new serviceForfait(data.service_id, data.service_name, data.service_price,data.service_desc,data.service_aircraftTypeCode);
+					if(data.service_type==="tonnage"){
+						self.radioSelectedServiceType("Tonnage");
+					}else if(data.service_type==="forfait"){
+						self.radioSelectedServiceType("Forfait");
+					}
+				});	
+			}else{ //new service
+				self.serviceTonnage = new serviceTonnage(null, "","",null,[]);
+				self.serviceForfait = new serviceForfait(null, "", 0,"",null);
+				self.radioSelectedServiceType("Forfait");
+			}
+		};
+		self.getService();
+		
 		self.clicCancelService = function(){
 			window.location.hash="services";
-		}
+		};
 		
 		self.clicUpdateService = function(){
 			if(self.allUpdateServiceValidator()){
-				/*var newAirbase={
-					airbase_id:self.modifiedAirbase().id(),
-					airbase_name:self.modifiedAirbase().name(),
-					airbase_address:self.modifiedAirbase().address(),
-					airbase_managerId:self.selectedManagerUpdate().id(),
-				}
-				console.log(newAirbase);
-				services.updateAirbase(newAirbase);	*/
-				console.log(self.service());
-				console.log(self.service().weightRangeServices());
-				alert("update");
+				console.log(ko.toJSON(self.serviceAccordingType()));
 			}else{
 				alert("Veuillez compléter le formulaire en entier.");	
 			}
 		};
+		
 		self.addWeightRange = function(){
-			self.service().weightRangeServices.push(new weightRange(0, 0, 0, 0, 0));
+			self.serviceAccordingType().weightRangeServices.push(new weightRange(0, 0, 0, 0, 0));
 		};
+		
 		self.deleteWeightRange = function(weightRange){
-			self.service().weightRangeServices.remove(weightRange);
+			self.serviceAccordingType().weightRangeServices.remove(weightRange);
 		};
+		
 		//COMPUTED	
-		self.displayCurrentService = ko.computed(function(){
-			return 	"Edition du service #"+self.currentService();
+		self.serviceAccordingType = ko.computed(function () {
+			if(self.radioSelectedServiceType()==='Tonnage'){
+				return self.serviceTonnage;
+			}else if(self.radioSelectedServiceType() === 'Forfait'){
+				return self.serviceForfait;
+			}
 		});
 		
-		self.getService = ko.computed(function(){
-			servicesMock.getService(self.currentService(),function(data){
-				if(data.service_type=="tonnage"){
-					self.service(new serviceTonnage(data.service_id, data.service_name,data.service_desc,data.service_aircraftTypeCode,data.service_weightRangeServices));
-					self.radioSelectedSerivceType("Tonnage");
-				}else{
-					self.service(new serviceForfait(data.service_id, data.service_name, data.service_price,data.service_desc,data.service_aircraftTypeCode));
-					self.radioSelectedSerivceType("Forfait");
-				}
-				self.oldService(self.service());
-			});	
-			
-		});
+		self.displayCurrentServiceId = ko.computed(function(){
+			return 	"Edition du service #"+self.currentServiceId();
+		});	
 		
 		self.allUpdateServiceValidator = ko.computed(function () {
-			if(self.service().name().length > 0){
+			if(self.serviceAccordingType().name().length > 0){
 				return true;
 			}else{
 				return false;
 			}		
 		});
-		
-		self.changeServiceType = ko.computed(function () {
-			if(self.radioSelectedSerivceType()=='Tonnage'){
-				console.log('Tonnage');
-			}else if(self.radioSelectedSerivceType() == 'Forfait'){
-				console.log('Forfait');
-			}		
-		});
-	}
+
+	};
 });
