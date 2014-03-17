@@ -5,14 +5,14 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
         "text!pilot/templates/payment.html",
         "text!pilot/templates/facture.html",
         "text!pilot/templates/plus.html",
-        "text!pilot/templates/account.html",
+        "text!pilot/templates/account.html"
         ],
     function ($, ko, Sammy, baseVM, navTpl, homeTpl, creditTpl, paymentTpl, factureTpl, plusTpl,accountTpl) {
 
        	$("body").append(navTpl).append(homeTpl).append(creditTpl).append(paymentTpl).append(factureTpl).append(plusTpl).append(accountTpl);
 
         var viewModel = new baseVM();
-		viewModel.initPilot(3, function(){
+        viewModel.initPilot(3, function(){
             Sammy(function () {
                 this.get('home', function () {
                     viewModel.currentPage("Accueil");
@@ -33,12 +33,10 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
                     viewModel.currentPage("Compte");
                 });
                 this.notFound = function () {
+                    viewModel.currentPage("Accueil");
                     window.location.hash = "#home"
                 }
             }).run();
             ko.applyBindings(viewModel);
         });
-
-
-
     });
