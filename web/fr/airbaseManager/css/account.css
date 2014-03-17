@@ -1,0 +1,47 @@
+#modify-account{
+	display:inline-block;
+	float:left;	
+}
+
+#delete-account{
+	display:inline-block;
+	float:right;	
+}
+
+#account{
+	margin-left: auto;
+	margin-right: auto;	
+}
+
+#account h2{
+	margin:0;
+	padding:0;	
+}
+
+.table-login td{
+	padding:5px;	
+}
+
+#modify-account,#delete-account{
+	background:#f7f7f7;
+	background:-moz-linear-gradient(90deg, #ccc, #fff); /* Firefox */
+	background:-webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc)); /* Webkit */
+	border:1px solid #aaa;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	box-shadow:0 0 15px #aaa;
+	-moz-box-shadow:0 0 15px #aaa;
+	-webkit-box-shadow:0 0 15px #aaa;
+	margin:10px auto 0;
+	padding:10px;
+	
+}
+
+.fa-check{
+	color:#0F0;	
+}
+
+.fa-times{
+	color:#900;	
+}
