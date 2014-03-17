@@ -2,7 +2,7 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
     function (ko, accueilVM, creditVM, paymentVM, factureVM, plusVM, accountVM,servicesAjax,servicesAjaxMock, pilot) {
     return function baseVM() {
             var self = this;
-			var services = servicesAjax;
+			var services = servicesAjaxMock;
 			
             //OBSERVABLES
             self.currentPage = ko.observable();
@@ -12,10 +12,11 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
 			
 			//SERVICE
 			
-			self.initPilot = function(id){
+			self.initPilot = function(id, callback){
 				services.getPilotAccount(id,function(data){
-					console.log(data);
 					self.currentPilot(new pilot(data.pilotAccount_id,data.pilotAccount_firstName,data.pilotAccount_lastName, data.pilotAccount_phone,data.pilotAccount_pass,data.pilotAccount_mail,data.pilotAccount_basket));
+                    if(callback)
+                        callback()
 				})
 			}
 
@@ -64,7 +65,7 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
                 if(self.currentPage() === "Facture") self.activeTemplate("facture-pilot-template");
                 if(self.currentPage() === "Plus") self.activeTemplate("plus-pilot-template");
 				if(self.currentPage() === "Compte") self.activeTemplate("account-pilot-template");
-            });	
-			console.log(self.currentPilot());	
+            });
+
         }
 });

@@ -1,10 +1,11 @@
 define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/binding/autocomplete-airbase" ,"common/model/airbase", "common/model/plane", "common/model/service-forfait", "common/model/service-tonnage", "common/model/landing"],
     function (ko, typeahead, services, autocompleteAirbase, airbase, plane, serviceForfait, serviceTonnage, landing) {
-    return function paymentVM() {
+    return function paymentVM(baseVM) {
             var self = this;
 
             //OBSERVABLES
-            self.currentStep     = ko.observable("services");
+            self.pilot           = ko.observable(baseVM.currentPilot());
+            self.currentStep     = ko.observable("atterissage");
             self.airbases        = ko.observableArray([]);
             self.servicesForfait = ko.observableArray([]);
             self.servicesTonnage = ko.observableArray([]);
@@ -12,9 +13,14 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
             self.landing         = ko.observable();
             self.airbaseInput    = ko.observable("");
 
+            self.servicesForfaitSelected = ko.observableArray([]);
+            self.servicesTonnageSelected = ko.observableArray([]);
+
             self.errorForm       = ko.observable(false);
             self.selectedServiceType = ko.observable("forfait");
-            self.total           = ko.observable(0);
+            self.total           = ko.observable(20000);
+            self.paymentType     = ko.observable("paypal")
+
 
 
             //NOT OBSERVABLES
@@ -22,6 +28,9 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
 
             //SERVICES
             self.init = function(){
+                //PROVISOIRE
+                self.getServicesByAirbase(0)
+
                 self.plane(new plane("", ""));
                 self.landing(new landing(undefined, "", ""));
                 self.getAirbases();
@@ -39,6 +48,8 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
             self.getServicesByAirbase = function(id){
                 self.servicesForfait.removeAll();
                 self.servicesTonnage.removeAll();
+                self.servicesForfaitSelected.removeAll();
+                self.servicesTonnageSelected.removeAll();
                 services.getServicesByAirbase(id, function(data){
                     for(var i = 0; i < data.length; i++){
                         if(data[i].service_type === "forfait"){
@@ -111,12 +122,8 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
                 self.currentStep("validation");
             };
 
-            self.changeSelectedServiceTypeForfait = function(){
-                self.selectedServiceType("forfait");
-            };
-
-            self.changeSelectedServiceTypeTonnage = function(){
-                self.selectedServiceType("tonnage");
+            self.changeSelectedServiceType = function(data, event){
+                self.selectedServiceType(event.currentTarget.value);
             };
 
             self.updateAirbaseSelected = ko.computed(function(){
@@ -128,12 +135,12 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
 
             self.displayErrorLanding = ko.computed(function(){
                 if(self.landing())
-                    return (!self.landing().allInputsFilled() && self.errorForm()) ? "visible" : "";
+                    return (!self.landing().allInputsFilled() && self.errorForm()) ? "show" : "hidden";
             });
 
             self.displayErrorPlane = ko.computed(function(){
                 if(self.plane())
-                    return (!self.plane().allInputsFilled() && self.errorForm()) ? "visible" : "";
+                    return (!self.plane().allInputsFilled() && self.errorForm()) ? "show" : "hidden";
             });
 
             self.currentStepAtterissageClass = ko.computed(function(){
@@ -158,22 +165,53 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
 
             self.totalPrice = ko.computed(function(){
                 var total = 0;
-                for(var i = 0; i < self.servicesForfait().length; i++){
-                    if(self.servicesForfait()[i].checked())
-                        total += self.servicesForfait()[i].price();
+                for(var i = 0; i < self.servicesForfaitSelected().length; i++){
+                    total += self.servicesForfaitSelected()[i].price();
                 }
-                for(var i = 0; i < self.servicesTonnage().length; i++){
-                    if(self.servicesTonnage()[i].checked())
-                        total += self.servicesTonnage()[i].price();
+                for(var i = 0; i < self.servicesTonnageSelected().length; i++){
+                    total += self.servicesTonnageSelected()[i].price();
                 }
-                self.total(total)
-                //return total;
+                self.total(total);
             });
 
-            self.init();
+            self.enoughCredit = ko.computed(function(){
+                return (parseFloat(self.pilot().credit()) > parseFloat(self.total())) ? true : false;
+            });
 
-            //PROVISOIRE
-            self.getServicesByAirbase(0)
+            self.notEnoughCreditClass = ko.computed(function(){
+               return (!self.enoughCredit()) ? "show" : "hidden"
+            });
+
+            self.enoughCreditClass = ko.computed(function(){
+                return (self.enoughCredit()) ? "show" : "hidden"
+            });
+
+            self.futureCredit = ko.computed(function(){
+                var futureCredit = parseFloat(self.pilot().credit()) - parseFloat(self.total());
+                return futureCredit.toFixed(2)+"€";
+            });
+
+            self.totalEuros = ko.computed(function(){
+                return self.total().toFixed(2)+"€";
+            });
+
+            self.totalForfait = ko.computed(function(){
+                var total = 0;
+                for(var i = 0; i < self.servicesForfaitSelected().length; i++){
+                    total += self.servicesForfaitSelected()[i].price();
+                }
+                return total;
+            });
+
+            self.totalTonnage = ko.computed(function(){
+                var total = 0;
+                for(var i = 0; i < self.servicesTonnageSelected().length; i++){
+                    total += self.servicesTonnageSelected()[i].price();
+                }
+                return total;
+            });
+
+            self.init()
 
         }
 });

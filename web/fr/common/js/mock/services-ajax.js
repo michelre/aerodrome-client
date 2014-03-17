@@ -1,7 +1,9 @@
 define(["jquery", "common/js/mock/get"], function($, _get){
     return {
         getPilotAccount: function (id, callback) {
-            callback(_get.getPilotAccount().pilot)
+            setTimeout(function(){
+                callback(_get.getPilotAccount().pilot)
+            }, 1000)
         },
         modifyPilotAccount: function (id, data, callback) {
             callback();

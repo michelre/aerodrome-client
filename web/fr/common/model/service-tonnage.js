@@ -15,8 +15,6 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
         self.aircraftTypeCode = ko.observable(aircraftTypeCode);
         self.weightRangeServices = ko.observableArray([]);
 
-        self.checked = ko.observable(false);
-
         self.aircraftWeight = ko.observable(undefined);
 
         //SERVICES

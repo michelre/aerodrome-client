@@ -9,7 +9,6 @@
 }
 
 #account{
-	width:70%;
 	margin-left: auto;
 	margin-right: auto;	
 }
@@ -28,13 +27,15 @@
 	background:-moz-linear-gradient(90deg, #ccc, #fff); /* Firefox */
 	background:-webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc)); /* Webkit */
 	border:1px solid #aaa;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	box-shadow:0 0 15px #aaa;
 	-moz-box-shadow:0 0 15px #aaa;
 	-webkit-box-shadow:0 0 15px #aaa;
 	margin:10px auto 0;
 	padding:10px;
-	width:47%;	
+	
 }
 
 .fa-check{
