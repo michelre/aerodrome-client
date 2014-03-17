@@ -1,7 +1,7 @@
 <script type="text/html" id="payment-pilot-template">
 <section id="contenu">
 <div id="payment-atterissage">
-<div class="container">
+<div class="container-fluid">
     <ul class="my-breadcrumb">
         <li><a href="#"><i data-bind="css: currentStepAtterissageClass"></i><span>1. Atterissage</span></a></li>
         <li><a href="#"><i data-bind="css: currentStepAvionClass"></i><span>2. Avion</span></a></li>
@@ -11,7 +11,7 @@
     </ul>
 </div>
 
-<div class="content container" data-bind="if: currentStep() === 'atterissage' ">
+<div class="content container-fluid" data-bind="if: currentStep() === 'atterissage' ">
     <h2>Saisissez votre atterissage</h2>
 
     <p class="error bg-danger" data-bind="css: displayErrorLanding">Veuillez renseigner tous les champs</p>
@@ -25,7 +25,7 @@
                        data-bind="value: airbaseInput, autocompleteAirbase: airbasesJSON"/>
             </div>
             <!-- ko if: landing && landing().airbase -->
-            <div class="col-md-3 col-md-offset-2 selected-airbase" data-bind="with: landing().airbase">
+            <div class="col-md-3 col-md-offset-1 selected-airbase" data-bind="with: landing().airbase">
                 <div data-bind="text: name"></div>
                 <div data-bind="text: address"></div>
             </div>

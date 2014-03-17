@@ -88,8 +88,20 @@
 }
 
 #payment-atterissage .selected-airbase{
-    width: 415px;
     padding: 5px;
+    box-shadow: 1px 1px 10px grey;
+    background: rgb(242,176,90);
+    background: -moz-linear-gradient(left,  rgba(242,176,90,1) 0%, rgba(246,199,137,1) 100%, rgba(125,185,232,1) 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(242,176,90,1)), color-stop(100%,rgba(246,199,137,1)), color-stop(100%,rgba(125,185,232,1)));
+    background: -webkit-linear-gradient(left,  rgba(242,176,90,1) 0%,rgba(246,199,137,1) 100%,rgba(125,185,232,1) 100%);
+    background: -o-linear-gradient(left,  rgba(242,176,90,1) 0%,rgba(246,199,137,1) 100%,rgba(125,185,232,1) 100%);
+    background: -ms-linear-gradient(left,  rgba(242,176,90,1) 0%,rgba(246,199,137,1) 100%,rgba(125,185,232,1) 100%);
+    background: linear-gradient(to right,  rgba(242,176,90,1) 0%,rgba(246,199,137,1) 100%,rgba(125,185,232,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2b05a', endColorstr='#7db9e8',GradientType=1 );
+    color: white;
+    margin-top: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
 }
 
 #payment-atterissage .error{
@@ -162,6 +174,11 @@
         margin-top: -20px;
     }
 
+    #payment-atterissage .selected-airbase{
+        margin-top: 10px;
+        margin-left: 15px;
+    }
+
 
 }
 
@@ -181,6 +198,11 @@
         top: 3;
         left: 15;
     }
+
+    #payment-atterissage .selected-airbase{
+        margin-top: 10px;
+        margin-left: 15px;
+    }
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -191,6 +213,10 @@
 
     #payment-atterissage .autocomplete input{
         width: 213px;
+    }
+
+    #payment-atterissage .selected-airbase{
+        margin-top: 0;
     }
 }
 
