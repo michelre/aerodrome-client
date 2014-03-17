@@ -1,6 +1,5 @@
 define(["jquery", "common/js/mock/get",], function($, _get){
-	//var SaNPoint = "http://192.168.43.93/ws/";
-	var SaNPoint = "http://192.168.43.104/ws/";
+	var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
 	return {
 		getPilotAccount: function(idPilot, callback){
 			$.ajax({
@@ -112,7 +111,7 @@ define(["jquery", "common/js/mock/get",], function($, _get){
                     if(callback)
                         callback(data)
 			}).fail(function(jqXHR){
-				console.log("Error createAirbase:", jqXHR);
+				console.log("Error updateAirbase:", jqXHR);
 			});
 		},
 		
@@ -154,5 +153,46 @@ define(["jquery", "common/js/mock/get",], function($, _get){
 				console.log("Error crediterCompte:", jqXHR);
 			});
 		},
+		
+		updateService:function (dataService,callback){
+			$.ajax({
+				url: SaNPoint+"service/"+dataService.id,
+			    dataType: "json",
+				data: JSON.stringify(dataService),
+				method:"PUT"
+			}).done(function(data){
+                    if(callback)
+                        callback(data)
+			}).fail(function(jqXHR){
+				console.log("Error updateService:", jqXHR);
+			});
+		},
+		
+		createService:function (dataService,callback){
+			$.ajax({
+				url: SaNPoint+"service/",
+				dataType: "json",
+				data: JSON.stringify(dataService),
+				method:"POST"
+			}).done(function(data){
+                    if(callback)
+                        callback(data)
+			}).fail(function(jqXHR){
+				console.log("Error createService:", jqXHR);
+			});
+		},
+		
+		deleteService: function(idService, callback){
+			$.ajax({
+				url: SaNPoint+"service/"+idService,
+				dataType: "json",
+				method:"DELETE"
+			}).done(function(data){
+                    if(callback)
+                        callback(data)
+			}).fail(function(jqXHR){
+				console.log("Error deleteService:", jqXHR);
+			})
+		}
 	}
 })

@@ -9,7 +9,7 @@ define(["knockout", "owner/js/accueil-viewmodel" ,"owner/js/services-viewmodel" 
 		self.currentVM = ko.observable();
 
 		self.currentServiceId = ko.observable();
-
+		self.currentAirbaseId = ko.observable();
 		//COMPUTED
 		self.homeActiveClass = ko.computed(function () {
 		   return (self.currentPage() === "Accueil") ? "active" : "";
@@ -33,7 +33,7 @@ define(["knockout", "owner/js/accueil-viewmodel" ,"owner/js/services-viewmodel" 
 			if(self.activeTemplate() === "home-owner-template")  self.currentVM(new accueilVM());
 			if(self.activeTemplate() === "services-owner-template") self.currentVM(new servicesVM());
 			if(self.activeTemplate() === "service-view-owner-template"){
-				self.currentVM(new serviceViewVM(self.currentServiceId()));
+				self.currentVM(new serviceViewVM(self.currentServiceId(),self.currentAirbaseId()));
 			}
 		});
 

@@ -23,3 +23,14 @@
 .fa-times{
 	color:#900;	
 }
+
+.fix-error-bootstrap {
+    position: absolute !important;
+    top: 3px !important;
+    right: 5px !important;
+    display: block !important;
+    width: 30px !important;
+    height: 30px !important;
+    line-height: 30px !important;
+    text-align: center !important;
+}

@@ -1,0 +1,65 @@
+<script type="text/html" id="login-template">
+	<section id="contenu">
+		<section id="account">
+			<section id="create-account">
+				<h2>Nouveau compte</h2>
+				<form role="form">
+				<table id="create-account-table" class="table-login">
+					<tr>
+						<td><label for="mail">Mail:</label></td>
+						<td><input type="email" class="form-control" data-bind="value: newAccount.mail" name="mail" id="mail" placeholder="Votre mail"/></td>
+						<td><i data-bind="css: mailValidator"></i></td>
+					</tr>
+					<tr>
+						<td><label for="pass">Mot de passe:</label></td>
+						<td><input type="password" class="form-control" data-bind="value: newAccount.pass" name="pass" id="pass" placeholder="6 caractères minimum"/></td>
+						<td><i data-bind="css: passValidator"></i></td>
+					</tr>
+					<tr>
+						<td><label for="pass-confirmation">Confirmation:</label></td>
+						<td><input type="password" class="form-control" data-bind="value: newAccount.passConfirmation" name="pass-confirmation" id="pass-confirmation" placeholder="Mot de passe"/></td>
+						<td><i data-bind="css: passValidator"></i></td>
+					</tr>
+					<tr>
+						<td><label for="lastName">Nom:</label></td>
+						<td><input type="text" class="form-control" data-bind="value: newAccount.lastName" name="lastName" id="lastName" placeholder="Votre nom"/></td>
+						<td><i data-bind="css: lastNameValidator"></i></td>
+					</tr>
+					<tr>
+						<td><label for="firstName">Prénom:</label></td>
+						<td><input type="text" class="form-control" data-bind="value: newAccount.firstName" name="firstName" id="firstName" placeholder="Votre prénom"/></td>
+						<td><i data-bind="css: firstNameValidator"></i></td>
+					</tr>
+					<tr>
+						<td><label for="phone">Tèl:</label></td>
+						<td><input type="text" class="form-control" data-bind="value: newAccount.phone" name="phone" id="phone" placeholder="+33..."/></td>
+						<td><i data-bind="css: phoneValidator"></i></td>
+					</tr>
+					<tr>
+						<td colspan="2"><button data-bind="click: clickCreateAccount" class="btn btn-primary">Créer le compte</button></td>
+					</tr>
+				</table>
+			</form>
+			</section>
+			<section id="connect-account">
+				<h2>Se connecter</h2>
+				<form role="form">
+				<table id="connect-account-table" class="table-login">
+					<tr>
+						<td><label for="login">Nom d'uilisateur:</label></td>
+						<td><input type="email" data-bind="value: accountMail" class="form-control" name="login" id="login" placeholder="Votre login"/></td>
+					</tr>
+					<tr>
+						<td><label for="pass">Mot de passe:</label></td>
+						<td><input type="password" data-bind="value: accountPass" class="form-control" name="pass" id="pass" placeholder="Votre mot de passe"/></td>
+					</tr>
+					<tr>
+						<td colspan="2"><button data-bind="click: clickConnectAccount" class="btn btn-primary">Se connecter</button></td>
+					</tr>
+				</table>
+				</form>
+			</section>
+		</section>
+		<section class="clear"></section>
+	</section>
+</script>

@@ -8,16 +8,25 @@
 				 	Type de service:
 					<label><input type="radio" value="Forfait" data-bind="checked: radioSelectedServiceType" /> Forfait</label>
 		            <label><input type="radio" value="Tonnage" data-bind="checked: radioSelectedServiceType" /> Tonnage</label><br/>
-					<label for="name">Nom</label>
-					<input data-bind="value: serviceAccordingType().name" id="name" type="text" name="name" class="form-control" placeholder="Nom du service"/> 	
-					<label for="description">Description</label>	 
-					<input data-bind="value: serviceAccordingType().desc" id="description" type="text" name="description" class="form-control" placeholder="Description du service"/> 			
+					<div class="form-group has-feedback" data-bind="css : serviceAccordingType().checkName">
+						<label class="control-label" for="name">Nom</label>
+						<input data-bind="value: serviceAccordingType().name" id="name" type="text" name="name" class="form-control" placeholder="Nom du service"/>
+						<i class="form-control-feedback" data-bind="css : serviceAccordingType().checkNameIcon"></i>
+					</div>
+					<div class="form-group has-feedback" data-bind="css : serviceAccordingType().checkDesc">
+						<label class="control-label" for="description">Description</label>
+						<textarea data-bind="value: serviceAccordingType().desc" id="description" type="text" name="description" class="form-control" placeholder="Description du service"></textarea>
+						<i class="form-control-feedback" data-bind="css : serviceAccordingType().checkDescIcon"></i>
+					</div> 			
 					<section id="price" data-bind="if: radioSelectedServiceType() === 'Forfait'"> 
-						<label for="price">Prix</label>	 
+					<div class="form-group has-feedback" data-bind="css : serviceAccordingType().checkPrice">
+						<label class="control-label" for="price">Prix</label>
 						<input data-bind="value: serviceAccordingType().price" id="price" type="text" name="price" class="form-control" placeholder="Prix du service"/>
+						<i class="form-control-feedback" data-bind="css : serviceAccordingType().checkPriceIcon"></i>
+					</div>
 					</section><br/>
 					<section class="actions">
-						<button data-bind="click: clicUpdateService" class="btn btn-primary" >Valider les modifications</button>
+						<button data-bind="click: clicUpdateService" class="btn btn-primary" >Valider</button>
 						<button data-bind="click: clicCancelService" class="btn">Annuler</button>
 					</section>
 				 </form>
@@ -31,14 +40,35 @@
 							<th>Tonnage Max</th>
 							<th>Prix</th>
 							<th>Supplément</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody data-bind="foreach : serviceAccordingType().weightRangeServices">
 						<tr>
-							<td><input type="text" class="form-control" data-bind="value: tonMin"/></td>
-							<td><input type="text" class="form-control" data-bind="value: tonMax"/></td>
-							<td><input type="text" class="form-control" data-bind="value: priceFixed"/></td>
-							<td><input type="text" class="form-control" data-bind="value: pricePerTon"/></td>
+							<td>
+								<div class="form-group has-feedback" data-bind="css : checkTonMin">
+									<input type="text" class="form-control" data-bind="value: tonMin"/>
+									<i class="form-control-feedback fix-error-bootstrap" data-bind="css : checkTonMinIcon"></i>
+								</div>
+							</td>
+							<td>
+								<div class="form-group has-feedback" data-bind="css : checkTonMax">
+									<input type="text" class="form-control" data-bind="value: tonMax"/>
+									<i class="form-control-feedback fix-error-bootstrap" data-bind="css : checkTonMaxIcon"></i>
+								</div>
+							</td>
+							<td>
+								<div class="form-group has-feedback" data-bind="css : checkPriceFixed">
+									<input type="text" class="form-control" data-bind="value: priceFixed"/>
+									<i class="form-control-feedback fix-error-bootstrap" data-bind="css : checkPriceFixedIcon"></i>
+								</div>
+							</td>
+							<td>
+								<div class="form-group has-feedback" data-bind="css : checkPricePerTon">
+									<input type="text" class="form-control" data-bind="value: pricePerTon"/>
+									<i class="form-control-feedback fix-error-bootstrap" data-bind="css : checkPricePerTonIcon"></i>
+								</div>
+							</td>
 							<td>
 								<button class="btn btn-danger" data-bind="click: $parent.deleteWeightRange"><i class="fa fa-trash-o"></i> Suppimer</button>
 							<td>
