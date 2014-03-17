@@ -38,7 +38,7 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 			if(self.passValidator()==noErrorClasses){
 				var modifiedPilot={
 					oldPassword:self.oldMdp(),
-				    newPassWord:self.newMdp()
+				    newPassword:self.newMdp()
 				}
 				console.log(modifiedPilot);
 				services.modifyPilotMdpAccount(self.pilotAccount().id(),modifiedPilot);		
