@@ -157,8 +157,8 @@
 	display:block !important;
 }
 
-#payment-atterissage .button-right{
-    text-align: right;
+#payment-atterissage .btns div{
+    margin-top: 10px;
 }
 
 /* Extra small devices (phones, less than 768px) */
@@ -218,12 +218,32 @@
     #payment-atterissage .selected-airbase{
         margin-top: 0;
     }
+
+    #payment-atterissage .btn-next div:first-child{
+        text-align: right;
+    }
+
+    #payment-atterissage .btns div:nth-child(2){
+        text-align: right;
+    }
 }
 
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
     #payment-atterissage .my-breadcrumb li a{
         padding: 10px 0 10px 65px;
+    }
+
+    #payment-atterissage .btn-next div:first-child{
+        text-align: right;
+    }
+
+    #payment-atterissage .btns div:nth-child(2){
+        text-align: left;
+    }
+
+    #payment-atterissage .btns div:nth-child(1){
+        text-align: right;
     }
 
 }

@@ -5,7 +5,7 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
 
             //OBSERVABLES
             self.pilot           = ko.observable(baseVM.currentPilot());
-            self.currentStep     = ko.observable("atterissage");
+            self.currentStep     = ko.observable("avion");
             self.airbases        = ko.observableArray([]);
             self.servicesForfait = ko.observableArray([]);
             self.servicesTonnage = ko.observableArray([]);
