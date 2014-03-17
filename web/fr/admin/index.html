@@ -10,11 +10,10 @@
     </head>
     <body>
     <div id="aerodrome-content">
-    <header>
+    <header  class="row">
         <i data-bind="css: activeIcon"></i>
-        <!--<p data-bind="text: connectedTitle"></p>-->
-         <p data-bind="text: currentPage"></p>
-        <section id="menu" data-bind="if: currentPage() !== 'Paydrome'">
+        <p data-bind="text: currentPage"></p>
+        <section class="col-md-4" id="menu" data-bind="if: currentPage() !== 'Paydrome'">
             <ul>
                 <li><i class="fa fa-question"></i></li>
                 <li><i class="fa fa-gear"></i></li>
