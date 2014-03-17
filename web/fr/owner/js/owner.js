@@ -18,10 +18,12 @@ define(["jquery", "knockout", "sammy", "owner/js/base-viewmodel",
                 viewModel.currentPage("Services");
                 //viewModel.activeTemplate("services-owner-template");
             });
-			this.get('services/:id', function () {
+			this.get('services/:idService/:idAirbase', function () {
                 viewModel.currentPage("Service");
-				var id = this.params['id'];
-				viewModel.currentServiceId(id);
+				var idService = this.params['idService'];
+				var idAirbase = this.params['idAirbase'];
+				viewModel.currentServiceId(idService);
+				viewModel.currentAirbaseId(idAirbase);
             });			
             this.notFound = function () {
               window.location.hash = "#home"

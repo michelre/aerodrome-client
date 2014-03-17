@@ -1,7 +1,8 @@
 define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","common/model/airbase","common/model/service-forfait","common/model/service-tonnage"], function (ko,servicesMock,services,airbase,serviceForfait,serviceTonnage) {
     return function servicesVM() {
         var self = this;
-
+		var servicesCurrent = servicesMock;
+		
         //OBSERVABLES
 		self.managerAirbases = ko.observableArray([]);
         self.chosenAirbase = ko.observable("");
@@ -15,7 +16,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 
 		self.getManagerAirbases = function(){
 			self.managerAirbases.removeAll();
-			servicesMock.getAirbases(function(data){
+			servicesCurrent.getAirbases(function(data){
 				for(var i = 0 ; i < data.length; i++){
 					self.managerAirbases.push(new airbase(data[i].airbase_id, data[i].airbase_name, data[i].airbase_address, data[i].airbaseManager_firstname));
 				}
@@ -25,22 +26,22 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 		self.getManagerAirbases();
 		
 		self.selectService = function(item) {
-			window.location.hash="services/"+item.id();
+			window.location.hash="services/"+item.id()+"/"+self.chosenAirbase();
         };
 		
 		self.createService = function() {
-			window.location.hash="services/new";
+			window.location.hash="services/new"+"/"+self.chosenAirbase();
         };
 		
 		self.deleteService = function(data){
-			services.deleteService(data.id());	
+			servicesCurrent.deleteService(data.id());	
 		};
 		
         //COMPUTED
 		self.getServicesByAirbase = ko.computed(function(){
 			self.airbaseServices.removeAll();
 			if(self.chosenAirbase()!==null && self.chosenAirbase()!==""){
-				servicesMock.getServicesByAirbase(self.chosenAirbase(),function(data){
+				servicesCurrent.getServicesByAirbase(self.chosenAirbase(),function(data){
 					for(var i = 0; i < data.length; i++){
 						if(data[i].service_type==="tonnage"){
 							self.airbaseServices.push(new serviceTonnage(data[i].service_id, data[i].service_name, data[i].service_price,data[i].service_desc,data[i].service_aircraftTypeCode,data[i].service_weightRangeServices));
