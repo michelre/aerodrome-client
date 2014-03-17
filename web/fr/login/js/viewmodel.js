@@ -13,6 +13,7 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 			//loggin
 			self.accountPass = ko.observable("");
 			self.accountMail = ko.observable("");
+			self.passConfirmation = ko.observable("");;
 			
             //SERVICES
 			self.clickCreateAccount = function(){
@@ -59,7 +60,7 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
             });
             self.passValidator = ko.computed(function () {
                 var hasError = false;
-				if(self.newAccount.pass().length <6 || (self.newAccount.passConfirmation()!=self.newAccount.pass())) {
+				if(self.newAccount.pass().length <6 || (self.passConfirmation()!=self.newAccount.pass())) {
 				  hasError = true;
 				}
 			 	
