@@ -12,32 +12,33 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
        	$("body").append(navTpl).append(homeTpl).append(creditTpl).append(paymentTpl).append(factureTpl).append(plusTpl).append(accountTpl);
 
         var viewModel = new baseVM();
-		viewModel.initPilot(3);
-		
-        Sammy(function () {
-            this.get('home', function () {
-                viewModel.currentPage("Accueil");
-            });
-            this.get('credit', function () {
-                viewModel.currentPage("Credit");
-            });
-            this.get('paiement', function () {
-                viewModel.currentPage("Paiement");
-            });
-            this.get('facture', function () {
-                viewModel.currentPage("Facture");
-            });
-            this.get('plus', function () {
-                viewModel.currentPage("Plus");
-            });
-			this.get('account', function () {
-                viewModel.currentPage("Compte");
-            });
-            this.notFound = function () {
-                window.location.hash = "#home"
-            }
-        }).run();
+		viewModel.initPilot(3, function(){
+            Sammy(function () {
+                this.get('home', function () {
+                    viewModel.currentPage("Accueil");
+                });
+                this.get('credit', function () {
+                    viewModel.currentPage("Credit");
+                });
+                this.get('paiement', function () {
+                    viewModel.currentPage("Paiement");
+                });
+                this.get('facture', function () {
+                    viewModel.currentPage("Facture");
+                });
+                this.get('plus', function () {
+                    viewModel.currentPage("Plus");
+                });
+                this.get('account', function () {
+                    viewModel.currentPage("Compte");
+                });
+                this.notFound = function () {
+                    window.location.hash = "#home"
+                }
+            }).run();
+            ko.applyBindings(viewModel);
+        });
 
-        ko.applyBindings(viewModel);
+
 
     });
