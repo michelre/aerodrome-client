@@ -7,10 +7,10 @@ define(["knockout", "common/js/services-ajax", "common/model/manager"], function
 			var errorClasses = 'fa fa-times';
 			
             //OBSERVABLES
-//ToCheck			//Creation
+			//Creation
 			self.newAirbaseManagerAccount = new Manager(null, "","","","","","");
 			self.createAccountFormValidatorError = ko.observable("");
-//ToCheck			//login
+			//login
 			self.accountPass = ko.observable("");
 			self.accountMail = ko.observable("");
 			
