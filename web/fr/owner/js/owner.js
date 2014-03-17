@@ -21,7 +21,7 @@ define(["jquery", "knockout", "sammy", "owner/js/base-viewmodel",
 			this.get('services/:id', function () {
                 viewModel.currentPage("Service");
 				var id = this.params['id'];
-				viewModel.currentService(id);
+				viewModel.currentServiceId(id);
             });			
             this.notFound = function () {
               window.location.hash = "#home"

@@ -12,7 +12,7 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
        	$("body").append(navTpl).append(homeTpl).append(creditTpl).append(paymentTpl).append(factureTpl).append(plusTpl).append(accountTpl);
 
         var viewModel = new baseVM();
-		viewModel.initPilot(1);
+		viewModel.initPilot(3);
 		
         Sammy(function () {
             this.get('home', function () {
