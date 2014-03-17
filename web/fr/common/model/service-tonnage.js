@@ -1,7 +1,13 @@
 define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
     return function ServiceTonnage(id, name, desc, aircraftTypeCode, weightRangeServices) {
         var self = this;
-
+		
+		var noErrorIconClass = 'fa fa-check';
+		var errorIconClass = 'fa fa-times';
+		
+		var noErrorClass = 'has-success';
+		var errorClass = 'has-error';
+		
         //OBSERVABLES
         self.id = ko.observable(id);
         self.name = ko.observable(name);
@@ -27,7 +33,23 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
             }
             return self.weightRangeServices()[self.weightRangeServices().length-1];
         };
-
+		
+		self.isValid = function () {
+			if(self.checkName()===noErrorClass &&
+			self.checkDesc()===noErrorClass){
+				for (var i = 0; i < self.weightRangeServices().length; i++) {
+					if(self.weightRangeServices()[i].checkTonMin()===errorClass ||
+						self.weightRangeServices()[i].checkTonMax()===errorClass ||
+						self.weightRangeServices()[i].checkPriceFixed()===errorClass ||
+						self.weightRangeServices()[i].checkPricePerTon()===errorClass){
+						return false;	
+					}
+				}
+				return true;
+			}else{
+				return false;
+			}
+		};
         //COMPUTED
 
         self.price = ko.computed(function(){
@@ -38,6 +60,22 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
             }
             return null;
         });
+		
+		self.checkName = ko.computed(function(){
+			return self.name()!=="" ? noErrorClass : errorClass;
+		});
+		
+		self.checkNameIcon = ko.computed(function(){
+			return self.name()!=="" ? noErrorIconClass : errorIconClass;
+		});
+		
+		self.checkDesc = ko.computed(function(){
+			return self.desc()!=="" ? noErrorClass : errorClass;
+		});
+		
+		self.checkDescIcon = ko.computed(function(){
+			return self.desc()!=="" ? noErrorIconClass : errorIconClass;
+		});
 
         self.init();
 
