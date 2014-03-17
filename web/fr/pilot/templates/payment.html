@@ -47,7 +47,7 @@
             </div>
         </div>
         <!-- /ko -->
-        <div class="form-group">
+        <div class="form-group btn-next">
             <div class="col-md-offset-10 col-md-2">
                 <button class="btn btn-primary next-step" data-bind="click: nextStepLandingButton">Etape suivante
                 </button>
@@ -82,11 +82,11 @@
             </div>
         </div>
         <!-- /ko -->
-        <div class="form-group">
-            <div class="col-md-2 col-md-push-10">
+        <div class="form-group btns">
+            <div class="col-md-2 col-md-offset-8 col-md-push-2">
                 <button class="btn btn-primary next-step" data-bind="click: nextStepPlaneButton">Etape suivante</button>
             </div>
-            <div class="col-md-2 col-md-pull-2">
+            <div class="col-md-2 col-md-offset-0 col-md-pull-10">
                 <button class="btn btn-primary next-step" data-bind="click: previousStepPlaneButton">Etape précédente
                 </button>
             </div>
@@ -98,7 +98,7 @@
     <h2>Vos Services</h2>
 
     <div class="row service-type-selected">
-        <div class="col-md-offset-5 btn-group">
+        <div class="col-md-offset-5 btns">
             <button type="button" value="forfait" class="btn btn-default"
                     data-bind="click: changeSelectedServiceType, css: { active: selectedServiceType() === 'forfait' }">
                 Forfait
@@ -158,13 +158,13 @@
             <b data-bind="text: totalEuros"></b>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-offset-0 col-md-2">
+    <div class="row btns">
+        <div class="col-md-2 col-md-offset-8 col-md-push-2">
+            <button class="btn btn-primary next-step" data-bind="click: nextStepServicesButton">Etape suivante</button>
+        </div>
+        <div class="col-md-2 col-md-offset-0 col-md-pull-10">
             <button class="btn btn-primary next-step" data-bind="click: previousStepServicesButton">Etape précédente
             </button>
-        </div>
-        <div class="col-md-offset-8 col-md-2">
-            <button class="btn btn-primary next-step" data-bind="click: nextStepServicesButton">Etape suivante</button>
         </div>
     </div>
 </div>
@@ -290,14 +290,14 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-2">
-            <button class="btn btn-primary next-step" data-bind="click: previousStepValidationButton">Etape
-                précédente
+    <div class="row btns">
+        <div class="col-md-2 col-md-offset-8 col-md-push-2">
+            <button class="btn btn-primary next-step" data-bind="click: nextStepValidationButton">Etape suivante
             </button>
         </div>
-        <div class="col-md-offset-8 col-md-2">
-            <button class="btn btn-primary next-step" data-bind="click: nextStepValidationButton">Etape suivante
+        <div class="col-md-2 col-md-offset-0 col-md-pull-10">
+            <button class="btn btn-primary next-step" data-bind="click: previousStepValidationButton">Etape
+                précédente
             </button>
         </div>
     </div>
@@ -360,15 +360,15 @@
     <p class="credit-ok bg-success" data-bind="css: enoughCreditClass">Votre nouveau crédit sera: <b
             data-bind="text: futureCredit"></b></p>
 
-    <div class="row">
-        <div class="col-md-1">
-            <button class="btn btn-primary next-step" data-bind="click: previousStepPaiementButton">Etape
-                précédente
-            </button>
-        </div>
-        <div class="col-md-offset-10 col-md-1">
+    <div class="row btns">
+        <div class="col-md-2 col-md-offset-8 col-md-push-2">
             <button class="btn btn-success next-step"
                     data-bind="click: payButton, attr: { disabled: !enoughCredit() || total() === 0 }">Payer
+            </button>
+        </div>
+        <div class="col-md-2 col-md-offset-0 col-md-pull-10">
+            <button class="btn btn-primary next-step" data-bind="click: previousStepPaiementButton">Etape
+                précédente
             </button>
         </div>
     </div>
