@@ -153,6 +153,10 @@
     margin-top: 25px;
 }
 
+.twitter-typeahead{
+	display:block !important;
+}
+
 /* Extra small devices (phones, less than 768px) */
 @media (max-width: 767px) {
     #payment-atterissage .my-breadcrumb li a{
@@ -188,11 +192,7 @@
         padding: 10px 0 10px 13px;
         font-size: 6px;
     }
-
-    #payment-atterissage .autocomplete input{
-        width: 310px;
-    }
-
+	
     #payment-atterissage .my-breadcrumb li a i{
         position: absolute;
         top: 3;
@@ -211,10 +211,6 @@
         padding: 10px 0 10px 50px;
     }
 
-    #payment-atterissage .autocomplete input{
-        width: 213px;
-    }
-
     #payment-atterissage .selected-airbase{
         margin-top: 0;
     }
@@ -226,7 +222,5 @@
         padding: 10px 0 10px 65px;
     }
 
-    #payment-atterissage .autocomplete input{
-        width: 263px;
-    }
 }
+
