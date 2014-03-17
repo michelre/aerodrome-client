@@ -26,6 +26,18 @@ define(["jquery", "common/js/mock/get",], function($, _get){
 				console.log("Error getAccountPilot:", jqXHR);
 			})
 		},
+		modifyPilotMdpAccount: function(idPilot,dataPilot){
+			$.ajax({
+				url: SaNPoint+"pilot/"+idPilot+"/updatePassword",
+				dataType: "json",
+				data: JSON.stringify(dataPilot),
+				method:"PUT"
+			}).done(function(data){
+                  console.log(data);
+			}).fail(function(jqXHR){
+				console.log("Error modifMdpPilot:", jqXHR);
+			})
+		},
 		createPilotAccount: function(dataPilot, callback){
 			$.ajax({
 				url: SaNPoint+"pilot/",

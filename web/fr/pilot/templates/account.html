@@ -2,7 +2,7 @@
 	 <section id="contenu">
         <h1>Paramètre de votre compte</h1>
 		<section class="row" id="account">
-			<section class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="modify-account">
+			<section class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id="modify-account">
 				<h2>Modifier vos informations</h2>
 				<form role="form">
 				<table id="modify-account-table" class="table-login">
@@ -10,18 +10,7 @@
 						<td><label for="mail">Mail:</label></td>
 						<td><input type="email" class="form-control" data-bind="value: pilotAccount().mail" name="mail" id="mail" placeholder="Votre mail"/></td>
 						<td><i data-bind="css: mailValidator"></i></td>
-					</tr>
-					
-				<!--	<tr>
-						<td><label for="pass">Mot de passe:</label></td> 
-						<td><input type="password" class="form-control" data-bind="value: pilotAccount().pass" name="pass" id="pass" placeholder="6 caractères minimum"/></td>
-						<td><i data-bind="css: passValidator"></i></td>
-					</tr>
-					<tr>
-						<td><label for="pass-confirmation">Confirmation:</label></td>
-						<td><input type="password" class="form-control" data-bind="value: pilotAccount().passConfirmation" name="pass-confirmation" id="pass-confirmation" placeholder="Mot de passe"/></td>
-						<td><i data-bind="css: passValidator"></i></td>
-					</tr> -->
+					</tr
 					<tr>
 						<td><label for="lastName">Nom:</label></td>
 						<td><input type="text" class="form-control" data-bind="value: pilotAccount().lastName" name="lastName" id="lastName" placeholder="Votre nom"/></td>
@@ -43,44 +32,44 @@
 				</table>
 			</form>
 			</section>
-			<section class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id="delete-account">
-				<h2>Supprimer votre compte</h2>
-				<p class="text-danger">Attention, votre compte sera désactivé et vous perdrez vos crédits.</p>
-				<form role="form">
-				<table id="delete-account-table" class="table-login">
-					<tr>
-						<td colspan="2"><button data-bind="click: clickDeleteAccount" class="btn btn-danger">Supprimer</button></td>
-					</tr>
-				</table>
+			<section class="row col-xs-12  col-sm-offset-1 col-sm-6  col-md-offset-1 col-md-6  col-lg-offset-1 col-lg-6">
+				<section class="col-xs-12 col-sm-12 col-md-12 col-lg-12"" id="modify-mp-account">
+					<h2>Modifier votre mot de passe</h2>
+					<form role="form">
+					<table id="modify-account-table" class="table-login">
+						<tr>
+							<td><label for="pass">Ancien mot de passe:</label></td> 
+							<td><input type="password" class="form-control" data-bind="value: oldMdp" name="oldPass" id="oldPass" placeholder="6 caractères minimum"/></td>
+							<td><i data-bind="css: passValidator"></i></td>
+						</tr>
+						 <tr>
+							<td><label for="pass">Nouveau mot de passe:</label></td> 
+							<td><input type="password" class="form-control" data-bind="value: newMdp" name="pass" id="pass" placeholder="6 caractères minimum"/></td>
+							<td><i data-bind="css: passValidatorWithConfirm"></i></td>
+						</tr>
+						<tr>
+							<td><label for="pass-confirmation">Confirmation:</label></td>
+							<td><input type="password" class="form-control" data-bind="value: passConfirmation" name="pass-confirmation" id="pass-confirmation" placeholder="Mot de passe"/></td>
+							<td><i data-bind="css: passValidatorWithConfirm"></i></td>
+						</tr> 
+						
+						<tr>
+							<td colspan="2"><button data-bind="click: clickModifyMdpAccount" class="btn btn-primary">Valider</button></td>
+						</tr>
+					</table>
 				</form>
-			</section>
-		</section>
-		
-		<section class="col-xs-12 col-sm-6 col-md-6 col-lg-6" id="modify-account">
-				<h2>Modifier votre mot de passe</h2>
-				<form role="form">
-				<table id="modify-account-table" class="table-login">
-					<tr>
-						<td><label for="pass">Ancien mot de passe:</label></td> 
-						<td><input type="password" class="form-control" data-bind="value: pilotAccount().pass" name="pass" id="pass" placeholder="6 caractères minimum"/></td>
-						<td><i data-bind="css: passValidator"></i></td>
-					</tr>
-				     <tr>
-						<td><label for="pass">Nouveau mot de passe:</label></td> 
-						<td><input type="password" class="form-control" data-bind="value: pilotAccount().pass" name="pass" id="pass" placeholder="6 caractères minimum"/></td>
-						<td><i data-bind="css: passValidator"></i></td>
-					</tr>
-					<tr>
-						<td><label for="pass-confirmation">Confirmation:</label></td>
-						<td><input type="password" class="form-control" data-bind="value: pilotAccount().passConfirmation" name="pass-confirmation" id="pass-confirmation" placeholder="Mot de passe"/></td>
-						<td><i data-bind="css: passValidator"></i></td>
-					</tr> 
-					
-					<tr>
-						<td colspan="2"><button data-bind="click: clickModifyAccount" class="btn btn-primary">Valider</button></td>
-					</tr>
-				</table>
-			</form>
+				</section>
+				<section class="col-xs-12 col-sm-12 col-md-12 col-lg-12"  id="delete-account">
+					<h2>Supprimer votre compte</h2>
+					<p class="text-danger">Attention, votre compte sera désactivé et vous perdrez vos crédits.</p>
+					<form role="form">
+					<table id="delete-account-table" class="table-login">
+						<tr>
+							<td colspan="2"><button data-bind="click: clickDeleteAccount" class="btn btn-danger">Supprimer</button></td>
+						</tr>
+					</table>
+					</form>
+				</section>
 			</section>
 		<section class="clear"/>
 	</section>
