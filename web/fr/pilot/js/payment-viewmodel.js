@@ -19,6 +19,8 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
             self.errorForm       = ko.observable(false);
             self.selectedServiceType = ko.observable("forfait");
             self.total           = ko.observable(20000);
+            self.paymentType     = ko.observable("paypal")
+
 
 
             //NOT OBSERVABLES
@@ -46,6 +48,8 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
             self.getServicesByAirbase = function(id){
                 self.servicesForfait.removeAll();
                 self.servicesTonnage.removeAll();
+                self.servicesForfaitSelected.removeAll();
+                self.servicesTonnageSelected.removeAll();
                 services.getServicesByAirbase(id, function(data){
                     for(var i = 0; i < data.length; i++){
                         if(data[i].service_type === "forfait"){
