@@ -9,7 +9,6 @@
 }
 
 #account{
-	width:70%;
 	margin-left: auto;
 	margin-right: auto;	
 }
@@ -34,7 +33,7 @@
 	-webkit-box-shadow:0 0 15px #aaa;
 	margin:10px auto 0;
 	padding:10px;
-	width:47%;	
+	
 }
 
 .fa-check{
