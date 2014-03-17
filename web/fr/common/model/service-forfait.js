@@ -10,7 +10,5 @@ define(["knockout"], function (ko) {
         self.desc = ko.observable(desc);
         self.aircraftTypeCode = ko.observable(aircraftTypeCode);
 
-        self.checked = ko.observable(false);
-
     }
 });

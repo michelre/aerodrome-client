@@ -8,5 +8,9 @@ define(["knockout"], function (ko) {
 		self.pass = ko.observable(pass);
 		self.mail = ko.observable(mail);
 		self.credit = ko.observable(credit);
+
+        self.creditEuros = ko.computed(function(){
+            return self.credit().toFixed(2)+"€";
+        })
     }
 });
