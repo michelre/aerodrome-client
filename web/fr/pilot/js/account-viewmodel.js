@@ -28,7 +28,7 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		self.clickModifyAccount = function(){
 			if(self.allValidator()){
 				var modifiedPilot={
-					pilotAccount_mail:self.pilotAccount().mail(),
+					//pilotAccount_mail:self.pilotAccount().mail(),
 					pilotAccount_pass:self.pilotAccount().pass(),
 					pilotAccount_lastName:self.pilotAccount().lastName(),
 					pilotAccount_firstName:self.pilotAccount().firstName(),
@@ -70,6 +70,7 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		});
 		self.passValidator = ko.computed(function () {
 			var hasError = false;
+			if(self.pilotAccount().pass()){
 			if(self.pilotAccount().pass().length <6 || (self.passConfirmation()!=self.pilotAccount().pass())) {
 			  hasError = true;
 			}
@@ -80,6 +81,7 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 			}else{
 				self.createAccountFormValidatorError(true);
 				return errorClasses; 
+			}
 			}
 		});
 		self.firstNameValidator = ko.computed(function () {
@@ -129,7 +131,7 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 				self.firstNameValidator()==noErrorClasses &&
 				self.lastNameValidator()==noErrorClasses &&
 				self.mailValidator()==noErrorClasses &&
-				self.passValidator()==noErrorClasses &&
+				//self.passValidator()==noErrorClasses &&
 				self.phoneValidator()==noErrorClasses){
 					return true
 				}else{

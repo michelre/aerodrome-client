@@ -1,6 +1,5 @@
 define(["jquery", "common/js/mock/get",], function($, _get){
-	//var SaNPoint = "http://192.168.43.93/ws/";
-	var SaNPoint = "http://192.168.43.104/ws/";
+	var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
 	return {
 		getPilotAccount: function(idPilot, callback){
 			$.ajax({
