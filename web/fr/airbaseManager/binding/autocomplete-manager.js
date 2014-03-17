@@ -1,10 +1,10 @@
 define(["jquery", "knockout", "typeahead"], function ($, ko, typeahead) {
-    ko.bindingHandlers.autocompleteAirbase = {
+    ko.bindingHandlers.autocompleteManager = {
         init: function (element, valueAccessor, allBindings) {
-            ko.unwrap(valueAccessor());
-
+            ko.unwrap(valueAccessor());			
+			
             var data = new Bloodhound({
-                datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace( d.fullTextSearch ); },
+                datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.fullName); },
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
                 local: valueAccessor()
             });
@@ -12,12 +12,12 @@ define(["jquery", "knockout", "typeahead"], function ($, ko, typeahead) {
             data.initialize();
 
             $(element).typeahead({highlight: true}, {
-                displayKey: "fullTextSearch",
+                displayKey: "fullName",
                 source: data.ttAdapter()
             });
 
             $(element).on("typeahead:selected", function(e, suggestion, dataset){
-                allBindings().value(suggestion.fullTextSearch);
+                allBindings().value(suggestion.fullName);
             })
         }
     };
