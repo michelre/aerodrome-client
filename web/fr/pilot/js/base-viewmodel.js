@@ -16,7 +16,7 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
 				services.getPilotAccount(id,function(data){
 					self.currentPilot(new pilot(data.pilotAccount_id,data.pilotAccount_firstName,data.pilotAccount_lastName, data.pilotAccount_phone,data.pilotAccount_pass,data.pilotAccount_mail,data.pilotAccount_basket));
                     if(callback)
-                        callback();
+                        callback()
 				})
 			}
 
@@ -66,5 +66,6 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
                 if(self.currentPage() === "Plus") self.activeTemplate("plus-pilot-template");
 				if(self.currentPage() === "Compte") self.activeTemplate("account-pilot-template");
             });
+
         }
 });

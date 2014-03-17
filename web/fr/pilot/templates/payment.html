@@ -25,7 +25,7 @@
                        data-bind="value: airbaseInput, autocompleteAirbase: airbasesJSON"/>
             </div>
             <!-- ko if: landing && landing().airbase -->
-            <div class="col-md-4 selected-airbase" data-bind="with: landing().airbase">
+            <div class="col-md-3 col-md-offset-2 selected-airbase" data-bind="with: landing().airbase">
                 <div data-bind="text: name"></div>
                 <div data-bind="text: address"></div>
             </div>
@@ -36,14 +36,14 @@
             <label for="date-landing" class="col-md-2">Date:</label>
 
             <div class="col-md-3">
-                <input id="date-landing" class="form-control" type="date" data-bind="value: date">
+                <input id="date-landing" placeholder="19/03/2014, 21/08/2013" class="form-control" type="date" data-bind="value: date">
             </div>
         </div>
         <div class="form-group">
             <label for="hour-landing" class="col-md-2">Heure:</label>
 
             <div class="col-md-3">
-                <input id="hour-landing" class="form-control" type="time" data-bind="value: hour">
+                <input id="hour-landing" placeholder="10:12, 12:08" class="form-control" type="time" data-bind="value: hour">
             </div>
         </div>
         <!-- /ko -->
@@ -308,17 +308,17 @@
 
     <div class="form-horizontal" role="form">
         <div class="form-group">
-            <label class="col-md-3">Total à payer</label>
+            <label class="col-md-2">Total à payer:</label>
 
-            <div class="col-md-4">
-                <b data-bind="text: totalEuros"></b>
+            <div class="col-md-3">
+                <i data-bind="text: totalEuros"></i>
             </div>
         </div>
         <div class="form-group">
-            <label class="col-md-3">Votre crédit:</label>
+            <label class="col-md-2">Votre crédit:</label>
 
-            <div class="col-md-4">
-                <b data-bind="text: pilot().creditEuros()"></b>
+            <div class="col-md-3">
+                <i data-bind="text: pilot().creditEuros()"></i>
             </div>
         </div>
     </div>
@@ -330,15 +330,31 @@
         </div>
         <hr/>
         <form class="form-horizontal" role="form">
-            <label for="credit-sum" class="col-md-2">Somme à créditer:</label>
+            <div class="form-group">
+                <label class="col-md-1">CB</label>
+                <div class="col-md-1">
+                    <input type="radio" value="cb" data-bind="checked: paymentType"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-1">Paypal</label>
+                <div class="col-md-1">
+                    <input type="radio" value="paypal" data-bind="checked: paymentType"/>
+                </div>
+            </div>
+        </form>
 
+        <!-- ko if: paymentType() === 'paypal' -->
+        <form class="form-horizontal" role="form">
+            <label for="credit-sum" class="col-md-2">Somme à créditer:</label>
             <div class="col-md-3">
-                <input class="form-control" type="number"/>
+                <input id="credit-sum" class="form-control" type="number"/>
             </div>
             <div class="col-md-3">
                 <button class="btn btn-default">Créditer</button>
             </div>
         </form>
+        <!-- /ko -->
     </div>
 
     <p class="credit-ok bg-success" data-bind="css: enoughCreditClass">Votre nouveau crédit sera: <b
