@@ -142,6 +142,15 @@ color:white;
 
 @media screen and (max-width: 740px) {
 	
+	#aerodrome-content header{
+		font-size:25px;
+		height:50px;
+	}
+	
+	#aerodrome-content nav ul li{
+		height:50px;
+	}
+	
 	#aerodrome-content nav ul li a p {
 		display:none;
 	}
