@@ -153,8 +153,12 @@
     margin-top: 25px;
 }
 
-.twitter-typeahead{
+#payment-atterissage .twitter-typeahead{
 	display:block !important;
+}
+
+#payment-atterissage .button-right{
+    text-align: right;
 }
 
 /* Extra small devices (phones, less than 768px) */
