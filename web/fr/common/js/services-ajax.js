@@ -1,4 +1,4 @@
-define(["jquery", "common/js/mock/get",], function($, _get){
+define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 	var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
 	return {
 		getPilotAccount: function(idPilot, callback){
@@ -65,14 +65,24 @@ define(["jquery", "common/js/mock/get",], function($, _get){
 		},
 		connectAccount: function(dataAccount, callback){
 			$.ajax({
-				url: "",
+				url: SaNPoint+"login",
+				method:"POST",
 				dataType: "json",
 				data: JSON.stringify(dataAccount)
-			}).done(function(data){
+			}).done(function(data, textStatus, jqXHR){
+				$.cookie("id",data.pilotAccount.pilotAccount_id,{path:'/'})
+				$.cookie("role",data.role,{path:'/'});
+				
+				console.log(document.cookie);
+				
                     if(callback)
-                        callback(data)
-			}).fail(function(jqXHR){
-				console.log("Error connectAccount:", jqXHR);
+                        callback(data, textStatus, jqXHR)
+			}).fail(function(jqXHR,status){
+				  if(callback){
+					 console.log("Error connectAccount:", jqXHR);
+                     callback(null,jqXHR.status);
+					 
+				  }
 			})
 		},
 		getAirbases: function (callback) {

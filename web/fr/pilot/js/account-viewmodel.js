@@ -135,9 +135,10 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 			}
 		});
 		self.phoneValidator = ko.computed(function () {
+			
 			var hasError = false;
 			var phoneRegexInternational =new RegExp("^(\ +[1-9]{2-3}[0-9]{7,11})|([0-9]{10,15})$");
-				if(self.newAccount.phone().length==0 || !phoneRegexInternational.test(self.newAccount.phone())) {
+				if(self.pilotAccount.phone().length==0 || !phoneRegexInternational.test(self.pilotAccount.phone())) {
 			  hasError = true;
 			}
 			
