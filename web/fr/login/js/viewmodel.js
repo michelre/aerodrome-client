@@ -102,7 +102,8 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
             });
 			self.phoneValidator = ko.computed(function () {
                 var hasError = false;
-				if(self.newAccount.phone().length==0) {
+				var phoneRegexInternational =new RegExp("^(\ +[1-9]{2-3}[0-9]{7,11})|([0-9]{10,15})$");
+				if(self.newAccount.phone().length==0 || !phoneRegexInternational.test(self.newAccount.phone())) {
 				  hasError = true;
 				}
 			 	
