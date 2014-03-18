@@ -2,24 +2,27 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
     return function creditVM(baseVM) {
         var self = this;
 		var baseVM = baseVM;
-        //OBSERVABLES
-
-		 self.pilotAccount = ko.observable(baseVM.currentPilot());
 		
-		 //self.credit=ko.observable();
-		 self.montantCredit=ko.observable(0);
+		
+        /******************
+		 OBSERVABLES
+		******************/
 
-		self.callPaypalPage = {
-			paypal: ko.observable(false),
-			checkPaypal: function() {
+		self.pilotAccount = ko.observable(baseVM.currentPilot());
+		self.montantCredit=ko.observable(0);
+
+		
+		self.paypal = ko.observable(false);
+		self.checkPaypal = function() {
 				   alert("checked");
 				   return true;
 				}   
-		};
-		ko.applyBindings(callPaypalPage);
-        //NOT OBSERVABLES
+		
 
-
+		/******************
+		 NON-OBSERVABLES
+		******************/
+		
         //SERVICES
 		self.crediterCompte = function(){
 			if(self.allValidator()){
