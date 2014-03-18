@@ -4,8 +4,8 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax","a
             var self = this;
             var servicesCurrent = services;
             //OBSERVABLES
-            self.currentPage = ko.observable("Accueil");
-            self.activeTemplate = ko.observable("home-admin-template");	
+            //self.currentPage = ko.observable("Accueil");
+            //self.activeTemplate = ko.observable("home-admin-template");
 			self.airbases = ko.observableArray([]);
 			self.modifiedAirbase = ko.observable();
 			
@@ -133,21 +133,7 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax","a
 			}
 
             //COMPUTED
-			
-            self.homeActiveClass = ko.computed(function () {
-               return (self.currentPage() === "Accueil") ? "active" : "";
-            });
-			 self.airbaseActiveClass = ko.computed(function () {
-               return (self.currentPage() === "Plateforme") ? "active" : "";
-            });
-			
-			self.activeIcon = ko.computed(function(){
-				if(self.currentPage() === "Accueil") return "fa fa-home";
-				if(self.currentPage() === "Plateforme") return "fa fa-fighter-jet";
-			});
-			
-			
-			
+
 			self.allCreateAirbaseValidator = ko.computed(function () {
 				if( self.name().length!= 0 &&
 					self.address().length!= 0 &&
