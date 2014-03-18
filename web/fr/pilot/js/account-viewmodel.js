@@ -10,35 +10,40 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		//OBSERVABLES
 		//Modification
 		self.pilotAccount = ko.observable(baseVM.currentPilot());
-		self.passConfirmation = ko.observable("");
+		
 
 		self.createAccountFormValidatorError = ko.observable("");
 		//Suppression
 		self.idPilot =ko.observable()//SERVICES
-		
-		/*self.getPilotAccount = function(){
-			services.getPilotAccount(3,function(data){
-				self.pilotAccount(new pilot(data.pilotAccount_id,data.pilotAccount_firstName,data.pilotAccount_lastName, data.pilotAccount_phone,data.pilotAccount_pass,data.pilotAccount_pass,data.pilotAccount_mail,data.pilotAccount_credit));
-				self.idPilot(data.pilotAccount_id);
-			});
-		}
-		self.getPilotAccount();
-		*/
+		//Modif mot de passe
+		self.oldMdp = ko.observable("");
+		self.newMdp = ko.observable("");
+		self.passConfirmation = ko.observable("");
 		
 		self.clickModifyAccount = function(){
 			if(self.allValidator()){
 				var modifiedPilot={
 					pilotAccount_mail:self.pilotAccount().mail(),
-					pilotAccount_pass:self.pilotAccount().pass(),
 					pilotAccount_lastName:self.pilotAccount().lastName(),
 					pilotAccount_firstName:self.pilotAccount().firstName(),
 					pilotAccount_phone:self.pilotAccount().phone()
 				}
-				console.log(modifiedPilot);
-				services.modifyPilotAccount(self.idPilot(),modifiedPilot,self.getPilotAccount());	
-				
+				services.modifyPilotAccount(self.pilotAccount().id(),modifiedPilot,baseVM.initPilot(baseVM.currentPilot().id()));		
 			}else{
-				alert("Veuillez compléter le formulaire en entier.\n Saisissez une adresse mail valide ainsi qu'un mot de passe de plus de 6 caractères.");	
+				alert("Veuillez compléter le formulaire en entier.\n Saisissez une adresse mail valide");	
+			}
+		}
+		
+		self.clickModifyMdpAccount = function(){
+			if(self.passValidator()==noErrorClasses){
+				var modifiedPilot={
+					oldPassword:self.oldMdp(),
+				    newPassword:self.newMdp()
+				}
+				console.log(modifiedPilot);
+				services.modifyPilotMdpAccount(self.pilotAccount().id(),modifiedPilot);		
+			}else{
+				alert("Veuillez compléter le formulaire en entier.\n Saisissez une adresse mail valide");	
 			}
 		}
 		
@@ -46,7 +51,7 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 			var deletedPilote=self.idPilot();
 			console.log(deletedPilote);
 			services.deletePilotAccount(deletedPilote);
-			alert("Votre compte a bien été supprimé.")
+			alert("Votre compte a bien été supprimé.");
 			//window.location="../login";
 		}
 		
@@ -70,7 +75,8 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		});
 		self.passValidator = ko.computed(function () {
 			var hasError = false;
-			if(self.pilotAccount().pass().length <6 || (self.passConfirmation()!=self.pilotAccount().pass())) {
+			
+			if(self.oldMdp().length <6) {
 			  hasError = true;
 			}
 			
@@ -81,6 +87,24 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 				self.createAccountFormValidatorError(true);
 				return errorClasses; 
 			}
+			
+		});
+		
+		self.passValidatorWithConfirm = ko.computed(function () {
+			var hasError = false;
+			
+			if(self.newMdp().length <6 || (self.passConfirmation()!=self.newMdp())) {
+			  hasError = true;
+			}
+			
+			if(!hasError) { 
+			self.createAccountFormValidatorError(false);
+				return noErrorClasses; 
+			}else{
+				self.createAccountFormValidatorError(true);
+				return errorClasses; 
+			}
+			
 		});
 		self.firstNameValidator = ko.computed(function () {
 			var hasError = false;
@@ -129,7 +153,6 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 				self.firstNameValidator()==noErrorClasses &&
 				self.lastNameValidator()==noErrorClasses &&
 				self.mailValidator()==noErrorClasses &&
-				self.passValidator()==noErrorClasses &&
 				self.phoneValidator()==noErrorClasses){
 					return true
 				}else{

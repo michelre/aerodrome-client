@@ -1,5 +1,4 @@
 define(["jquery", "common/js/mock/get",], function($, _get){
-	//var SaNPoint = "http://192.168.43.93/ws/";
 	var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
 	return {
 		getPilotAccount: function(idPilot, callback){
@@ -25,6 +24,18 @@ define(["jquery", "common/js/mock/get",], function($, _get){
                         callback(data)
 			}).fail(function(jqXHR){
 				console.log("Error getAccountPilot:", jqXHR);
+			})
+		},
+		modifyPilotMdpAccount: function(idPilot,dataPilot){
+			$.ajax({
+				url: SaNPoint+"pilot/"+idPilot+"/updatePassword",
+				dataType: "json",
+				data: JSON.stringify(dataPilot),
+				method:"PUT"
+			}).done(function(data){
+                  console.log(data);
+			}).fail(function(jqXHR){
+				console.log("Error modifMdpPilot:", jqXHR);
 			})
 		},
 		createPilotAccount: function(dataPilot, callback){

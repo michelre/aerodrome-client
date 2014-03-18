@@ -1,4 +1,4 @@
-define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (ko, services,pilot) {
+define(["knockout", "common/js/services-ajax", "common/model/manager"], function (ko, services,manager) {
     return{
         viewModel: function () {
             var self = this;
@@ -7,34 +7,34 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 			var errorClasses = 'fa fa-times';
 			
             //OBSERVABLES
-			//Création
-			self.newAccount = new pilot(null, "", "","","","");
+			//Creation
+			self.newAirbaseManagerAccount = new Manager(null, "","","","","","");
 			self.createAccountFormValidatorError = ko.observable("");
-			//loggin
+			//login
 			self.accountPass = ko.observable("");
 			self.accountMail = ko.observable("");
-			self.passConfirmation = ko.observable("");;
 			
             //SERVICES
-			self.clickCreateAccount = function(){
+			self.clickCreateAirbaseManagerAccount = function(){
 				if(self.allValidator()){
-					var newPilot={
-						pilotAccount_mail:self.newAccount.mail(),
-						pilotAccount_pass:self.newAccount.pass(),
-						pilotAccount_lastName:self.newAccount.lastName(),
-						pilotAccount_firstName:self.newAccount.firstName(),
-						pilotAccount_phone:self.newAccount.phone()
+					var newAirbaseManager={
+						airbaseManager_mail:self.newAirbaseManagerAccount.mail(),
+						airbaseManager_pass:self.newAirbaseManagerAccount.pass(),
+						airbaseManager_lastName:self.newAirbaseManagerAccount.lastName(),
+						airbaseManager_firstName:self.newAirbaseManagerAccount.firstName(),
+						airbaseManager_phone:self.newAirbaseManagerAccount.phone(),
+						airbaseManager_address:self.newAirbaseManagerAccount.address()
 					};
-					console.log(newPilot);
-					services.createPilotAccount(newPilot);	
+					console.log(newAirbaseManager);
+					services.createAirbaseManagerAccount(newAirbaseManager);	
 				}else{
 					alert("Veuillez compléter le formulaire en entier.\n Saisissez une adresse mail valide ainsi qu'un mot de passe de plus de 6 caractères.");	
 				}
 			}
 			self.clickConnectAccount = function(){
 				var account={
-						pilotAccount_mail:self.accountMail(),
-						pilotAccount_pass:self.accountPass()
+						airbaseManager_mail:self.accountMail(),
+						airbaseManager_pass:self.accountPass()
 				}
 				console.log(account);
 				services.connectAccount(account);
@@ -46,7 +46,7 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 				var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 			 
 				var emailaddressVal = $("#UserEmail").val();
-				if(self.newAccount.mail() == '' || !emailReg.test(self.newAccount.mail())) {
+				if(self.newAirbaseManagerAccount.mail() == '' || !emailReg.test(self.newAirbaseManagerAccount.mail())) {
 				  hasError = true;
 				}
 			 	
@@ -60,7 +60,7 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
             });
             self.passValidator = ko.computed(function () {
                 var hasError = false;
-				if(self.newAccount.pass().length <6 || (self.passConfirmation()!=self.newAccount.pass())) {
+				if(self.newAirbaseManagerAccount.pass().length <6 || (self.newAirbaseManagerAccount.passConfirmation()!=self.newAirbaseManagerAccount.pass())) {
 				  hasError = true;
 				}
 			 	
@@ -74,7 +74,7 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
             });
 			self.firstNameValidator = ko.computed(function () {
                 var hasError = false;
-				if(self.newAccount.firstName().length==0) {
+				if(self.newAirbaseManagerAccount.firstName().length==0) {
 				  hasError = true;
 				}
 			 	
@@ -88,7 +88,21 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
             });
 			self.lastNameValidator = ko.computed(function () {
                 var hasError = false;
-				if(self.newAccount.lastName().length==0) {
+				if(self.newAirbaseManagerAccount.lastName().length==0) {
+				  hasError = true;
+				}
+			 	
+				if(!hasError) { 
+				self.createAccountFormValidatorError(false);
+					return noErrorClasses; 
+				}else{
+					self.createAccountFormValidatorError(true);
+					return errorClasses; 
+				}
+            });
+			self.addressValidator = ko.computed(function () {
+                var hasError = false;
+				if(self.newAirbaseManagerAccount.address().length==0) {
 				  hasError = true;
 				}
 			 	
@@ -102,7 +116,7 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
             });
 			self.phoneValidator = ko.computed(function () {
                 var hasError = false;
-				if(self.newAccount.phone().length==0) {
+				if(self.newAirbaseManagerAccount.phone().length==0) {
 				  hasError = true;
 				}
 			 	

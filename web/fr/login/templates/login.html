@@ -17,7 +17,7 @@
 					</tr>
 					<tr>
 						<td><label for="pass-confirmation">Confirmation:</label></td>
-						<td><input type="password" class="form-control" data-bind="value: newAccount.passConfirmation" name="pass-confirmation" id="pass-confirmation" placeholder="Mot de passe"/></td>
+						<td><input type="password" class="form-control" data-bind="value: passConfirmation" name="pass-confirmation" id="pass-confirmation" placeholder="Mot de passe"/></td>
 						<td><i data-bind="css: passValidator"></i></td>
 					</tr>
 					<tr>
@@ -54,7 +54,7 @@
 						<td><input type="password" data-bind="value: accountPass" class="form-control" name="pass" id="pass" placeholder="Votre mot de passe"/></td>
 					</tr>
 					<tr>
-						<td colspan="2"><button data-bind="click: clickConnectAccount" class="btn btn-primary">Se connecter</button></td>
+						<td><button data-bind="click: clickConnectAccount" class="btn btn-primary">Se connecter</button></td><td><a>mot de passe oublié</a></td>
 					</tr>
 				</table>
 				</form>

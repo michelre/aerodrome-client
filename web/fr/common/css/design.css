@@ -5,6 +5,10 @@ body{
 	/*font-family:Verdana, Geneva, sans-serif;*/
 }
 
+a{
+	cursor:pointer;
+}
+
 a:hover{
 	text-decoration:none;
 }
@@ -50,6 +54,7 @@ a:hover{
 	list-style:none;
 	border-right: 3px groove white;
 	cursor:pointer;
+	padding: 0px 10px; 
 }
 
 #aerodrome-content header section#menu ul li:last-child{
@@ -85,7 +90,7 @@ a:hover{
 	border-radius:5px;
 	text-align:center;
 	font-size:25px;
-	padding-top:10px;
+	padding:0px;
 	margin-left:3.5%;
 	font-weight:bold;
 	cursor:pointer;
@@ -124,6 +129,10 @@ color:white;
 }
 #aerodrome-content nav ul li a {
 	color:black;
+	height:100%;
+	width:100%;
+	display:block;
+	padding:10px;
 }
 
 #aerodrome-content nav ul li.active a{

@@ -4,8 +4,7 @@
 }
 
 #delete-account{
-	display:inline-block;
-	float:right;	
+	display:inline-block;	
 }
 
 #account{
@@ -22,7 +21,7 @@
 	padding:5px;	
 }
 
-#modify-account,#delete-account{
+#modify-account,#delete-account,#modify-mp-account{
 	background:#f7f7f7;
 	background:-moz-linear-gradient(90deg, #ccc, #fff); /* Firefox */
 	background:-webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc)); /* Webkit */
@@ -33,7 +32,7 @@
 	box-shadow:0 0 15px #aaa;
 	-moz-box-shadow:0 0 15px #aaa;
 	-webkit-box-shadow:0 0 15px #aaa;
-	margin:10px auto 0;
+	margin:20px auto 0;
 	padding:10px;
 	
 }
