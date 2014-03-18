@@ -18,7 +18,9 @@ define(["jquery", "common/js/mock/get"], function($, _get){
             callback();
         },
         getAirbases: function (callback) {
-            callback(_get.getAirbases().airbases);
+            setTimeout(function(){
+                callback(_get.getAirbases().airbases);
+            }, 1000)
         },
         createAirbase: function (data, callback) {
             callback();
@@ -27,7 +29,9 @@ define(["jquery", "common/js/mock/get"], function($, _get){
             callback();
         },
 		getAirbase: function (id,callback) {
-            callback(_get.getAirbase(id).airbase);
+            setTimeout(function(){
+                callback(_get.getAirbase(id).airbase);
+            }, 1000);
         },
 		getManagers: function (callback) {
             callback(_get.getManagers().managers)
@@ -37,6 +41,12 @@ define(["jquery", "common/js/mock/get"], function($, _get){
         },
 		getService: function(id,callback){
             callback(_get.getService(id).service);
+        },
+        modifyAirbase: function(id, data, callback){
+            callback()
+        },
+        deleteAirbase: function(date, callback){
+            callback()
         }
     }
 })

@@ -5,7 +5,7 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
 
             //OBSERVABLES
             self.pilot           = ko.observable(baseVM.currentPilot());
-            self.currentStep     = ko.observable("avion");
+            self.currentStep     = ko.observable("atterissage");
             self.airbases        = ko.observableArray([]);
             self.servicesForfait = ko.observableArray([]);
             self.servicesTonnage = ko.observableArray([]);
@@ -38,8 +38,9 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
 
             self.getAirbases = function(callback){
                 services.getAirbases(function(data){
+                    console.log(data)
                     for(var i = 0; i < data.length; i++){
-                        self.airbases.push(new airbase(data[i].airbase_id, data[i].airbase_name, data[i].airbase_address))
+                        self.airbases.push(new airbase(data[i].airbase_id, data[i].airbase_name, data[i].airbase_address, data[i].airbase_runwayNumber, data[i].airbase_airbaseManager));
                         self.airbasesJSON.push({ "fullTextSearch": self.airbases()[i].fullTextSearch() })
                     }
                 });
