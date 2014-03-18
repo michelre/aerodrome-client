@@ -1,7 +1,7 @@
 define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","common/model/airbase","common/model/service-forfait","common/model/service-tonnage"], function (ko,servicesMock,services,airbase,serviceForfait,serviceTonnage) {
     return function servicesVM() {
         var self = this;
-		var servicesCurrent = servicesMock;
+		var servicesCurrent = services;
 		
         //OBSERVABLES
 		self.managerAirbases = ko.observableArray([]);
@@ -16,7 +16,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 
 		self.getManagerAirbases = function(){
 			self.managerAirbases.removeAll();
-			servicesCurrent.getAirbases(function(data){
+			servicesCurrent.getAirbasesByManager(1,function(data){
 				for(var i = 0 ; i < data.length; i++){
 					self.managerAirbases.push(new airbase(data[i].airbase_id, data[i].airbase_name, data[i].airbase_address, data[i].airbaseManager_firstname));
 				}

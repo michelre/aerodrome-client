@@ -1,7 +1,7 @@
 define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typeahead","common/model/service-forfait","common/model/service-tonnage","common/model/weight-range"], function (ko,servicesMock,services,typeahead,serviceForfait,serviceTonnage,weightRange) {
     return function serviceVM(idService,idAirbase) {
         var self = this;
-		var servicesCurrent = servicesMock;
+		var servicesCurrent = services;
 		
         //OBSERVABLES
 		self.serviceForfait = null;
@@ -65,7 +65,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 						service_id:self.serviceAccordingType().id(),
 						service_name:self.serviceAccordingType().name(),
 						service_desc:self.serviceAccordingType().desc(),
-						service_price:0,
+						service_price:self.serviceAccordingType().price(),
 						airbase_id: self.currentAirbaseId(),
 						service_weightRangeServices:[]
 					};
@@ -75,7 +75,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 			}
 			console.log(ko.toJSON(newService));
 			if(self.currentServiceId()==="new"){
-				newService.service_id=null;
+				delete newService.service_id;
 				if(servicesCurrent.createService(newService)){
 					window.location.hash="services";
 				};	

@@ -13,6 +13,7 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 			//loggin
 			self.accountPass = ko.observable("");
 			self.accountMail = ko.observable("");
+			self.passConfirmation = ko.observable("");;
 			
             //SERVICES
 			self.clickCreateAccount = function(){
@@ -59,7 +60,7 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
             });
             self.passValidator = ko.computed(function () {
                 var hasError = false;
-				if(self.newAccount.pass().length <6 || (self.newAccount.passConfirmation()!=self.newAccount.pass())) {
+				if(self.newAccount.pass().length <6 || (self.passConfirmation()!=self.newAccount.pass())) {
 				  hasError = true;
 				}
 			 	
@@ -101,7 +102,8 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
             });
 			self.phoneValidator = ko.computed(function () {
                 var hasError = false;
-				if(self.newAccount.phone().length==0) {
+				var phoneRegexInternational =new RegExp("^(\ +[1-9]{2-3}[0-9]{7,11})|([0-9]{10,15})$");
+				if(self.newAccount.phone().length==0 || !phoneRegexInternational.test(self.newAccount.phone())) {
 				  hasError = true;
 				}
 			 	

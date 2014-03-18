@@ -26,6 +26,18 @@ define(["jquery", "common/js/mock/get",], function($, _get){
 				console.log("Error getAccountPilot:", jqXHR);
 			})
 		},
+		modifyPilotMdpAccount: function(idPilot,dataPilot){
+			$.ajax({
+				url: SaNPoint+"pilot/"+idPilot+"/updatePassword",
+				dataType: "json",
+				data: JSON.stringify(dataPilot),
+				method:"PUT"
+			}).done(function(data){
+                  console.log(data);
+			}).fail(function(jqXHR){
+				console.log("Error modifMdpPilot:", jqXHR);
+			})
+		},
 		createPilotAccount: function(dataPilot, callback){
 			$.ajax({
 				url: SaNPoint+"pilot/",
@@ -193,6 +205,55 @@ define(["jquery", "common/js/mock/get",], function($, _get){
 			}).fail(function(jqXHR){
 				console.log("Error deleteService:", jqXHR);
 			})
-		}
+		},
+		
+		getService: function (id,callback) {
+            $.ajax({
+                url: SaNPoint+"service/"+id,
+				method:"GET"
+            }).done(function (data) {
+                    if(callback)
+                        callback(data)
+                }).fail(function (jqXHR) {
+                    console.log("Error getService:", jqXHR);
+                })
+        },
+		
+		getServicesByAirbase: function (idAirbase,callback) {
+            $.ajax({
+                url: SaNPoint+"servicesByAirbase/"+idAirbase,
+				method:"GET"
+            }).done(function (data) {
+                    if(callback)
+                        callback(data)
+                }).fail(function (jqXHR) {
+                    console.log("Error getServicesByAirbase:", jqXHR);
+                })
+        },
+		
+		getServices: function (callback) {
+            $.ajax({
+                url: SaNPoint+"services/"+idAirbase,
+				method:"GET"
+            }).done(function (data) {
+                    if(callback)
+                        callback(data)
+                }).fail(function (jqXHR) {
+                    console.log("Error getServicesByAirbase:", jqXHR);
+                })
+        },
+		
+		getAirbasesByManager: function (idManager,callback) {
+            $.ajax({
+                url: SaNPoint+"airbasesByManager/"+idManager,
+				method:"GET"
+            }).done(function (data) {
+                    if(callback)
+                        callback(data)
+                }).fail(function (jqXHR) {
+                    console.log("Error getAirbasesByManager:", jqXHR);
+                })
+        }
+		
 	}
 })
