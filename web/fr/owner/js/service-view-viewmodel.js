@@ -1,13 +1,15 @@
 define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typeahead","common/model/service-forfait","common/model/service-tonnage","common/model/weight-range"], function (ko,servicesMock,services,typeahead,serviceForfait,serviceTonnage,weightRange) {
-    return function serviceVM(idService,idAirbase) {
+    return function serviceVM(baseVM) {
         var self = this;
 		var servicesCurrent = services;
 		
         //OBSERVABLES
+		self.currentAirbaseManager = ko.observable(baseVM.currentAirebaseManager());
+		
 		self.serviceForfait = ko.observable();
 		self.serviceTonnage = ko.observable();
-		self.currentServiceId = ko.observable(idService);
-		self.currentAirbaseId = ko.observable(idAirbase);
+		self.currentServiceId = ko.observable(baseVM.currentServiceId);
+		self.currentAirbaseId = ko.observable(baseVM.currentAirbaseId);
 		self.radioSelectedServiceType = ko.observable();
 		
         //SERVICES	

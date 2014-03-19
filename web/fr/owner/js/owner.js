@@ -25,8 +25,8 @@ define(["jquery", "knockout", "sammy", "owner/js/base-viewmodel",
 				viewModel.currentPage("Service");
             });			
             this.notFound = function () {
-              window.location.hash = "#home"
-            }
+              window.location.hash = "#home";
+            };
         }).run();
 
         ko.applyBindings(viewModel);
