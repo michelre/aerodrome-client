@@ -42,8 +42,11 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 						alert("Email ou mot de passe incorrect");
 					}else{
 						if(data.role=="pilotAccount"){	
-							window.location.replace("/fr/pilot")
-						}
+							window.location.replace("/fr/pilot");
+						}else if(data.role=="airbaseManager"){	
+							window.location.replace("/fr/owner");
+						} 
+						
 					}
 					
 				});

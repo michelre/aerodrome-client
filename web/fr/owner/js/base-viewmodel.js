@@ -1,22 +1,31 @@
-define(["knockout", "owner/js/accueil-viewmodel" ,"owner/js/services-viewmodel" ,"owner/js/service-view-viewmodel"],
-	function (ko, accueilVM, servicesVM, serviceViewVM) {
+define(["knockout", "owner/js/accueil-viewmodel" ,"owner/js/services-viewmodel" ,"owner/js/service-view-viewmodel","common/js/services-ajax","common/js/mock/services-ajax","common/model/manager"],
+	function (ko, accueilVM, servicesVM, serviceViewVM , servicesAjax, servicesAjaxMock, manager) {
 	return function baseVM() {
 		var self = this;
+		var services = servicesAjax;
 
 		//OBSERVABLES
 		self.currentPage = ko.observable();
 		self.activeTemplate = ko.observable();
 		self.currentVM = ko.observable();
+		self.currentAirebaseManager=ko.observable();
 
 		self.currentServiceId = null;
 		self.currentAirbaseId = null;
 		
 		self.initAirbaseManager = function(id,callback){
 			services.getAirbaseManager(id,function(data){
-				self.currentPilot(new manager(data.pilotAccount_id,data.pilotAccount_firstName,data.pilotAccount_lastName, data.pilotAccount_phone,null,data.pilotAccount_mail,data.pilotAccount_basket))
+			self.currentAirebaseManager(new manager(data.airbaseManager_id,data.airbaseManager_firstName,data.airbaseManager_lastName,data.airbaseManager_address, data.airbaseManager_phone,data.airbaseManager_mail,null))
 				if(callback)
 					callback();
-				})
+			})
+		}
+		
+		self.clickDisconnect = function(){
+			console.log("disconnect");
+			services.disconnectAccount(function(){
+				window.location.replace("/fr/login");
+			});
 		}
 	
 		//COMPUTED

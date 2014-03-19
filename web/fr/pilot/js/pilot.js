@@ -10,7 +10,6 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
     function ($, ko, Sammy, baseVM, navTpl, homeTpl, creditTpl, paymentTpl, factureTpl, plusTpl,accountTpl) {
 
        	$("body").append(navTpl).append(homeTpl).append(creditTpl).append(paymentTpl).append(factureTpl).append(plusTpl).append(accountTpl);
-		console.log(document.cookie);
         var viewModel = new baseVM();
 		
 		viewModel.initPilot($.cookie("id"),function(){
