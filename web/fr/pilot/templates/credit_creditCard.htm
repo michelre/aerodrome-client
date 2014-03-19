@@ -7,91 +7,25 @@
 		<meta name="keywords" content="" />
 		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
 		<script src="../../common/vendor/js/jquery-2.1.js"></script>
+		<script src="../../common/vendor/js/jquery-ui-1.10.4.custom.min.js"></script>
 		<script src="../js/skel.min.js"></script>
 		<script src="../js/init.js"></script>
 
-		<script src="../js/jquery-ui-1.10.4.custom.min.js"></script>
+		
+		
 		<link href="../css/smoothness/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+		
+		
+		
 		<noscript>
-
-			<link rel="stylesheet" href="../css/skel-noscript.css" />
-			<link rel="stylesheet" href="../css/style.css" />
+			
+			<link rel="stylesheet" href="../css/credit_1.css" />
+			<link rel="stylesheet" href="../css/credit_2.css" />
 		</noscript>
 		
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 		
-		<script type="text/javascript">
-		//Sera Externalisé
-		var queryString = new Array();
-		$(function () {
-			if (queryString.length == 0) {
-				if (window.location.search.split('?').length > 1) {
-					var params = window.location.search.split('?')[1].split('&');
-					for (var i = 0; i < params.length; i++) {
-						var key = params[i].split('=')[0];
-						var value = decodeURIComponent(params[i].split('=')[1]);
-						queryString[key] = value;
-					}
-				}
-			}
-			$(queryString["price"]).appendTo($("#montant").val());
-			//--------------------------------------
-			//Assign the price to the Input
-			$('#montant').val(queryString["price"]);
-			
-			//--------------------------------------
-			//Cancel the Payment Transaction
-			$("#cancelcreditCardTransaction").click(function()
-			{
-				history.go(-1); return false;
-			});
-			//--------------------------------------
-			//Confirm the Payment Transaction
-			$("#confirmcreditCardTransaction").click(function()
-			{
-				var newCredit=
-				{
-					pilotAccount_id:queryString["pilotAccount_id"],
-					price:queryString["price"]
-					
-				}
-				creditBasket(newCredit);
-			});
-		});
-		//--------------------------------------
-		//Credit the Basket Function
-		
-		function creditBasket(dataCredit,callback)
-		{
-			var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
-			//var SaNPoint = "http://localhost/ws/";
-			$.ajax({
-				url: SaNPoint+"pilot/"+dataCredit.pilotAccount_id+"/credit",
-				dataType: "json",
-				data: JSON.stringify(dataCredit),
-				method:"PUT",
-				success: function(){
-					$( "#dialog_message" ).show();
-					$( "#dialog_message" ).dialog({
-					  modal: true,
-					  width: 620,
-					  buttons: {
-							Ok: function() {
-							  $( this ).dialog( "close" );
-							  history.go(-1); return false;
-							}
-					  }
-					});
-				},
-			}).done(function(data)
-			{
-				if(callback)
-					callback(data)
-			}).fail(function(jqXHR){
-				console.log("Error crediterCompte:", jqXHR);
-			});
-		}	
-	</script>
+
 	</head>
 	<body>
 
@@ -122,8 +56,8 @@
 							<div class="row">
 								<div class="12u">
 									<ul class="actions">
-										<li><input type="button" id="cancelcreditCardTransaction" class="cancelButton" value="Annuler" /></li>
-										<li><input type="button" id="confirmcreditCardTransaction" class="button" value="Confirmer" /></li>
+										<li><input type="button" id="cancelTransaction" class="cancelButton" value="Annuler" /></li>
+										<li><input type="button" id="confirmTransaction" class="button" value="Confirmer" /></li>
 									</ul>
 								</div>
 							</div>
@@ -136,16 +70,6 @@
 					  </p>
 				</div>
 			</section>
-			
-		<!-- Footer -->
-			<footer id="footer">
-				<!-- Menu -->
-					<ul class="menu">
-						<li>&copy; creditCard</li>
-						<li>creditCard</a></li>
-					</ul>
-			
-			</footer>
 
 	</body>
 	

@@ -3,6 +3,8 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
         var self = this;
 		var baseVM = baseVM;
 		var flag_paymentType = 0;
+		var msg_higherThan0 = "Merci de Saisir un montant supérieur à 0";
+		var msg_radioBoxChecked = "Merci de choisir l'un des 2 modes de paiement";
 		
         /******************
 		 OBSERVABLES
@@ -35,7 +37,9 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
 			if(self.allValidator())
 			{		
 				if(self.montantCredit() == "0")
-					alert("Merci de Saisir un montant supérieur à 0");
+					alert(msg_higherThan0);
+				else if ($('input[type=radio]:checked').length == 0)
+					alert(msg_radioBoxChecked);
 				else
 				{
 					if (flag_paymentType == 1)
