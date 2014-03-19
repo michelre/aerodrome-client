@@ -38,7 +38,6 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
 
             self.getAirbases = function(callback){
                 services.getAirbases(function(data){
-                    console.log(data)
                     for(var i = 0; i < data.length; i++){
                         self.airbases.push(new airbase(data[i].airbase_id, data[i].airbase_name, data[i].airbase_address, data[i].airbase_runwayNumber, data[i].airbase_airbaseManager));
                         self.airbasesJSON.push({ "fullTextSearch": self.airbases()[i].fullTextSearch() })
