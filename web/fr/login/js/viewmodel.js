@@ -1,7 +1,7 @@
 define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (ko, services,pilot) {
-    return{
-        viewModel: function () {
+    return function () {
             var self = this;
+			
 			//validator classes
 			var noErrorClasses = 'fa fa-check';
 			var errorClasses = 'fa fa-times';
@@ -13,7 +13,7 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 			//loggin
 			self.accountPass = ko.observable("");
 			self.accountMail = ko.observable("");
-			self.passConfirmation = ko.observable("");;
+			self.passConfirmation = ko.observable("");
 			
             //SERVICES
 			self.clickCreateAccount = function(){
@@ -33,11 +33,20 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 			}
 			self.clickConnectAccount = function(){
 				var account={
-						pilotAccount_mail:self.accountMail(),
-						pilotAccount_pass:self.accountPass()
+						email:self.accountMail(),
+						password:self.accountPass()
 				}
 				console.log(account);
-				services.connectAccount(account);
+				services.connectAccount(account,function(data,status,jqXHR){
+					if(status==401){
+						alert("Email ou mot de passe incorrect");
+					}else{
+						if(data.role=="pilotAccount"){	
+							window.location.replace("/fr/pilot")
+						}
+					}
+					
+				});
 			}
 
             //COMPUTED
@@ -128,5 +137,4 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 					}
 			});
         }
-    }
 });

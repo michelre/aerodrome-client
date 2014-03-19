@@ -1,6 +1,5 @@
 body{
 	background: #CCC !important;
-	padding:0px 10px !important;
 	
 	/*font-family:Verdana, Geneva, sans-serif;*/
 }
@@ -13,36 +12,30 @@ a:hover{
 	text-decoration:none;
 }
 #aerodrome-content header{
-	height:75px;
+	/*height:75px;*/
 	background-color:#333;
 	font-size:40px;
 	color:white;
 	position:relative;
+	padding:0px 15px;
 	
 }
 
 #aerodrome-content header p{
-	height:75px;
-	paading-left:10px;
+	/*height:75px;*/
 	width:60%;
 	display:inline-block;
 	margin:0px;
 	padding-left:5px;
-	margin-top:15px;
 	font-weight:bold;
 	
 }
 
-#aerodrome-content header > i{
-	margin-left:10px;
-}
-
 #aerodrome-content header section#menu{
-	margin-top:15px;
 	display:inline-block;
 	text-align:right;
 	position:absolute;
-	right:10px;
+	right:15px;
 }
 
 #aerodrome-content header section#menu ul{
@@ -78,8 +71,8 @@ a:hover{
 }
 
 #aerodrome-content nav ul {
-		margin-top:15px;
-		padding-left:15px;
+		margin:0px;
+		padding:15px;
 }
 
 #aerodrome-content nav ul li{
@@ -91,7 +84,7 @@ a:hover{
 	text-align:center;
 	font-size:25px;
 	padding:0px;
-	margin-left:3.5%;
+	margin-left:4%;
 	font-weight:bold;
 	cursor:pointer;
 	
@@ -141,7 +134,7 @@ color:white;
 
 #aerodrome-content section#contenu{
 	background-color:#FFF;
-	padding:20px;
+	padding:30px;
 	min-height:70%;
 }
 
