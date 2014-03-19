@@ -148,7 +148,6 @@ border-top: 2px solid gray;
 	
 	#aerodrome-content header{
 		font-size:25px;
-		height:50px;
 	}
 	
 	#aerodrome-content nav ul li{
@@ -161,4 +160,10 @@ border-top: 2px solid gray;
 	#aerodrome-content nav ul li a i {
 		font-size:30px;
 	}
+	
+	#aerodrome-content section#contenu h2{
+		font-size:22px;
+	}
+	
+	
 }
