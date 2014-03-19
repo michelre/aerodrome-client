@@ -111,7 +111,71 @@ define([], function () {
 						"service_desc" : "tapir",
 						"service_aircraftTypeCode" : "querty",
 						"service_weightRangeServices":[]
-                	} 
+                	},
+                    {
+                            "service_id": 3,
+                            "service_name": "atterissage2",
+                            "service_type": "tonnage",
+                            "service_price": 0,
+                            "service_desc": "Un autre service au tonnage",
+                            "service_aircraftTypeCode": "1",
+                            "services_weightRangeServices": [
+                                {
+                                    "weightRangeService_tonMin": 0,
+                                    "weightRangeService_tonMax": 2,
+                                    "weightRangeService_priceFixed": 8.33,
+                                    "weightRangeService_pricePerTon": 0
+                                },
+                                {
+                                    "weightRangeService_tonMin": 2,
+                                    "weightRangeService_tonMax": 3,
+                                    "weightRangeService_priceFixed": 16.72,
+                                    "weightRangeService_pricePerTon": 0
+                                },
+                                {
+                                    "weightRangeService_tonMin": 3,
+                                    "weightRangeService_tonMax": 4,
+                                    "weightRangeService_priceFixed": 25.00,
+                                    "weightRangeService_pricePerTon": 0
+                                },
+                                {
+                                    "weightRangeService_tonMin": 4,
+                                    "weightRangeService_tonMax": 5,
+                                    "weightRangeService_priceFixed": 30.00,
+                                    "weightRangeService_pricePerTon": 0
+                                },
+                                {
+                                    "weightRangeService_tonMin": 5,
+                                    "weightRangeService_tonMax": 6,
+                                    "weightRangeService_priceFixed": 35.00,
+                                    "weightRangeService_pricePerTon": 0
+                                },
+                                {
+                                    "weightRangeService_tonMin": 6,
+                                    "weightRangeService_tonMax": 13,
+                                    "weightRangeService_priceFixed": 50,
+                                    "weightRangeService_pricePerTon": 6
+                                },
+                                {
+                                    "weightRangeService_tonMin": 13,
+                                    "weightRangeService_tonMax": 20,
+                                    "weightRangeService_priceFixed": 92,
+                                    "weightRangeService_pricePerTon": 6
+                                },
+                                {
+                                    "weightRangeService_tonMin": 20,
+                                    "weightRangeService_tonMax": 30,
+                                    "weightRangeService_priceFixed": 134,
+                                    "weightRangeService_pricePerTon": 5
+                                },
+                                {
+                                    "weightRangeService_tonMin": 30,
+                                    "weightRangeService_tonMax": 100000,
+                                    "weightRangeService_priceFixed": 184,
+                                    "weightRangeService_pricePerTon": 5
+                                }
+                            ]
+                        }
 				]
 			}
         },
@@ -139,7 +203,7 @@ define([], function () {
 									"weightRangeService_tonMax" : 6,
 									"weightRangeService_priceFixed" : 30,
 									"weightRangeService_pricePerTon" : 6,							
-								},
+								}
 							]
                 	}
 			}

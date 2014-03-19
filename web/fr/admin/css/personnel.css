@@ -4,3 +4,11 @@
     margin-top: 15px;
     font-weight: bolder;
 }
+
+#view-all-personnel table td:last-child {
+    text-align: right;
+}
+
+#view-all-personnel .loading-icon{
+    font-size: 50px;
+}
