@@ -5,6 +5,8 @@ define(["jquery", "knockout", "login/js/viewmodel",
         if($.cookie("id") && $.cookie("role")){
 			if($.cookie("role")=="pilotAccount"){
 				window.location.replace("/fr/pilot");
+			}else if($.cookie("role")=="airbaseManager"){
+				window.location.replace("/fr/owner");
 			}
 		}
         $("body").append(loginTpl)

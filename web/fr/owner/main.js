@@ -2,6 +2,12 @@ requirejs.config({
 
     baseUrl: '.',
 	
+	 shim:{
+	'jquery-cookie': {
+            "deps": ["jquery"]
+        }
+	 },
+	
     paths: {
         "owner": ".",
 		"common": "../common",

@@ -17,6 +17,8 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
 
         self.aircraftWeight = ko.observable(undefined);
 
+        self.quantity = ko.observable(1);
+
         //SERVICES
         self.init = function(){
 			//console.log(weightRangeServices.length);
@@ -80,6 +82,10 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
 		self.checkDescIcon = ko.computed(function(){
 			return self.desc()!=="" ? noErrorIconClass : errorIconClass;
 		});
+
+        self.totalPrice = ko.computed(function(){
+            return self.quantity() * self.price();
+        })
 
         self.init();
 

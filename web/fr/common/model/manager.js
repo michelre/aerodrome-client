@@ -1,5 +1,5 @@
 define(["knockout"], function (ko) {
-    return function Manager(id,firstName,lastName,address,phone,mail,pass,passConfirmation) {
+    return function Manager(id,firstName,lastName,address,phone,mail,pass) {
         var self = this;
 		self.id = ko.observable(id);
         self.firstName = ko.observable(firstName);
@@ -7,8 +7,18 @@ define(["knockout"], function (ko) {
 		self.address = ko.observable(address);
         self.phone = ko.observable(phone);
 		self.pass = ko.observable(pass);
-		self.passConfirmation = ko.observable(passConfirmation);
 		self.mail = ko.observable(mail);
+
+        self.toJSON = function(){
+            return {
+                "firstName": self.firstName(),
+                "lastName" : self.lastName(),
+                "address"  : self.address(),
+                "phone"    : self.phone(),
+                "mail"    : self.mail(),
+                "pass"     : self.pass()
+            }
+        };
 
         self.fullName = ko.computed({
             read: function(){
@@ -19,7 +29,16 @@ define(["knockout"], function (ko) {
                 self.firstName(value.split(" ")[0]);
                 self.lastName(value.split(" ")[1]);
             }
-        })
+        });
+
+        self.phoneDisplay = ko.computed(function(){
+            return (self.phone() !== "") ? self.phone() : "non renseigné";
+        });
+
+        self.mailDisplay = ko.computed(function(){
+            return (self.mail() !== "") ? self.mail() : "non renseigné";
+        });
+
     }
 });
  

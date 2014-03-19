@@ -1,0 +1,46 @@
+<script type="text/html" id="personnels-admin-template">
+    <section id="contenu">
+        <div id="view-all-personnel">
+            <h1>Gestion des gestionnaires</h1>
+
+            <!-- ko if: managers().length === 0 -->
+            <div class="row">
+                <i class="fa fa-spinner fa-spin loading-icon col-md-offset-5" data-bind="visible: loadingManagers"></i>
+            </div>
+            <!-- /ko -->
+
+            <!-- ko if: managers().length > 0 -->
+            <table class="table table-striped managers">
+                <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>Téléphone</th>
+                    <th>Mail</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody data-bind="foreach: managers">
+                <tr>
+                    <td data-bind="text: lastName"></td>
+                    <td data-bind="text: firstName"></td>
+                    <td data-bind="text: phoneDisplay"></td>
+                    <td data-bind="text: mailDisplay"></td>
+                    <td>
+                        <button class="btn btn-primary" data-bind="click: $parent.clickModifyManager"><i
+                                class="fa fa-pencil"></i>Modifier
+                        </button>
+                        <button class="btn btn-danger" data-bind="click: $parent.clickDeleteManager"><i
+                                class="fa fa-trash-o"></i>Supprimer
+                        </button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <!-- /ko -->
+            <div class="row">
+                <a href="#personnel/create" class="col-md-offset-9 col-md-2 btn btn-primary">Ajouter un gestionnaire</a>
+            </div>
+        </div>
+    </section>
+</script>

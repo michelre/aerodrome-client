@@ -7,7 +7,6 @@ define(["knockout"], function (ko) {
 		var errorClass = 'has-error';
 		
         var self = this;
-		self.id = ko.observable(id);
         self.tonMin = ko.observable(tonMin);
         self.tonMax = ko.observable(tonMax);
         self.priceFixed = ko.observable(priceFixed);

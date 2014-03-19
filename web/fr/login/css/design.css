@@ -1,21 +1,19 @@
 #create-account{
-	display:inline-block;
-	float:left;	
+	display:block;	
 }
 
 #connect-account{
-	display:inline-block;
-	float:right;	
+	display:block;
 }
 
-#account{
-	width:70%;
+.account{
 	margin-left: auto;
+	margin-top: 50px; 
 	margin-right: auto;	
 }
 
 #account h2{
-	margin:0;
+	margin-top:0;
 	padding:0;	
 }
 
@@ -23,18 +21,21 @@
 	padding:5px;	
 }
 
+#create-account{
+	
+}
+
 #create-account,#connect-account{
 	background:#f7f7f7;
 	background:-moz-linear-gradient(90deg, #ccc, #fff); /* Firefox */
 	background:-webkit-gradient(linear, left top, left bottom, from(#fff), to(#ccc)); /* Webkit */
 	border:1px solid #aaa;
-	-moz-border-radius:10px;
-	-webkit-border-radius:10px;
-	-moz-box-shadow:0 0 15px #aaa;
-	-webkit-box-shadow:0 0 15px #aaa;
-	margin:10px auto 0;
-	padding:10px;
-	width:47%;	
+	-moz-border-radius:5px;
+	-webkit-border-radius:5px;
+	-moz-box-shadow:0 0 10px #aaa;
+	-webkit-box-shadow:0 0 10px #aaa;
+	padding:30px;
+	/*width:47%;*/	
 }
 
 .fa-check{
