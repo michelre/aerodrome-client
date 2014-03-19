@@ -1,5 +1,5 @@
 define(["knockout"], function (ko) {
-    return function WeightRange(id,tonMin, tonMax, priceFixed, pricePerTon, editionStatus) {
+    return function WeightRange(tonMin, tonMax, priceFixed, pricePerTon, editionStatus) {
 		var noErrorIconClass = 'fa fa-check';
 		var errorIconClass = 'fa fa-times';
 		
@@ -7,7 +7,6 @@ define(["knockout"], function (ko) {
 		var errorClass = 'has-error';
 		
         var self = this;
-		self.id = ko.observable(id);
         self.tonMin = ko.observable(tonMin);
         self.tonMax = ko.observable(tonMax);
         self.priceFixed = ko.observable(priceFixed);

@@ -29,7 +29,7 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
             //SERVICES
             self.init = function(){
                 //PROVISOIRE
-                self.getServicesByAirbase(0)
+                //self.getServicesByAirbase(0)
 
                 self.plane(new plane("", ""));
                 self.landing(new landing(undefined, utils.getCurrentDate(), utils.getCurrentTime()));
@@ -45,12 +45,13 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
                 });
             };
 
-            self.getServicesByAirbase = function(id){
+            self.getServicesByAirbase = function(id, callback){
                 self.servicesForfait.removeAll();
                 self.servicesTonnage.removeAll();
                 self.servicesForfaitSelected.removeAll();
                 self.servicesTonnageSelected.removeAll();
                 services.getServicesByAirbase(id, function(data){
+                    console.log(data)
                     for(var i = 0; i < data.length; i++){
                         if(data[i].service_type === "forfait"){
                             self.servicesForfait.push(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,
@@ -61,6 +62,9 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
                                 data[i].service_desc, data[i].service_aircraftTypeCode, data[i].services_weightRangeServices));
                         }
                     }
+                    console.log(self.servicesTonnage()[0].weightRangeServices()[0])
+                    if(callback)
+                        callback();
                 });
             };
 
@@ -74,9 +78,10 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
 
             self.nextStepLandingButton = function(){
                 if(self.landing().allInputsFilled()){
-                    self.getServicesByAirbase(self.landing().airbase().id());
-                    self.errorForm(false);
-                    self.currentStep("avion");
+                    self.getServicesByAirbase(self.landing().airbase().id(), function(){
+                        self.errorForm(false);
+                        self.currentStep("avion");
+                    });
                 }else{
                     self.errorForm(true);
                 }
