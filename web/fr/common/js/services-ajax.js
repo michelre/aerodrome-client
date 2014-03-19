@@ -85,6 +85,23 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				  }
 			})
 		},
+		disconnectAccount: function(callback){
+			$.ajax({
+				url: SaNPoint+"logout",
+				method:"GET",
+			}).done(function(data, textStatus, jqXHR){
+				
+				$.removeCookie("id", { path: '/' });
+				$.removeCookie("role", { path: '/' });
+				
+                    if(callback)
+                        callback();
+			}).fail(function(jqXHR,status){
+				
+					 console.log("Error disconnectAccount:", jqXHR);
+                   
+			})
+		},
 		getAirbases: function (callback) {
             $.ajax({
                 url: SaNPoint+"airbases",

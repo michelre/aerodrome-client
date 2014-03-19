@@ -20,6 +20,13 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
 				})
 			}
 			
+			self.clickDisconnect = function(){
+				services.disconnectAccount(function(){
+					console.log(document.cookie);
+					window.location.replace("/fr/login");
+				});
+			}
+			
 			
 
             //COMPUTED
