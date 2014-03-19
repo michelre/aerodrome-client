@@ -136,6 +136,8 @@ color:white;
 	background-color:#FFF;
 	padding:30px;
 	min-height:70%;
+	border-bottom: 2px solid gray;
+border-top: 2px solid gray;
 }
 
 #aerodrome-content .clear{
