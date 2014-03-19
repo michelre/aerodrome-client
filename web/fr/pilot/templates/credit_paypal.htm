@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Paypal Payment</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<script src="../../common/vendor/js/jquery-2.1.js"></script>
+		<script src="js/skel.min.js"></script>
+		<script src="js/init.js"></script>
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+		
+		<script type="text/javascript">
+		//Sera Externalisé
+		var queryString = new Array();
+		$(function () {
+			if (queryString.length == 0) {
+				if (window.location.search.split('?').length > 1) {
+					var params = window.location.search.split('?')[1].split('&');
+					for (var i = 0; i < params.length; i++) {
+						var key = params[i].split('=')[0];
+						var value = decodeURIComponent(params[i].split('=')[1]);
+						queryString[key] = value;
+					}
+				}
+			}
+			if (queryString["pilotAccount_id"] != null && queryString["price"] != null) {
+				var data = "<u>Vous allez payer:</u><br /><br />";
+				
+				data += "<b>Pilot ID:</b> " + queryString["pilotAccount_id"] + " <b>Montant:</b> " + queryString["price"];
+				//$("#mydiv").html(data);
+			}
+			$(queryString["price"]).appendTo($("#montant").val());
+			$('#montant').val(queryString["price"]);
+			
+			$("#cancelPaypalTransaction").click(function()
+			{
+				history.go(-1); return false;
+			});
+			$("#confirmPaypalTransaction").click(function()
+			{
+				var newCredit=
+				{
+					pilotAccount_id:queryString["pilotAccount_id"],
+					price:queryString["price"]
+					
+				}
+				creditBasket(newCredit);
+			});
+
+		});
+		function creditBasket(dataCredit,callback){
+			var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
+			$.ajax({
+				url: SaNPoint+"pilot/"+dataCredit.pilotAccount_id+"/credit",
+				dataType: "json",
+				data: JSON.stringify(dataCredit),
+				method:"PUT"
+			}).success(function(data)
+			{
+				$( "#payment-done" ).dialog({
+				  modal: true,
+				  buttons: {
+					Ok: function() {
+					  $( this ).dialog( "close" );
+						history.go(-2); return false
+					}
+				  }
+				});
+				if(callback)
+				{
+					callback(data)
+				}
+			}).fail(function(jqXHR){
+				console.log("Error crediterCompte:", jqXHR);
+			});
+		}	
+	</script>
+	</head>
+	<body>
+
+		<!-- Header -->
+			<header id="header">
+
+				<!-- Logo -->
+					<h1 id="logo"><img src="../images/paypal_logo.png" alt="paypal_logo"></h1>
+
+			</header>
+			
+		<!-- Intro -->
+			<section id="intro" class="main style1 dark fullscreen">
+				<div class="content container small">
+					<header>
+						<h2>Paiment Paypal</h2>
+					</header>
+					<p>
+						<form>
+						<h3>Détails du Paiement</h3>
+							<div class="row half">
+									<label>Payer à:</label><strong>PayDrome</strong><br>	
+									<label>Paiement pour: </label><strong>Jacques Le roux</strong><br> 
+									<label>Devise: </label><strong>€</strong><br> 
+									<label>Montant: </label><br> <input type="text" id="montant" disabled="disabled" />
+							</div>
+							<div class="row">
+									<div class="12u">
+										<ul class="actions">
+											<li><input type="button" id="cancelPaypalTransaction" class="cancelButton" value="Annuler" /></li>
+											<li><input type="button" id="confirmPaypalTransaction" class="button" value="Confirmer" /></li>
+										</ul>
+									</div>
+							</div>
+						</form>
+					</p>
+				<div style="display:none;" id="payment-done" title="Paiement effectué">
+				  <p>
+					<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+					<img src="../images/paypal_logo.png" alt="paypal_logo">
+					Paiement Paypal d'un montant de <li id='montant'></li> effectué !
+				  </p>
+				</div>
+				</div>
+			</section>
+			
+		<!-- Footer -->
+			<footer id="footer">
+				<!-- Menu -->
+					<ul class="menu">
+						<li>&copy; Paypal</li>
+						<li>Paypal</a></li>
+					</ul>
+			
+			</footer>
+
+	</body>
+	
+</html>
