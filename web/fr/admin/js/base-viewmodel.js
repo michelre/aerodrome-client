@@ -1,5 +1,5 @@
-define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmodel", "admin/js/accueil-viewmodel", "common/js/services-ajax","common/js/mock/services-ajax"],
-    function (ko, plateformsVM, plateformVM, accueilVM, servicesAjax, servicesAjaxMock) {
+define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmodel", "admin/js/accueil-viewmodel", "common/js/services-ajax","common/js/mock/services-ajax","common/model/admin"],
+    function (ko, plateformsVM, plateformVM, accueilVM, servicesAjax, servicesAjaxMock,admin) {
         return function baseVM() {
             var self = this;
             var services = servicesAjaxMock;
@@ -9,6 +9,7 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
             self.currentAction = ko.observable();
             self.activeTemplate = ko.observable();
             self.currentVM = ko.observable();
+			self.currentAdmin = ko.observable();
 
             //NOT OBSERVABLES
             self.managers = undefined;
@@ -16,6 +17,14 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
 
 
             //SERVICES
+			self.initAdmin = function(id,callback){
+				services.getAdminAccount(id,function(data){
+					self.currentAdmin(new admin(data.superAdmin_id,data.superAdmin_firstName,data.superAdmin_lastName, data.superAdmin_phone,null,data.superAdmin_mail))
+					if(callback)
+						callback();
+				})
+			}
+			
             self.getAirbase = function (id, callback) {
                 services.getAirbase(id, function (data) {
                     self.airbaseToUpdate = data;

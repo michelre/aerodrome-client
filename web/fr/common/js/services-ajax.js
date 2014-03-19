@@ -70,10 +70,14 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				dataType: "json",
 				data: JSON.stringify(dataAccount)
 			}).done(function(data, textStatus, jqXHR){
-				$.cookie("id",data.pilotAccount.pilotAccount_id,{path:'/'})
-				$.cookie("role",data.role,{path:'/'});
 				
-				console.log(document.cookie);
+				if(data.role=="pilotAccount"){
+					$.cookie("id",data.pilotAccount.pilotAccount_id,{path:'/'})
+					$.cookie("role",data.role,{path:'/'});
+				}else if (data.role=="superAdmin"){
+					
+				}
+				
 				
                     if(callback)
                         callback(data, textStatus, jqXHR)
