@@ -5,7 +5,8 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
         "text!pilot/templates/payment.html",
         "text!pilot/templates/facture.html",
         "text!pilot/templates/plus.html",
-        "text!pilot/templates/account.html","jquery-cookie"
+        "text!pilot/templates/account.html",
+		"jquery-cookie"
         ],
     function ($, ko, Sammy, baseVM, navTpl, homeTpl, creditTpl, paymentTpl, factureTpl, plusTpl,accountTpl) {
 
