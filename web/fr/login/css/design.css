@@ -1,26 +1,28 @@
 #create-account{
-	display:inline-block;
-	float:left;	
+	display:block;	
 }
 
 #connect-account{
-	display:inline-block;
-	float:right;	
+	display:block;
 }
 
-#account{
-	width:70%;
+.account{
 	margin-left: auto;
+	margin-top: 50px; 
 	margin-right: auto;	
 }
 
 #account h2{
-	margin:0;
+	margin-top:0;
 	padding:0;	
 }
 
 .table-login td{
 	padding:5px;	
+}
+
+#create-account{
+	
 }
 
 #create-account,#connect-account{
@@ -32,8 +34,7 @@
 	-webkit-border-radius:10px;
 	-moz-box-shadow:0 0 15px #aaa;
 	-webkit-box-shadow:0 0 15px #aaa;
-	margin:10px auto 0;
-	padding:10px;
+	padding:30px;
 	/*width:47%;*/	
 }
 

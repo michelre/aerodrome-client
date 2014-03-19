@@ -1,63 +1,92 @@
 <script type="text/html" id="login-template">
 	<section id="contenu">
-		<section id="account">
-			<section id="create-account">
-				<h2>Nouveau compte</h2>
-				<form role="form">
-				<table id="create-account-table" class="table-login">
-					<tr>
-						<td><label for="mail">Mail:</label></td>
-						<td><input type="email" class="form-control" data-bind="value: newAccount.mail" name="mail" id="mail" placeholder="Votre mail"/></td>
-						<td><i data-bind="css: mailValidator"></i></td>
-					</tr>
-					<tr>
-						<td><label for="pass">Mot de passe:</label></td>
-						<td><input type="password" class="form-control" data-bind="value: newAccount.pass" name="pass" id="pass" placeholder="6 caractères minimum"/></td>
-						<td><i data-bind="css: passValidator"></i></td>
-					</tr>
-					<tr>
-						<td><label for="pass-confirmation">Confirmation:</label></td>
-						<td><input type="password" class="form-control" data-bind="value: passConfirmation" name="pass-confirmation" id="pass-confirmation" placeholder="Mot de passe"/></td>
-						<td><i data-bind="css: passValidator"></i></td>
-					</tr>
-					<tr>
-						<td><label for="lastName">Nom:</label></td>
-						<td><input type="text" class="form-control" data-bind="value: newAccount.lastName" name="lastName" id="lastName" placeholder="Votre nom"/></td>
-						<td><i data-bind="css: lastNameValidator"></i></td>
-					</tr>
-					<tr>
-						<td><label for="firstName">Prénom:</label></td>
-						<td><input type="text" class="form-control" data-bind="value: newAccount.firstName" name="firstName" id="firstName" placeholder="Votre prénom"/></td>
-						<td><i data-bind="css: firstNameValidator"></i></td>
-					</tr>
-					<tr>
-						<td><label for="phone">Tèl:</label></td>
-						<td><input type="text" class="form-control" data-bind="value: newAccount.phone" name="phone" id="phone" placeholder="+33..."/></td>
-						<td><i data-bind="css: phoneValidator"></i></td>
-					</tr>
-					<tr>
-						<td colspan="2"><button data-bind="click: clickCreateAccount" class="btn btn-primary">Créer le compte</button></td>
-					</tr>
-				</table>
-			</form>
-			</section>
-			<section id="connect-account">
+		<section class="row account">
+			<section class="col-md-offset-3 col-md-6" id="connect-account">
 				<h2>Se connecter</h2>
-				<form role="form">
-				<table id="connect-account-table" class="table-login">
-					<tr>
-						<td><label for="login">Nom d'uilisateur:</label></td>
-						<td><input type="email" data-bind="value: accountMail" class="form-control" name="login" id="login" placeholder="Votre login"/></td>
-					</tr>
-					<tr>
-						<td><label for="pass">Mot de passe:</label></td>
-						<td><input type="password" data-bind="value: accountPass" class="form-control" name="pass" id="pass" placeholder="Votre mot de passe"/></td>
-					</tr>
-					<tr>
-						<td><button data-bind="click: clickConnectAccount" class="btn btn-primary">Se connecter</button></td><td><a>mot de passe oublié</a></td>
-					</tr>
-				</table>
+				<form class="form-horizontal" role="form">
+					<section class="form-group">
+						<label for="login" class="col-sm-3 control-label">Email</label>
+						<div class="col-sm-9">
+							<input type="email" data-bind="value: accountMail" class="form-control" name="login" id="login" placeholder="Votre login"/>
+						</div>
+					 </section>
+					 <section class="form-group">
+						<label for="pass" class="col-sm-3 control-label">Mot de passe</label>
+						 <div class="col-sm-9">
+							<input type="password" data-bind="value: accountPass" class="form-control" name="pass" id="pass" placeholder="Votre mot de passe"/>
+						 </div>
+					 </section>
+					 
+					 <section class="form-group">
+						 <div class="col-sm-offset-3 col-sm-9">
+							<button data-bind="click: clickConnectAccount" class="btn btn-primary">Connexion</button>
+						 </div>
+  					 </section>
+					 
+					  <section class="form-group">
+						 <div class="col-sm-offset-3 col-sm-9">
+							 <a>Mot de passe oublié</a>
+						 </div>
+  					 </section>
 				</form>
+			</section>
+			</section>
+			<section class="row account">
+				<section class="col-md-offset-3 col-md-6" id="create-account">
+					<h2>Créer nouveau compte</h2>
+					<form class="form-horizontal" role="form">
+						<section data-bind="css: mailValidator" class="form-group has-feedback">
+							<label class="col-sm-3 control-label" for="mail">Email</label>
+							<div class="col-sm-9">
+								<input type="email" class="form-control" data-bind="value: newAccount.mail" name="mail" id="mail" placeholder="Votre mail"/>
+								<i data-bind="css: mailValidatorIcon" class="form-control-feedback"></i>
+							</div>
+						</section>
+						<section data-bind="css: passValidator" class="form-group has-feedback">
+							<label class="col-sm-3  control-label" for="pass">Mot de passe</label>
+							<div class="col-sm-9">
+								<input type="password" class="form-control" data-bind="value: newAccount.pass" name="pass" id="pass" placeholder="6 caractères minimum"/>
+								<i data-bind="css: passValidatorIcon"  class="form-control-feedback"></i>
+							</div>
+							
+						</section>
+						<section data-bind="css: passValidator" class="form-group has-feedback">
+							<label class="col-sm-3  control-label" for="pass-confirmation">Confirmez</br>mot de passe</label>
+							<div class="col-sm-9">
+								<input type="password" class="form-control" data-bind="value: passConfirmation" name="pass-confirmation" id="pass-confirmation" placeholder="Mot de passe"/>
+								<i data-bind="css: passValidatorIcon" class="form-control-feedback"></i>	
+							</div>
+						</section>
+						<section data-bind="css: lastNameValidator" class="form-group has-feedback">
+							<label class="col-sm-3  control-label" for="lastName">Nom</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" data-bind="value: newAccount.lastName" name="lastName" id="lastName" placeholder="Votre nom"/>
+								<i data-bind="css: lastNameValidatorIcon" class="form-control-feedback"></i>
+							</div>
+						</section>
+						<section data-bind="css: firstNameValidator" class="form-group has-feedback">
+							<label class="col-sm-3  control-label" for="firstName">Prénom</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" data-bind="value: newAccount.firstName" name="firstName" id="firstName" placeholder="Votre prénom"/>
+								<i data-bind="css: firstNameValidatorIcon" class="form-control-feedback"></i>
+							</div>
+						</section>
+						
+						<section data-bind="css: phoneValidator" class="form-group has-feedback">
+							<label class="col-sm-3  control-label" for="phone">Tèl</label>
+							<div class="col-sm-9">
+								<input type="text" class="form-control" data-bind="value: newAccount.phone" name="phone" id="phone" placeholder="+33..."/>
+								<i data-bind="css: phoneValidatorIcon" class="form-control-feedback"></i>
+							</div>
+						</section>
+						
+						<section class="form-group">
+							<div class="col-sm-offset-3 col-sm-9">
+								<button data-bind="click: clickCreateAccount" class="btn btn-primary">Créer</button>
+							</div>
+						</section>
+					</form>
+				</section>
 			</section>
 		</section>
 		<section class="clear"></section>
