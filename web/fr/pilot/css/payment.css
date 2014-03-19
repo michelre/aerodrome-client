@@ -33,6 +33,10 @@
     z-index: 2;
 }
 
+#payment-atterissage .loading-airbases{
+    font-size: 50px;
+}
+
 #payment-atterissage .my-breadcrumb li a:before {
     content: " ";
     display: block;

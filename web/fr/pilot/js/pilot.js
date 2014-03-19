@@ -19,20 +19,20 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
 			this.get('home', function () {
 				viewModel.currentPage("Accueil");
 			});
-			this.get('credit', function () {
-				viewModel.currentPage("Credit");
+			this.get('solde', function () {
+				viewModel.currentPage("Solde");
 			});
-			this.get('paiement', function () {
-				viewModel.currentPage("Paiement");
+			this.get('payer', function () {
+				viewModel.currentPage("Payer");
 			});
-			this.get('facture', function () {
-				viewModel.currentPage("Facture");
+			this.get('historique', function () {
+				viewModel.currentPage("Historique");
 			});
 			this.get('plus', function () {
 				viewModel.currentPage("Plus");
 			});
 			this.get('account', function () {
-				viewModel.currentPage("Compte");
+				viewModel.currentPage("Gestion du compte");
 			});
 			this.notFound = function () {
 				viewModel.currentPage("Accueil");

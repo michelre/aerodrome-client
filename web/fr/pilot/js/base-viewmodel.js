@@ -2,7 +2,7 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
     function (ko, accueilVM, creditVM, paymentVM, factureVM, plusVM, accountVM,servicesAjax,servicesAjaxMock, pilot) {
     return function(){
             var self = this;
-			var services = servicesAjax;
+			var services = servicesAjaxMock;
 			
             //OBSERVABLES
             self.currentPage = ko.observable();
@@ -35,15 +35,15 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
             });
 
             self.creditActiveClass = ko.computed(function () {
-                return (self.currentPage() === "Credit") ? "active" : "";
+                return (self.currentPage() === "Solde") ? "active" : "";
             });
 
             self.paiementActiveClass = ko.computed(function () {
-                return (self.currentPage() === "Paiement") ? "active" : "";
+                return (self.currentPage() === "Payer") ? "active" : "";
             });
 
             self.factureActiveClass = ko.computed(function () {
-                return (self.currentPage() === "Facture") ? "active" : "";
+                return (self.currentPage() === "Historique") ? "active" : "";
             });
 
             self.plusActiveClass = ko.computed(function () {
@@ -52,9 +52,9 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
 			
 			self.activeIcon = ko.computed(function(){
 				if(self.currentPage() === "Accueil") return "fa fa-home";
-				if(self.currentPage() === "Credit") return "fa fa-credit-card";
-				if(self.currentPage() === "Paiement") return "fa fa-money";
-				if(self.currentPage() === "Facture") return "fa fa-inbox";
+				if(self.currentPage() === "Solde") return "fa fa-credit-card";
+				if(self.currentPage() === "Payer") return "fa fa-money";
+				if(self.currentPage() === "Historique") return "fa fa-inbox";
 				if(self.currentPage() === "Plus") return "fa fa-plus";
 			});
 
@@ -69,11 +69,11 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
 
             self.setActiveTemplate = ko.computed(function(){
                 if(self.currentPage() === "Accueil") self.activeTemplate("home-pilot-template");
-                if(self.currentPage() === "Credit") self.activeTemplate("credit-pilot-template");
-                if(self.currentPage() === "Paiement") self.activeTemplate("payment-pilot-template");
-                if(self.currentPage() === "Facture") self.activeTemplate("facture-pilot-template");
+                if(self.currentPage() === "Solde") self.activeTemplate("credit-pilot-template");
+                if(self.currentPage() === "Payer") self.activeTemplate("payment-pilot-template");
+                if(self.currentPage() === "Historique") self.activeTemplate("facture-pilot-template");
                 if(self.currentPage() === "Plus") self.activeTemplate("plus-pilot-template");
-				if(self.currentPage() === "Compte") self.activeTemplate("account-pilot-template");
+				if(self.currentPage() === "Gestion du compte") self.activeTemplate("account-pilot-template");
             });
 
         }

@@ -32,6 +32,14 @@ define(["knockout"], function (ko) {
             }
         });
 
+        self.phoneDisplay = ko.computed(function(){
+            return (self.phone() !== "") ? self.phone() : "non renseigné";
+        });
+
+        self.mailDisplay = ko.computed(function(){
+            return (self.mail() !== "") ? self.mail() : "non renseigné";
+        });
+
     }
 });
  
