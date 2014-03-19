@@ -49,6 +49,11 @@ define(["jquery", "common/js/mock/get"], function($, _get){
         },
         deleteAirbase: function(date, callback){
             callback()
+        },
+        createManager: function(data, callback){
+            setTimeout(function(){
+                callback()
+            }, 1000)
         }
     }
 })

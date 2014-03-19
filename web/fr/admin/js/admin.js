@@ -20,6 +20,7 @@ define(["jquery", "knockout", "sammy", "admin/js/base-viewmodel",
             });
             this.get("personnel", function(){
                 viewModel.currentPage("Personnel");
+                viewModel.currentAction("view-all");
             });
             this.get("personnel/create", function(){
                 viewModel.currentPage("Personnel");

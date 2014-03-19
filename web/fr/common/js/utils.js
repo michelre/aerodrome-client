@@ -22,7 +22,25 @@ define([], function(){
             }
 
             return date.getUTCFullYear() + "-" + months[date.getUTCMonth()] + "-" + date.getUTCDate();
-            //return date.getUTCDate()+"/0"+date.getUTCMonth()+"/"+date.getUTCFullYear()
+        },
+        generatePassword: function(numMaj, numMin, numNum){
+            var maj = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            var min = "abcdefghijklmnopqrstuvwxyz";
+            var num = "0123456789";
+            var pass = "";
+            for(var i = 0; i < numMaj; i++){
+                var numCharRandom = Math.floor((Math.random()*maj.length)+1)-1;
+                pass += maj.charAt(numCharRandom);
+            }
+            for(var i = 0; i < numMin; i++){
+                var numCharRandom = Math.floor((Math.random()*min.length)+1)-1;
+                pass += min.charAt(numCharRandom);
+            }
+            for(var i = 0; i < numNum; i++){
+                var numCharRandom = Math.floor((Math.random()*num.length)+1)-1;
+                pass += num.charAt(numCharRandom);
+            }
+            return pass;
         }
     }
 })

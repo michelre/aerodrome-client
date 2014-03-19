@@ -10,6 +10,17 @@ define(["knockout"], function (ko) {
 		self.passConfirmation = ko.observable(passConfirmation);
 		self.mail = ko.observable(mail);
 
+        self.toJSON = function(){
+            return {
+                "firstName": self.firstName(),
+                "lastName" : self.lastName(),
+                "address"  : self.address(),
+                "phone"    : self.phone(),
+                "mail"    : self.mail(),
+                "pass"     : self.pass()
+            }
+        };
+
         self.fullName = ko.computed({
             read: function(){
                 if(self.firstName() && self.lastName())
@@ -19,7 +30,8 @@ define(["knockout"], function (ko) {
                 self.firstName(value.split(" ")[0]);
                 self.lastName(value.split(" ")[1]);
             }
-        })
+        });
+
     }
 });
  

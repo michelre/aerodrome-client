@@ -2,7 +2,6 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
     function (ko, plateformsVM, plateformVM, accueilVM, personnelVM, personnelCreateVM, servicesAjax, servicesAjaxMock,admin) {
         return function baseVM() {
             var self = this;
-            console.log(servicesAjax)
             var services = servicesAjaxMock;
 
             //OBSERVABLES
@@ -58,7 +57,7 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
             self.activeIcon = ko.computed(function(){
                 if(self.currentPage() === "Accueil") return "fa fa-home";
                 if(self.currentPage() === "Plateforme") return "fa fa-fighter-jet";
-                if(self.currentPage() === "Personnel") return "fa fa-fighter-jet";
+                if(self.currentPage() === "Personnel") return "fa fa-user";
             });
 
             self.setCurrentVM = ko.computed(function(){
@@ -72,7 +71,7 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
 
             self.setActiveTemplate = ko.computed(function(){
                 if(self.currentPage() === "Accueil") self.activeTemplate("home-admin-template");
-                if(self.currentPage() === "Personnel") self.activeTemplate("personnel-admin-template");
+                if(self.currentPage() === "Personnel"  && self.currentAction() === "view-all") self.activeTemplate("personnel-admin-template");
                 if(self.currentPage() === "Personnel"  && self.currentAction() === "create") self.activeTemplate("personnel-create-admin-template");
                 if(self.currentPage() === "Plateforme" && self.currentAction() === "view-all" && self.managers !== undefined) self.activeTemplate("airbase-admin-template");
                 if(self.currentPage() === "Plateforme" && self.currentAction() === "create") self.activeTemplate("airbase-create-admin-template");
