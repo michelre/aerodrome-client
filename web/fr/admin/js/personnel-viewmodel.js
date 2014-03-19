@@ -2,6 +2,7 @@ define(["knockout"], function (ko) {
     return function personnelVM() {
         var self = this;
 
+
         //OBSERVABLES
 
 
@@ -11,6 +12,7 @@ define(["knockout"], function (ko) {
         //SERVICES
 
         //COMPUTED
+
 
     }
 });

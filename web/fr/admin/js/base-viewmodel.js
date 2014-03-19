@@ -1,5 +1,5 @@
-define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmodel", "admin/js/accueil-viewmodel", "admin/js/personnel-viewmodel", "common/js/services-ajax","common/js/mock/services-ajax","common/model/admin"],
-    function (ko, plateformsVM, plateformVM, accueilVM, personnelVM, servicesAjax, servicesAjaxMock,admin) {
+define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmodel", "admin/js/accueil-viewmodel", "admin/js/personnel-viewmodel", "admin/js/personnel-create-viewmodel", "common/js/services-ajax","common/js/mock/services-ajax","common/model/admin"],
+    function (ko, plateformsVM, plateformVM, accueilVM, personnelVM, personnelCreateVM, servicesAjax, servicesAjaxMock,admin) {
         return function baseVM() {
             var self = this;
             console.log(servicesAjax)
@@ -66,12 +66,14 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
                 if(self.activeTemplate() === "airbase-admin-template") self.currentVM(new plateformsVM(self, self.managers));
                 if(self.activeTemplate() === "airbase-create-admin-template") self.currentVM(new plateformsVM(self, self.managers));
                 if(self.activeTemplate() === "airbase-view-admin-template") self.currentVM(new plateformVM(self, self.airbaseToUpdate, self.managers));
-                if(self.activeTemplate() === "personnel-view-admin-template") self.currentVM(new personnelVM(self));
+                if(self.activeTemplate() === "personnel-admin-template") self.currentVM(new personnelVM(self));
+                if(self.activeTemplate() === "personnel-create-admin-template") self.currentVM(new personnelCreateVM(self));
             });
 
             self.setActiveTemplate = ko.computed(function(){
                 if(self.currentPage() === "Accueil") self.activeTemplate("home-admin-template");
                 if(self.currentPage() === "Personnel") self.activeTemplate("personnel-admin-template");
+                if(self.currentPage() === "Personnel"  && self.currentAction() === "create") self.activeTemplate("personnel-create-admin-template");
                 if(self.currentPage() === "Plateforme" && self.currentAction() === "view-all" && self.managers !== undefined) self.activeTemplate("airbase-admin-template");
                 if(self.currentPage() === "Plateforme" && self.currentAction() === "create") self.activeTemplate("airbase-create-admin-template");
                 if(self.currentPage() === "Plateforme" && self.currentAction() === "update-one" && self.airbaseToUpdate !== undefined) self.activeTemplate("airbase-view-admin-template");
