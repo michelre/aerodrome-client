@@ -166,21 +166,21 @@ define(["jquery", "common/js/mock/get",], function($, _get){
 			});
 		},
 		
-		updateService:function (dataService,callback){
+		updateService:function (dataService,callback,callbackData){
 			$.ajax({
-				url: SaNPoint+"service/"+dataService.id,
+				url: SaNPoint+"service/"+dataService.service_id,
 			    dataType: "json",
 				data: JSON.stringify(dataService),
 				method:"PUT"
 			}).done(function(data){
                     if(callback)
-                        callback(data)
+                        callback(callbackData,dataService.service_id)
 			}).fail(function(jqXHR){
 				console.log("Error updateService:", jqXHR);
 			});
 		},
 		
-		createService:function (dataService,callback){
+		createService:function (dataService,callback,callbackData){
 			$.ajax({
 				url: SaNPoint+"service/",
 				dataType: "json",
@@ -188,7 +188,8 @@ define(["jquery", "common/js/mock/get",], function($, _get){
 				method:"POST"
 			}).done(function(data){
                     if(callback)
-                        callback(data)
+                        callback(callbackData,data)
+					return data.id; //besoin de l'id pour creation des weight range service
 			}).fail(function(jqXHR){
 				console.log("Error createService:", jqXHR);
 			});
@@ -253,7 +254,51 @@ define(["jquery", "common/js/mock/get",], function($, _get){
                 }).fail(function (jqXHR) {
                     console.log("Error getAirbasesByManager:", jqXHR);
                 })
-        }
+        },
+		
+		updateWeightRangeService:function (dataWeightRangeService,callback){
+			$.ajax({
+				url: SaNPoint+"weightRangeService/"+dataWeightRangeService.service_WeightRangeService_id,
+			    dataType: "json",
+				data: JSON.stringify(dataWeightRangeService),
+				method:"PUT"
+			}).done(function(data){
+                    if(callback)
+                        callback(data)
+			}).fail(function(jqXHR){
+				console.log("Error updateWeightRangeService:", jqXHR);
+			});
+		},
+		
+		createWeightRangeService:function (dataWeightRangeService,callback){
+			$.ajax({
+				url: SaNPoint+"weightRangeService/",
+				dataType: "json",
+				data: JSON.stringify(dataWeightRangeService),
+				method:"POST"
+			}).done(function(data){
+                    if(callback)
+                        callback(data)
+			}).fail(function(jqXHR){
+				console.log("Error createWeightRangeService:", jqXHR);
+			});
+		},
+		
+		deleteWeightRangeService: function(idWeightRangeService, callback){
+						console.log(idWeightRangeService);
+			$.ajax({
+				url: SaNPoint+"weightRangeService/"+idWeightRangeService,
+				dataType: "json",
+				method:"DELETE"
+			}).done(function(data){
+                    if(callback)
+                        callback(data)
+			}).fail(function(jqXHR){
+				console.log("Error deleteWeightRangeService:", jqXHR);
+			})
+		}
+		
+		
 		
 	}
 })
