@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Paypal Payment</title>
+		<title>Paiement Carte Bancaire</title>
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
@@ -41,13 +41,13 @@
 			
 			//--------------------------------------
 			//Cancel the Payment Transaction
-			$("#cancelPaypalTransaction").click(function()
+			$("#cancelcreditCardTransaction").click(function()
 			{
 				history.go(-1); return false;
 			});
 			//--------------------------------------
 			//Confirm the Payment Transaction
-			$("#confirmPaypalTransaction").click(function()
+			$("#confirmcreditCardTransaction").click(function()
 			{
 				var newCredit=
 				{
@@ -99,7 +99,7 @@
 			<header id="header">
 
 				<!-- Logo -->
-					<h1 id="logo"><img src="../images/paypal_logo.png" alt="paypal_logo"></h1>
+					<h1 id="logo"><img src="../images/creditCard_logo.png" alt="creditCard_logo"></h1>
 
 			</header>
 			
@@ -107,31 +107,32 @@
 			<section id="intro" class="main style1 dark fullscreen">
 				<div class="content container small">
 					<header>
-						<h2>Paiment Paypal</h2>
+						<h2>Paiment par carte de Crédit</h2>
 					</header>
 					<p>
 						<form>
 						<h3>Détails du Paiement</h3>
 							<div class="row half">
+									<label>Numéro de Carte</label><strong>1056-655-995-21Y</strong><br>
 									<label>Payer à:</label><strong>PayDrome</strong><br>	
 									<label>Paiement pour: </label><strong>Jacques Le roux</strong><br> 
 									<label>Devise: </label><strong>€</strong><br> 
 									<label>Montant: </label><br> <input type="text" id="montant" disabled="disabled" />
 							</div>
 							<div class="row">
-									<div class="12u">
-										<ul class="actions">
-											<li><input type="button" id="cancelPaypalTransaction" class="cancelButton" value="Annuler" /></li>
-											<li><input type="button" id="confirmPaypalTransaction" class="button" value="Confirmer" /></li>
-										</ul>
-									</div>
+								<div class="12u">
+									<ul class="actions">
+										<li><input type="button" id="cancelcreditCardTransaction" class="cancelButton" value="Annuler" /></li>
+										<li><input type="button" id="confirmcreditCardTransaction" class="button" value="Confirmer" /></li>
+									</ul>
+								</div>
 							</div>
 						</form>
 					</p>
 				</div>
-				<div style="display:none;" id="dialog_message" title="Paiement Paypal effectué">
+				<div style="display:none;" id="dialog_message" title="Paiement par carte bancaire effectué">
 					  <p>
-							<img src="../images/paypal_logo.png" alt="paypal_logo">Merci de votre confiance !
+							<img src="../images/creditCard_logo.png" alt="creditCard_logo">Merci de votre confiance !
 					  </p>
 				</div>
 			</section>
@@ -140,8 +141,8 @@
 			<footer id="footer">
 				<!-- Menu -->
 					<ul class="menu">
-						<li>&copy; Paypal</li>
-						<li>Paypal</a></li>
+						<li>&copy; creditCard</li>
+						<li>creditCard</a></li>
 					</ul>
 			
 			</footer>

@@ -10,18 +10,18 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
 
 		self.pilotAccount = ko.observable(baseVM.currentPilot());
 		self.montantCredit=ko.observable(0);
+		
+		
 
 		self.paypal = ko.observable(false);
 		self.checkPaypal = function() {
 				   flag_paymentType = 1;
-				   //alert(flag_paymentType + "Paypal checked");
 				   return true;
 				}   
 		
 		self.creditCard = ko.observable(false);
 		self.checkCreditCard = function() {
 				   flag_paymentType = 2;
-				   //alert(flag_paymentType + "Credit Card checked");
 				   return true;
 				}  
 		
@@ -33,15 +33,21 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
         //SERVICES
 		self.crediterCompte = function(){
 			if(self.allValidator())
-			{
-				if (flag_paymentType == 1)
-				{
-					var url = "templates/credit_paypal.htm?pilotAccount_id=" + encodeURIComponent(self.pilotAccount().id()) + "&price=" + encodeURIComponent(self.montantCredit());
-					window.location.href = url;
-				}
+			{		
+				if(self.montantCredit() == "0")
+					alert("Merci de Saisir un montant supérieur à 0");
 				else
 				{
-					window.location.replace("templates/credit_creditCard.html");
+					if (flag_paymentType == 1)
+					{
+						var url = "templates/credit_paypal.htm?pilotAccount_id=" + encodeURIComponent(self.pilotAccount().id()) + "&price=" + encodeURIComponent(self.montantCredit());
+						window.location.href = url;
+					}
+					else
+					{
+						var url = "templates/credit_creditCard.htm?pilotAccount_id=" + encodeURIComponent(self.pilotAccount().id()) + "&price=" + encodeURIComponent(self.montantCredit());
+						window.location.href = url;
+					}
 				}
 				
 			}else{
