@@ -8,9 +8,11 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		var noErrorClasses = 'fa fa-check';
 		var errorClasses = 'fa fa-times';
 		//OBSERVABLES
+		
+		self.succesForm = ko.observable();
+		
 		//Modification
 		self.pilotAccount = ko.observable(baseVM.currentPilot());
-		
 
 		self.createAccountFormValidatorError = ko.observable("");
 		//Suppression
@@ -28,7 +30,7 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 					pilotAccount_firstName:self.pilotAccount().firstName(),
 					pilotAccount_phone:self.pilotAccount().phone()
 				}
-				services.modifyPilotAccount(self.pilotAccount().id(),modifiedPilot,baseVM.initPilot(baseVM.currentPilot().id()));		
+				services.modifyPilotAccount(self.pilotAccount().id(),modifiedPilot);		
 			}else{
 				alert("Veuillez compléter le formulaire en entier.\n Saisissez une adresse mail valide");	
 			}
@@ -41,7 +43,9 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 				    newPassword:self.newMdp()
 				}
 				console.log(modifiedPilot);
-				services.modifyPilotMdpAccount(self.pilotAccount().id(),modifiedPilot);		
+				services.modifyPilotMdpAccount(self.pilotAccount().id(),modifiedPilot,function(){
+					self.succesForm(true);
+				});		
 			}else{
 				alert("Veuillez compléter le formulaire en entier.\n Saisissez une adresse mail valide");	
 			}
@@ -136,7 +140,8 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		});
 		self.phoneValidator = ko.computed(function () {
 			var hasError = false;
-			if(self.pilotAccount().phone().length==0) {
+			var phoneRegexInternational =new RegExp("^(\ +[1-9]{2-3}[0-9]{7,11})|([0-9]{10,15})$");
+				if(self.pilotAccount().phone().length==0 || !phoneRegexInternational.test(self.pilotAccount().phone())) {
 			  hasError = true;
 			}
 			
@@ -159,6 +164,11 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 					return false;
 				}
 		});
+		
+		 self.displaySuccessLanding  = ko.computed(function(){
+                if(self.succesForm())
+                    return (self.succesForm()) ? "show" : "hidden";
+         });
 		
 		console.log(baseVM);
 		console.log(baseVM.currentPage());

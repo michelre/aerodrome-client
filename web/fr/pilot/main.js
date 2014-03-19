@@ -5,6 +5,9 @@ requirejs.config({
     shim:{
         'typeahead': {
             "deps": ["jquery"]
+        },
+		'jquery-cookie': {
+            "deps": ["jquery"]
         }
     },
 
@@ -15,7 +18,8 @@ requirejs.config({
         "typeahead": "../common/vendor/js/typeahead",
         "knockout": "../common/vendor/js/knockout",
         "sammy": "../common/vendor/js/sammy",
-        "text": "../common/vendor/js/text"
+        "text": "../common/vendor/js/text",
+		"jquery-cookie":"../common/vendor/js/jquery-cookie"
     }
 });
 require(["pilot/js/pilot"]);
