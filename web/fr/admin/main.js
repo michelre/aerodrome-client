@@ -5,6 +5,9 @@ requirejs.config({
 	 shim:{
         'typeahead': {
             "deps": ["jquery"]
+        },
+        'jquery-cookie':{
+            "deps": ["jquery"]
         }
     },
 
@@ -12,6 +15,7 @@ requirejs.config({
         "admin": ".",
 		"common": "../common",
         "jquery": "../common/vendor/js/jquery-2.1",
+        "jquery-cookie": "../common/vendor/js/jquery-cookie",
 		"typeahead": "../common/vendor/js/typeahead",
         "knockout": "../common/vendor/js/knockout",
         "sammy": "../common/vendor/js/sammy",

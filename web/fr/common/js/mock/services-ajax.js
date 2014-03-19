@@ -37,7 +37,9 @@ define(["jquery", "common/js/mock/get"], function($, _get){
             callback(_get.getManagers().managers)
         },
         getServicesByAirbase: function(id,callback){
-            callback(_get.getServicesByAirbase(id).services);
+            setTimeout(function(){
+                callback(_get.getServicesByAirbase(id).services);
+            }, 1000)
         },
 		getService: function(id,callback){
             callback(_get.getService(id).service);
