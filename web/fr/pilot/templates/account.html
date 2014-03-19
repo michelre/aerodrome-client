@@ -2,63 +2,92 @@
 	 <section id="contenu">
         <h1>Paramètre de votre compte</h1>
 		<section class="row" id="account">
-			<section class="col-xs-12 col-sm-5 col-md-5 col-lg-5" id="modify-account">
-				<p class="bg-success hidden" data-bind="css: displaySuccessUpdate">La mise a jour du compte a bien été effectuée</p>
+			<section class="col-xs-12 col-sm-6 col-md-5 col-lg-5" id="modify-account">
+				<p class="msg-client alert alert-success hidden" data-bind="css: displaySuccessUpdate">La mise a jour du compte a bien été effectuée</p>
+				<p class="msg-client alert alert-warning hidden" data-bind="css: displayWarningUpdate">Veuillez compléter le formulaire en entier.</br>Saisissez une adresse mail valide</p>
 				<h2>Modifier vos informations</h2>
-				<form role="form">
-				<table id="modify-account-table" class="table-login">
-					<tr>
-						<td><label for="mail">Mail:</label></td>
-						<td><input type="email" class="form-control" data-bind="value: pilotAccount().mail" name="mail" id="mail" placeholder="Votre mail"/></td>
-						<td><i data-bind="css: mailValidator"></i></td>
-					</tr
-					<tr>
-						<td><label for="lastName">Nom:</label></td>
-						<td><input type="text" class="form-control" data-bind="value: pilotAccount().lastName" name="lastName" id="lastName" placeholder="Votre nom"/></td>
-						<td><i data-bind="css: lastNameValidator"></i></td>
-					</tr>
-					<tr>
-						<td><label for="firstName">Prénom:</label></td>
-						<td><input type="text" class="form-control" data-bind="value: pilotAccount().firstName" name="firstName" id="firstName" placeholder="Votre prénom"/></td>
-						<td><i data-bind="css: firstNameValidator"></i></td>
-					</tr>
-					<tr>
-						<td><label for="phone">Tèl:</label></td>
-						<td><input type="text" class="form-control" data-bind="value: pilotAccount().phone" name="phone" id="phone" placeholder="+33..."/></td>
-						<td><i data-bind="css: phoneValidator"></i></td>
-					</tr>
-					<tr>
-						<td colspan="2"><button data-bind="click: clickModifyAccount" class="btn btn-primary">Valider</button></td>
-					</tr>
-				</table>
-			</form>
-			</section>
-			<section class="row col-xs-12  col-sm-offset-1 col-sm-6  col-md-offset-1 col-md-6  col-lg-offset-1 col-lg-6">
-				<section class="col-xs-12 col-sm-12 col-md-12 col-lg-12"" id="modify-mp-account">
-					<h2>Modifier votre mot de passe</h2>
-					<form role="form">
-					<table id="modify-account-table" class="table-login">
-						<tr>
-							<td><label for="pass">Ancien mot de passe:</label></td> 
-							<td><input type="password" class="form-control" data-bind="value: oldMdp" name="oldPass" id="oldPass" placeholder="6 caractères minimum"/></td>
-							<td><i data-bind="css: passValidator"></i></td>
-						</tr>
-						 <tr>
-							<td><label for="pass">Nouveau mot de passe:</label></td> 
-							<td><input type="password" class="form-control" data-bind="value: newMdp" name="pass" id="pass" placeholder="6 caractères minimum"/></td>
-							<td><i data-bind="css: passValidatorWithConfirm"></i></td>
-						</tr>
-						<tr>
-							<td><label for="pass-confirmation">Confirmation:</label></td>
-							<td><input type="password" class="form-control" data-bind="value: passConfirmation" name="pass-confirmation" id="pass-confirmation" placeholder="Mot de passe"/></td>
-							<td><i data-bind="css: passValidatorWithConfirm"></i></td>
-						</tr> 
+				<form class="form-horizontal" role="form">
+						<section data-bind="css: mailValidator" class="form-group has-feedback">
+							<label class="col-sm-2 control-label" for="mail">Email</label>
+							<div class="col-sm-10">
+								<input type="email" class="form-control" data-bind="value: pilotAccount().mail" name="mail" id="mail" placeholder="Votre mail"/>
+								<i data-bind="css: mailValidatorIcon" class="form-control-feedback"></i>
+							</div>
+						</section>
 						
-						<tr>
-							<td><button data-bind="click: clickModifyMdpAccount" class="btn btn-primary">Valider</button></td><td><a>mot de passe oublié</a></td>
-						</tr>
-					</table>
-				</form>
+						<section data-bind="css: lastNameValidator" class="form-group has-feedback">
+							<label class="col-sm-2  control-label" for="lastName">Nom</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" data-bind="value: pilotAccount().lastName" name="lastName" id="lastName" placeholder="Votre nom"/>
+								<i data-bind="css: lastNameValidatorIcon" class="form-control-feedback"></i>
+							</div>
+						</section>
+						
+						<section data-bind="css: firstNameValidator" class="form-group has-feedback">
+							<label class="col-sm-2  control-label" for="firstName">Prénom</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" data-bind="value: pilotAccount().firstName" name="firstName" id="firstName" placeholder="Votre prénom"/>
+								<i data-bind="css: firstNameValidatorIcon" class="form-control-feedback"></i>
+							</div>
+						</section>
+						
+						<section data-bind="css: phoneValidator" class="form-group has-feedback">
+							<label class="col-sm-2  control-label" for="phone">Tèl</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" data-bind="value: pilotAccount().phone" name="phone" id="phone" placeholder="+33..."/>
+								<i data-bind="css: phoneValidatorIcon" class="form-control-feedback"></i>
+							</div>
+						</section>
+						
+						<section class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button data-bind="click: clickModifyAccount" class="btn btn-primary">Modifier</button>
+							</div>
+						</section>
+				</form>	
+			</section>
+			<section id="col-left" class="row col-xs-offset-0 col-xs-12  col-sm-offset-1 col-sm-5  col-md-offset-1 col-md-6  col-lg-offset-1 col-lg-6">
+				<section class="col-xs-12 col-sm-12 col-md-12 col-lg-12"" id="modify-mp-account">
+					<p class="msg-client alert alert-success hidden" data-bind="css: displaySuccessUpdateMdp">La mise a jour du mot de passe a bien été effectuée</p>
+					<p class="msg-client alert alert-danger hidden" data-bind="css: displayErrorUpdateMdp">La mise a jour du mot de passe a échoué.</br>Ancien mot de passe incorrect ou nouveau mot de passe incorrect</p>
+					<p class="msg-client alert alert-warning hidden" data-bind="css: displayWarningUpdateMdp">Veuillez compléter le formulaire en entier.</br>Saisissez des mots de passe valide</p>
+						<h2>Modifier votre mot de passe</h2>
+						<form class="form-horizontal" role="form">
+							<section data-bind="css: passValidator" class="form-group has-feedback">
+								<label class="col-sm-3 control-label" for="pass">Ancien mot de passe</label>
+								<div class="col-sm-9">
+									<input type="password" class="form-control" data-bind="value: oldMdp" name="oldPass" id="oldPass" placeholder="6 caractères minimum"/>
+									<i data-bind="css: passValidatorIcon" class="form-control-feedback"></i>
+								</div>
+							</section>
+							
+							<section data-bind="css: passValidatorWithConfirm" class="form-group has-feedback">
+								<label class="col-sm-3  control-label" for="newPass">Nouveau mot de passe</label>
+								<div class="col-sm-9">
+									<input type="password" class="form-control" data-bind="value: newMdp" name="pass" id="pass" placeholder="6 caractères minimum"/>
+									<i data-bind="css: passValidatorWithConfirmIcon" class="form-control-feedback"></i>
+								</div>
+							</section>
+							
+							<section data-bind="css: passValidatorWithConfirm" class="form-group has-feedback">
+								<label class="col-sm-3  control-label" for="pass-confirmation">Confirmer mot de passe</label>
+								<div class="col-sm-9">
+									<input type="password" class="form-control" data-bind="value: passConfirmation" name="pass-confirmation" id="pass-confirmation" placeholder="Mot de passe"/>
+									<i data-bind="css: passValidatorWithConfirmIcon" class="form-control-feedback"></i>
+								</div>
+							</section>
+							<section class="form-group">
+								<div class="col-sm-offset-3 col-sm-9">
+									<button data-bind="click: clickModifyMdpAccount" class="btn btn-primary">Modifier</button>
+								</div>
+							</section>
+							
+							<section class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<a>Mot de passe oublié</a>
+								</div>
+							</section>
+					</form>	
 				</section>
 				<section class="col-xs-12 col-sm-12 col-md-12 col-lg-12"  id="delete-account">
 					<h2>Supprimer votre compte</h2>
