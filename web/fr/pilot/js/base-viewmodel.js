@@ -2,7 +2,7 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
     function (ko, accueilVM, creditVM, paymentVM, factureVM, plusVM, accountVM,servicesAjax,servicesAjaxMock, pilot) {
     return function(){
             var self = this;
-			var services = servicesAjaxMock;
+			var services = servicesAjax;
 			
             //OBSERVABLES
             self.currentPage = ko.observable();
