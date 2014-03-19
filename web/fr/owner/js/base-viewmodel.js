@@ -10,6 +10,15 @@ define(["knockout", "owner/js/accueil-viewmodel" ,"owner/js/services-viewmodel" 
 
 		self.currentServiceId = null;
 		self.currentAirbaseId = null;
+		
+		self.initAirbaseManager = function(id,callback){
+			services.getAirbaseManager(id,function(data){
+				self.currentPilot(new manager(data.pilotAccount_id,data.pilotAccount_firstName,data.pilotAccount_lastName, data.pilotAccount_phone,null,data.pilotAccount_mail,data.pilotAccount_basket))
+				if(callback)
+					callback();
+				})
+		}
+	
 		//COMPUTED
 		self.homeActiveClass = ko.computed(function () {
 		   return (self.currentPage() === "Accueil") ? "active" : "";

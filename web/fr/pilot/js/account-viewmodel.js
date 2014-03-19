@@ -9,7 +9,7 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		var errorClasses = 'fa fa-times';
 		//OBSERVABLES
 		
-		self.succesForm = ko.observable();
+		self.successForm = ko.observable();
 		
 		//Modification
 		self.pilotAccount = ko.observable(baseVM.currentPilot());
@@ -30,7 +30,10 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 					pilotAccount_firstName:self.pilotAccount().firstName(),
 					pilotAccount_phone:self.pilotAccount().phone()
 				}
-				services.modifyPilotAccount(self.pilotAccount().id(),modifiedPilot);		
+				services.modifyPilotAccount(self.pilotAccount().id(),modifiedPilot,function(){
+					console.log("OK");
+					self.successForm(true);
+				});		
 			}else{
 				alert("Veuillez compléter le formulaire en entier.\n Saisissez une adresse mail valide");	
 			}
@@ -43,9 +46,7 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 				    newPassword:self.newMdp()
 				}
 				console.log(modifiedPilot);
-				services.modifyPilotMdpAccount(self.pilotAccount().id(),modifiedPilot,function(){
-					self.succesForm(true);
-				});		
+				services.modifyPilotMdpAccount(self.pilotAccount().id(),modifiedPilot);		
 			}else{
 				alert("Veuillez compléter le formulaire en entier.\n Saisissez une adresse mail valide");	
 			}
@@ -165,13 +166,8 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 				}
 		});
 		
-		 self.displaySuccessLanding  = ko.computed(function(){
-                if(self.succesForm())
-                    return (self.succesForm()) ? "show" : "hidden";
+		 self.displaySuccessUpdate  = ko.computed(function(){
+                return self.successForm() ? "show" : "hidden";
          });
-		
-		console.log(baseVM);
-		console.log(baseVM.currentPage());
-		console.log(baseVM.currentPilot());
     }
 });

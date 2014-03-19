@@ -70,10 +70,17 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				dataType: "json",
 				data: JSON.stringify(dataAccount)
 			}).done(function(data, textStatus, jqXHR){
-				$.cookie("id",data.pilotAccount.pilotAccount_id,{path:'/'})
-				$.cookie("role",data.role,{path:'/'});
 				
-				console.log(document.cookie);
+				if(data.role=="pilotAccount"){
+					$.cookie("id",data.pilotAccount.pilotAccount_id,{path:'/'})
+					$.cookie("role",data.role,{path:'/'});
+				}else if (data.role=="superAdmin"){
+					
+				}else if (data.role=="airbaseManager"){
+					$.cookie("id",data.airbaseManager.airbaseManager_id,{path:'/'})
+					$.cookie("role",data.role,{path:'/'});
+				}
+				
 				
                     if(callback)
                         callback(data, textStatus, jqXHR)
@@ -83,6 +90,23 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
                      callback(null,jqXHR.status);
 					 
 				  }
+			})
+		},
+		disconnectAccount: function(callback){
+			$.ajax({
+				url: SaNPoint+"logout",
+				method:"GET",
+			}).done(function(data, textStatus, jqXHR){
+				
+				$.removeCookie("id", { path: '/' });
+				$.removeCookie("role", { path: '/' });
+				
+                    if(callback)
+                        callback();
+			}).fail(function(jqXHR,status){
+				
+					 console.log("Error disconnectAccount:", jqXHR);
+                   
 			})
 		},
 		getAirbases: function (callback) {
@@ -159,6 +183,18 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
                         callback(data)
                 }).fail(function (jqXHR) {
                     console.log("Error getOwner:", jqXHR);
+                })
+        },
+		
+		getAirbaseManager: function (id,callback) {
+            $.ajax({
+                url: SaNPoint+"AirbaseManager/"+id,
+				method:"GET"
+            }).done(function (data) {
+                    if(callback)
+                        callback(data)
+                }).fail(function (jqXHR) {
+                    console.log("Error getAirbaseManager:", jqXHR);
                 })
         },
 		
