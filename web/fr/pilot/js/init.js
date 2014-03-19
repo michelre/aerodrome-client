@@ -15,7 +15,7 @@
 
 		// skel
 			skel: {
-				prefix: '../css/style',
+				prefix: '../css/credit_2',
 				resetCSS: true,
 				useOrientation: true,
 				boxModel: 'border',
