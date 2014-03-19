@@ -27,6 +27,11 @@ define(["knockout"], function (ko) {
 			}
 		};
 		
+		//Validator
+		self.isPositiveNumber = function(value){
+			return (""+value).length>0 && !isNaN(value)	&& eval(value)>=0;
+		};
+		
 		self.checkName = ko.computed(function(){
 			return self.name()!=="" ? noErrorClass : errorClass;
 		});
@@ -44,11 +49,11 @@ define(["knockout"], function (ko) {
 		});
 		
 		self.checkPriceIcon = ko.computed(function(){
-			return (""+self.price()).length>0 && !isNaN(self.price()) ? noErrorIconClass : errorIconClass;
+			return self.isPositiveNumber(self.price()) ? noErrorIconClass : errorIconClass;
 		});
 		
 		self.checkPrice = ko.computed(function(){
-			return (""+self.price()).length>0 && !isNaN(self.price()) ? noErrorClass : errorClass;
+			return self.isPositiveNumber(self.price()) ? noErrorClass : errorClass;
 		});
-    }
+    };
 });

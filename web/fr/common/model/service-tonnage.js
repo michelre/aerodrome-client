@@ -19,10 +19,14 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
 
         //SERVICES
         self.init = function(){
+			//console.log(weightRangeServices.length);
+			if(weightRangeServices===undefined){
+				weightRangeServices=[];
+			}
             for(var i = 0; i < weightRangeServices.length; i++){
-                self.weightRangeServices.push(new weightRange(weightRangeServices[i].service_weightRangeService_id,weightRangeServices[i].service_WeightRangeService_tonMin,
-                    weightRangeServices[i].service_WeightRangeService_tonMax, weightRangeServices[i].service_WeightRangeService_priceFixed,
-                    weightRangeServices[i].service_WeightRangeService_pricePerTon))
+                self.weightRangeServices.push(new weightRange(weightRangeServices[i].weightRangeService_id,weightRangeServices[i].weightRangeService_tonMin,
+                    weightRangeServices[i].weightRangeService_tonMax, weightRangeServices[i].weightRangeService_priceFixed,
+                    weightRangeServices[i].weightRangeService_pricePerTon));
             }
         };
 
@@ -79,5 +83,5 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
 
         self.init();
 
-    }
+    };
 });

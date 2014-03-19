@@ -14,8 +14,7 @@ define(["knockout", "common/model/manager"], function (ko, _manager) {
         });
 
         self.init = function(){
-            self.manager(new _manager(manager.airbaseManager_id, manager.airbaseManager_firstName, manager.airbaseManager_lastName,
-                manager.airbaseManager_address, manager.airbaseManager_phone, manager.airbaseManager_mail, manager.airbaseManager_pass))
+            self.manager(new _manager(manager.airbaseManager_id, manager.airbaseManager_firstName, manager.airbaseManager_lastName, manager.airbaseManager_address, manager.airbaseManager_phone, manager.airbaseManager_mail, manager.airbaseManager_pass))
         }
 
         self.init();
