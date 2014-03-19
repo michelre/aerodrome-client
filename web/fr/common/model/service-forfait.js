@@ -16,6 +16,7 @@ define(["knockout"], function (ko) {
         self.aircraftTypeCode = ko.observable(aircraftTypeCode);
 
         self.checked = ko.observable(false);
+        self.quantity = ko.observable(1);
 		
 		self.isValid = function () {
 			if(self.checkName()===noErrorClass &&
@@ -50,5 +51,9 @@ define(["knockout"], function (ko) {
 		self.checkPrice = ko.computed(function(){
 			return (""+self.price()).length>0 && !isNaN(self.price()) ? noErrorClass : errorClass;
 		});
+
+        self.totalPrice = ko.computed(function(){
+            return self.quantity() * self.price();
+        })
     }
 });

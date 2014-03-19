@@ -1,8 +1,7 @@
-define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmodel", "admin/js/accueil-viewmodel", "admin/js/personnel-viewmodel", "common/js/services-ajax","common/js/mock/services-ajax","common/model/admin"],
-    function (ko, plateformsVM, plateformVM, accueilVM, personnelVM, servicesAjax, servicesAjaxMock,admin) {
+define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmodel", "admin/js/accueil-viewmodel", "admin/js/personnels-viewmodel", "admin/js/personnel-create-viewmodel", "common/js/services-ajax","common/js/mock/services-ajax","common/model/admin"],
+    function (ko, plateformsVM, plateformVM, accueilVM, personnelsVM, personnelCreateVM, servicesAjax, servicesAjaxMock,admin) {
         return function baseVM() {
             var self = this;
-            console.log(servicesAjax)
             var services = servicesAjaxMock;
 
             //OBSERVABLES
@@ -58,7 +57,7 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
             self.activeIcon = ko.computed(function(){
                 if(self.currentPage() === "Accueil") return "fa fa-home";
                 if(self.currentPage() === "Plateforme") return "fa fa-fighter-jet";
-                if(self.currentPage() === "Personnel") return "fa fa-fighter-jet";
+                if(self.currentPage() === "Personnel") return "fa fa-user";
             });
 
             self.setCurrentVM = ko.computed(function(){
@@ -66,12 +65,14 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
                 if(self.activeTemplate() === "airbase-admin-template") self.currentVM(new plateformsVM(self, self.managers));
                 if(self.activeTemplate() === "airbase-create-admin-template") self.currentVM(new plateformsVM(self, self.managers));
                 if(self.activeTemplate() === "airbase-view-admin-template") self.currentVM(new plateformVM(self, self.airbaseToUpdate, self.managers));
-                if(self.activeTemplate() === "personnel-view-admin-template") self.currentVM(new personnelVM(self));
+                if(self.activeTemplate() === "personnels-admin-template") self.currentVM(new personnelsVM(self));
+                if(self.activeTemplate() === "personnel-create-admin-template") self.currentVM(new personnelCreateVM(self));
             });
 
             self.setActiveTemplate = ko.computed(function(){
                 if(self.currentPage() === "Accueil") self.activeTemplate("home-admin-template");
-                if(self.currentPage() === "Personnel") self.activeTemplate("personnel-admin-template");
+                if(self.currentPage() === "Personnel"  && self.currentAction() === "view-all") self.activeTemplate("personnels-admin-template");
+                if(self.currentPage() === "Personnel"  && self.currentAction() === "create") self.activeTemplate("personnel-create-admin-template");
                 if(self.currentPage() === "Plateforme" && self.currentAction() === "view-all" && self.managers !== undefined) self.activeTemplate("airbase-admin-template");
                 if(self.currentPage() === "Plateforme" && self.currentAction() === "create") self.activeTemplate("airbase-create-admin-template");
                 if(self.currentPage() === "Plateforme" && self.currentAction() === "update-one" && self.airbaseToUpdate !== undefined) self.activeTemplate("airbase-view-admin-template");

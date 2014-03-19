@@ -10,5 +10,9 @@ define(["knockout"], function (ko) {
            return self.immat() !== "" && self.weight() !== "";
         });
 
+        self.checkNegativeWeight = ko.computed(function(){
+            (self.weight() <= 0 && self.weight()) ? self.weight(1) : self.weight();
+        })
+
     }
 });
