@@ -15,18 +15,18 @@ define(["knockout", "owner/js/accueil-viewmodel" ,"owner/js/services-viewmodel" 
 		
 		self.initAirbaseManager = function(id,callback){
 			services.getAirbaseManager(id,function(data){
-			self.currentAirebaseManager(new manager(data.airbaseManager_id,data.airbaseManager_firstName,data.airbaseManager_lastName,data.airbaseManager_address, data.airbaseManager_phone,data.airbaseManager_mail,null))
+			self.currentAirebaseManager(new manager(data.airbaseManager_id,data.airbaseManager_firstName,data.airbaseManager_lastName,data.airbaseManager_address, data.airbaseManager_phone,data.airbaseManager_mail,null));
 				if(callback)
 					callback();
-			})
-		}
+			});
+		};
 		
 		self.clickDisconnect = function(){
 			console.log("disconnect");
 			services.disconnectAccount(function(){
 				window.location.replace("/fr/login");
 			});
-		}
+		};
 	
 		//COMPUTED
 		self.homeActiveClass = ko.computed(function () {
@@ -48,11 +48,9 @@ define(["knockout", "owner/js/accueil-viewmodel" ,"owner/js/services-viewmodel" 
 		});
 
 		self.setCurrentVM = ko.computed(function(){
-			if(self.activeTemplate() === "home-owner-template")  self.currentVM(new accueilVM());
-			if(self.activeTemplate() === "services-owner-template") self.currentVM(new servicesVM());
-			if(self.activeTemplate() === "service-view-owner-template"){
-				self.currentVM(new serviceViewVM(self.currentServiceId,self.currentAirbaseId));
-			}
+			if(self.activeTemplate() === "home-owner-template")  self.currentVM(new accueilVM(self));
+			if(self.activeTemplate() === "services-owner-template") self.currentVM(new servicesVM(self));
+			if(self.activeTemplate() === "service-view-owner-template") self.currentVM(new serviceViewVM(self));
 		});
 
 		self.setActiveTemplate = ko.computed(function(){
@@ -60,5 +58,5 @@ define(["knockout", "owner/js/accueil-viewmodel" ,"owner/js/services-viewmodel" 
 			if(self.currentPage() === "Services") self.activeTemplate("services-owner-template");
 			if(self.currentPage() === "Service") self.activeTemplate("service-view-owner-template");
 		});
-	}
+	};
 });
