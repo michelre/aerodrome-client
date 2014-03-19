@@ -11,7 +11,7 @@
 			useSectionTransitions: true,
 
 		// Fade in speed (in ms)
-			fadeInSpeed: 1000,
+			fadeInSpeed: 500,
 
 		// skel
 			skel: {
@@ -50,7 +50,7 @@
 		skel.init(_settings.skel);
 
 	// jQuery
-		jQuery(function() {
+		$(function() {
 
 			var $window = $(window),
 				$body = $('body'),
@@ -171,3 +171,74 @@
 				});
 
 		});
+		
+				//Sera Externalisé
+		var queryString = new Array();
+		$(function () {
+			if (queryString.length == 0) {
+				if (window.location.search.split('?').length > 1) {
+					var params = window.location.search.split('?')[1].split('&');
+					for (var i = 0; i < params.length; i++) {
+						var key = params[i].split('=')[0];
+						var value = decodeURIComponent(params[i].split('=')[1]);
+						queryString[key] = value;
+					}
+				}
+			}
+			$(queryString["price"]).appendTo($("#montant").val());
+			//--------------------------------------
+			//Assign the price to the Input
+			$('#montant').val(queryString["price"]);
+			
+			//--------------------------------------
+			//Cancel the Payment Transaction
+			$("#cancelTransaction").click(function()
+			{
+				history.go(-1); return false;
+			});
+			//--------------------------------------
+			//Confirm the Payment Transaction
+			$("#confirmTransaction").click(function()
+			{
+				var newCredit=
+				{
+					pilotAccount_id:queryString["pilotAccount_id"],
+					price:queryString["price"]
+					
+				}
+				creditBasket(newCredit);
+			});
+		});
+		//--------------------------------------
+		//Credit the Basket Function
+		
+		function creditBasket(dataCredit,callback)
+		{
+			var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
+			//var SaNPoint = "http://localhost/ws/";
+			$.ajax({
+				url: SaNPoint+"pilot/"+dataCredit.pilotAccount_id+"/credit",
+				dataType: "json",
+				data: JSON.stringify(dataCredit),
+				method:"PUT",
+				success: function(){
+					$( "#dialog_message" ).show();
+					$( "#dialog_message" ).dialog({
+					  modal: true,
+					  width: 620,
+					  buttons: {
+							Ok: function() {
+							  $( this ).dialog( "close" );
+							  history.go(-1); return false;
+							}
+					  }
+					});
+				},
+			}).done(function(data)
+			{
+				if(callback)
+					callback(data)
+			}).fail(function(jqXHR){
+				console.log("Error crediterCompte:", jqXHR);
+			});
+		}
