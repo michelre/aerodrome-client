@@ -76,6 +76,9 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 					$.cookie("role",data.role,{path:'/'});
 				}else if (data.role=="superAdmin"){
 					
+				}else if (data.role=="airbaseManager"){
+					$.cookie("id",data.airbaseManager.airbaseManager_id,{path:'/'})
+					$.cookie("role",data.role,{path:'/'});
 				}
 				
 				
@@ -180,6 +183,18 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
                         callback(data)
                 }).fail(function (jqXHR) {
                     console.log("Error getOwner:", jqXHR);
+                })
+        },
+		
+		getAirbaseManager: function (id,callback) {
+            $.ajax({
+                url: SaNPoint+"AirbaseManager/"+id,
+				method:"GET"
+            }).done(function (data) {
+                    if(callback)
+                        callback(data)
+                }).fail(function (jqXHR) {
+                    console.log("Error getAirbaseManager:", jqXHR);
                 })
         },
 		
