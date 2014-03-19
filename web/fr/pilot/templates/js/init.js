@@ -111,36 +111,11 @@
 							
 								if (!skel.isActive('mobile')) {
 									
-									if (!sectionTransitionState) {
-									
+									if (!sectionTransitionState) 
 										sectionTransitionState = true;
-									}
-
 								}
-								else {
-
+								else
 									sectionTransitionState = false;
-
-									// Generic sections
-										$('.main.style1')
-											.unscrollwatch()
-											.removeClass('inactive');
-										
-										$('.main.style2')
-											.unscrollwatch()
-											.removeClass('inactive');
-								
-									// Work
-										$('#work')
-											.unscrollwatch()
-											.find('.row.images').removeClass('inactive');
-
-									// Contact
-										$('#contact')
-											.unscrollwatch()
-											.removeClass('inactive');
-								
-								}
 
 							}
 						

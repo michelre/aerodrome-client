@@ -6,14 +6,14 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-		<!--<script src="../../common/vendor/js/jquery-2.1.js"></script>-->
+		<script src="../../common/vendor/js/jquery-2.1.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/init.js"></script>
 
-		<script src="js/jquery-1.10.2.js"></script>
 		<script src="js/jquery-ui-1.10.4.custom.js"></script>
+		<link href="css/smoothness/jquery-ui-1.10.4.custom.css" rel="stylesheet">
 		<noscript>
-			<link href="css/smoothness/jquery-ui-1.10.4.custom.css" rel="stylesheet">
+
 			<link rel="stylesheet" href="css/skel-noscript.css" />
 			<link rel="stylesheet" href="css/style.css" />
 		</noscript>
@@ -34,19 +34,19 @@
 					}
 				}
 			}
-			if (queryString["pilotAccount_id"] != null && queryString["price"] != null) {
-				var data = "<u>Vous allez payer:</u><br /><br />";
-				
-				data += "<b>Pilot ID:</b> " + queryString["pilotAccount_id"] + " <b>Montant:</b> " + queryString["price"];
-				//$("#mydiv").html(data);
-			}
 			$(queryString["price"]).appendTo($("#montant").val());
+			//--------------------------------------
+			//Assign the price to the Input
 			$('#montant').val(queryString["price"]);
 			
+			//--------------------------------------
+			//Cancel the Payment Transaction
 			$("#cancelPaypalTransaction").click(function()
 			{
 				history.go(-1); return false;
 			});
+			//--------------------------------------
+			//Confirm the Payment Transaction
 			$("#confirmPaypalTransaction").click(function()
 			{
 				var newCredit=
@@ -57,10 +57,12 @@
 				}
 				creditBasket(newCredit);
 			});
-
 		});
 		//--------------------------------------
-		function creditBasket(dataCredit,callback){
+		//Credit the Basket Function
+		
+		function creditBasket(dataCredit,callback)
+		{
 			//var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
 			var SaNPoint = "http://localhost/ws/";
 			$.ajax({
@@ -69,12 +71,15 @@
 				data: JSON.stringify(dataCredit),
 				method:"PUT",
 				success: function(){
+					$( "#dialog_message" ).show();
 					$( "#dialog_message" ).dialog({
 					  modal: true,
+					  width: 620,
 					  buttons: {
-						Ok: function() {
-						  $( this ).dialog( "close" );
-						}
+							Ok: function() {
+							  $( this ).dialog( "close" );
+							  history.go(-1); return false;
+							}
 					  }
 					});
 				},
@@ -124,15 +129,11 @@
 						</form>
 					</p>
 				</div>
-				<div id="dialog-message" title="Download complete">
-			  <p>
-				<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
-				Your files have downloaded successfully into the My Downloads folder.
-			  </p>
-			  <p>
-				Currently using <b>36% of your storage space</b>.
-			  </p>
-			</div>
+				<div style="display:none;" id="dialog_message" title="Paiement Paypal effectué">
+					  <p>
+							<img src="../images/paypal_logo.png" alt="paypal_logo">Merci de votre confiance !
+					  </p>
+				</div>
 			</section>
 			
 		<!-- Footer -->
