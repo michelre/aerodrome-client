@@ -6,15 +6,16 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
-		<script src="../../common/vendor/js/jquery-2.1.js"></script>
+		<!--<script src="../../common/vendor/js/jquery-2.1.js"></script>-->
 		<script src="js/skel.min.js"></script>
 		<script src="js/init.js"></script>
-		<script src="js/messi.min.js"></script>
-		
+
+		<script src="js/jquery-1.10.2.js"></script>
+		<script src="js/jquery-ui-1.10.4.custom.js"></script>
 		<noscript>
+			<link href="css/smoothness/jquery-ui-1.10.4.custom.css" rel="stylesheet">
 			<link rel="stylesheet" href="css/skel-noscript.css" />
 			<link rel="stylesheet" href="css/style.css" />
-			<link rel="stylesheet" href="css/messi.min.css" />
 		</noscript>
 		
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
@@ -61,14 +62,21 @@
 		//--------------------------------------
 		function creditBasket(dataCredit,callback){
 			var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
+			//var SaNPoint = "http://localhost/ws/";
 			$.ajax({
 				url: SaNPoint+"pilot/"+dataCredit.pilotAccount_id+"/credit",
 				dataType: "json",
 				data: JSON.stringify(dataCredit),
 				method:"PUT",
 				success: function(){
-					$("#payment_done").show();
-					Messi.ask('<img src="../images/paypal_logo.png" alt="paypal_logo">Paiement Paypal d\'un montant de <li id="montant"></li> effectué !', function(val) { history.go(-1); return false; });
+					$( "#dialog_message" ).dialog({
+					  modal: true,
+					  buttons: {
+						Ok: function() {
+						  $( this ).dialog( "close" );
+						}
+					  }
+					});
 				},
 			}).done(function(data)
 			{
@@ -115,6 +123,15 @@
 							</div>
 						</form>
 					</p>
+				</div>
+				<div id="dialog-message" title="Download complete">
+				  <p>
+					<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
+					Your files have downloaded successfully into the My Downloads folder.
+				  </p>
+				  <p>
+					Currently using <b>36% of your storage space</b>.
+				  </p>
 				</div>
 			</section>
 			
