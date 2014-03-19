@@ -1,6 +1,6 @@
 define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "pilot/js/payment-viewmodel", "pilot/js/facture-viewmodel", "pilot/js/plus-viewmodel","pilot/js/account-viewmodel","common/js/services-ajax","common/js/mock/services-ajax", "common/model/pilot"],
     function (ko, accueilVM, creditVM, paymentVM, factureVM, plusVM, accountVM,servicesAjax,servicesAjaxMock, pilot) {
-    return function baseVM() {
+    return function(){
             var self = this;
 			var services = servicesAjax;
 			
@@ -12,13 +12,15 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
 			
 			//SERVICE
 			
-			self.initPilot = function(id, callback){
+			self.initPilot = function(id,callback){
 				services.getPilotAccount(id,function(data){
-					self.currentPilot(new pilot(data.pilotAccount_id,data.pilotAccount_firstName,data.pilotAccount_lastName, data.pilotAccount_phone,null,data.pilotAccount_mail,data.pilotAccount_basket));
-                    if(callback)
-                        callback()
+					self.currentPilot(new pilot(data.pilotAccount_id,data.pilotAccount_firstName,data.pilotAccount_lastName, data.pilotAccount_phone,null,data.pilotAccount_mail,data.pilotAccount_basket))
+					if(callback)
+						callback();
 				})
 			}
+			
+			
 
             //COMPUTED
             self.homeActiveClass = ko.computed(function () {
