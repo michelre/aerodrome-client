@@ -33,17 +33,22 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
         //SERVICES
 		self.crediterCompte = function(){
 			if(self.allValidator())
-			{
-					alert(self.montantCredit);
+			{		
+				if(self.montantCredit() == "0")
+					alert("Merci de Saisir un montant supérieur à 0");
+				else
+				{
 					if (flag_paymentType == 1)
 					{
 						var url = "templates/credit_paypal.htm?pilotAccount_id=" + encodeURIComponent(self.pilotAccount().id()) + "&price=" + encodeURIComponent(self.montantCredit());
-						//window.location.href = url;
+						window.location.href = url;
 					}
 					else
 					{
-						window.location.replace("templates/credit_creditCard.html");
+						var url = "templates/credit_creditCard.htm?pilotAccount_id=" + encodeURIComponent(self.pilotAccount().id()) + "&price=" + encodeURIComponent(self.montantCredit());
+						window.location.href = url;
 					}
+				}
 				
 			}else{
 				alert("Les champs n'ont pas tous été saisis");
