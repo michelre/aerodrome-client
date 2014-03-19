@@ -1,6 +1,6 @@
 define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
-	var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
-	//var SaNPoint = "http://localhost/ws/";
+	//var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
+	var SaNPoint = "http://localhost/ws/";
 	return {
 		getPilotAccount: function(idPilot, callback){
 			$.ajax({
