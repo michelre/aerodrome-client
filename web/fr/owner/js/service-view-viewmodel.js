@@ -16,7 +16,11 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 			if(self.currentServiceId()!==null && self.currentServiceId()!=="new" && self.currentServiceId()!==undefined){
 				servicesCurrent.getService(self.currentServiceId(),function(data){ //edit service
 					//init all service types
-					self.serviceTonnage(new serviceTonnage(data.service_id, data.service_name,data.service_desc,data.service_aircraftTypeCode,data.service_weightRangeService));
+					var weightRange=[];
+					if(data.service_type==="tonnage"){
+						weightRange = data.service_weightRangeService;
+					}
+					self.serviceTonnage(new serviceTonnage(data.service_id, data.service_name,data.service_desc,data.service_aircraftTypeCode,weightRange));
 					self.serviceForfait(new serviceForfait(data.service_id, data.service_name, data.service_price,data.service_desc,data.service_aircraftTypeCode));
 					if(data.service_type==="tonnage"){
 						self.radioSelectedServiceType("Tonnage");
@@ -45,8 +49,19 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 						service_description:self.serviceAccordingType().desc(),
 						service_price:0,
 						service_type:"tonnage",
-						airbase_id: self.currentAirbaseId()
+						airbase_id: self.currentAirbaseId(),
+						service_weightRangeService :[]
 					};
+					for (var i = 0; i < self.serviceAccordingType().weightRangeServices().length; i++) {
+						newService.service_weightRangeService.push({
+							//service_id: self.serviceAccordingType().id(),
+							//weightRangeService_id: self.serviceAccordingType().weightRangeServices()[i].id(),
+							weightRangeService_tonMin: self.serviceAccordingType().weightRangeServices()[i].tonMin(),
+							weightRangeService_tonMax: self.serviceAccordingType().weightRangeServices()[i].tonMax(),
+							weightRangeService_priceFixed: self.serviceAccordingType().weightRangeServices()[i].priceFixed(),
+							weightRangeService_pricePerTon: self.serviceAccordingType().weightRangeServices()[i].pricePerTon()
+						});
+					}
 				}else{
 					errorForm=true;
 				}
@@ -59,40 +74,46 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 						service_price:self.serviceAccordingType().price(),
 						service_type:"forfait",
 						airbase_id: self.currentAirbaseId(),
-						service_weightRangeServices:[]
+						service_weightRangeService:[]
 					};
 				}else{
 					errorForm=true;
 				}
 			}
 			if(!errorForm){
+				console.log(ko.toJSON(newService));
 				if(self.currentServiceId()==="new"){
-					delete newService.service_id;					
-					
+					delete newService.service_id;
 					if(newService.service_type==='tonnage'){
-						servicesCurrent.createService(newService,self.updateCreateDeleteWeightRanger,self.serviceAccordingType());
+						servicesCurrent.createService(newService);
 					}else{
 						servicesCurrent.createService(newService);
 					}
-					//window.location.hash="services";
-					
-				}else{
-					
+					//window.location.hash="services";					
+				}else{	
 					if(newService.service_type==='tonnage'){
-						servicesCurrent.updateService(newService,self.updateCreateDeleteWeightRanger,self.serviceAccordingType());
-					}else{
 						servicesCurrent.updateService(newService);
-					}
-					
+					}else{
+						//self.deleteAllWeightRange(newService);
+						servicesCurrent.updateService(newService);
+					}			
 					//window.location.hash="services";
-					
 				}
 			}else{
 				alert("Veuillez compléter le formulaire en entier.");
 			}
 		};
-		
-		self.updateCreateDeleteWeightRanger = function(service,serviceId){
+		/*self.deleteAllWeightRange = function(service){
+			for(var i = 0; i < service.weightRangeServices().length; i++){
+				if(service.weightRangeServices()[i].editionStatus()!=="create"){
+					service.weightRangeServices()[i].editionStatus("delete");
+				}else{
+					self.serviceAccordingType().weightRangeServices.remove(service.weightRangeServices()[i]);
+				}
+			}
+			self.updateCreateDeleteWeightRanger(newService,newService.service_id);
+		};*/
+		/*self.updateCreateDeleteWeightRanger = function(service,serviceId){
 			for (var i = 0; i < service.weightRangeServices().length; i++) {
 				service_weightRangeService={
 					service_id: serviceId,
@@ -100,7 +121,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 					weightRangeService_tonMin: service.weightRangeServices()[i].tonMin(),
 					weightRangeService_tonMax: service.weightRangeServices()[i].tonMax(),
 					weightRangeService_priceFixed: service.weightRangeServices()[i].priceFixed(),
-					WeightRangeService_pricePerTon: service.weightRangeServices()[i].pricePerTon()
+					weightRangeService_pricePerTon: service.weightRangeServices()[i].pricePerTon()
 				};
 				if(service.weightRangeServices()[i].editionStatus()==="create"){
 					delete service_weightRangeService.weightRangeService_id;
@@ -108,22 +129,25 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 				}else if(service.weightRangeServices()[i].editionStatus()==="delete"){
 					servicesCurrent.deleteWeightRangeService(service_weightRangeService.weightRangeService_id);
 				}else{
-					servicesCurrent.updateWeightRangeService(service_weightRangeService.weightRangeService_id);
+					var id= service_weightRangeService.weightRangeService_id;
+					delete service_weightRangeService.weightRangeService_id;
+					delete service_weightRangeService.service_id;
+					servicesCurrent.updateWeightRangeService(id,service_weightRangeService);
 				}
 			}
-		}
+		};*/
 		
 		self.addWeightRange = function(){
-			self.serviceAccordingType().weightRangeServices.push(new weightRange("new", 0, 0, 0, 0,"create"));
+			self.serviceAccordingType().weightRangeServices.push(new weightRange("new", 0, 0, 0, 0));
 		};
 		
 		self.deleteWeightRange = function(weightRange){
-			if(weightRange.editionStatus()!=="create"){
-				weightRange.editionStatus("delete");
-				self.serviceAccordingType().weightRangeServices.remove(weightRange);
+			/*if(weightRangeData.editionStatus()!=="create"){
+				weightRangeData.editionStatus("delete");
 			}else{
 				self.serviceAccordingType().weightRangeServices.remove(weightRange);
-			}
+			}*/
+			self.serviceAccordingType().weightRangeServices.remove(weightRange);
 		};
 		
 		//COMPUTED	
@@ -139,16 +163,14 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 			return 	"Edition du service #"+self.currentServiceId();
 		});	
 		
-		
-		
-		self.allTonServiceValidator = function () {
+		/*self.allTonServiceValidator = function () {
 			var valid=true;
 			for (var i = 0; i < self.serviceTonnage.weightRangeServices().length; i++) {
 				typeof self.serviceTonnage.weightRangeServices()[i].tonMin()=== "number" ? valid=true  : valid=false;
 				typeof self.serviceTonnage.weightRangeServices()[i].tonMax()=== "number" ? valid=true  : valid=false;
 			}
 			return valid;
-		};
+		};*/
 
 	};
 });

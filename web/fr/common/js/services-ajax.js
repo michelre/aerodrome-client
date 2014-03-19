@@ -210,7 +210,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 			});
 		},
 		
-		updateService:function (dataService,callback,callbackData){
+		updateService:function (dataService,callback){
 			$.ajax({
 				url: SaNPoint+"service/"+dataService.service_id,
 			    dataType: "json",
@@ -218,13 +218,13 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				method:"PUT"
 			}).done(function(data){
                     if(callback)
-                        callback(callbackData,dataService.service_id)
+                        callback(data)
 			}).fail(function(jqXHR){
 				console.log("Error updateService:", jqXHR);
 			});
 		},
 		
-		createService:function (dataService,callback,callbackData){
+		createService:function (dataService,callback){
 			$.ajax({
 				url: SaNPoint+"service/",
 				dataType: "json",
@@ -232,7 +232,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				method:"POST"
 			}).done(function(data){
                     if(callback)
-                        callback(callbackData,data)
+                        callback(data)
 					return data.id; //besoin de l'id pour creation des weight range service
 			}).fail(function(jqXHR){
 				console.log("Error createService:", jqXHR);
@@ -300,9 +300,10 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
                 })
         },
 		
-		updateWeightRangeService:function (dataWeightRangeService,callback){
+		/*updateWeightRangeService:function (weightRangeService_id,dataWeightRangeService,callback){
+			console.log(dataWeightRangeService);
 			$.ajax({
-				url: SaNPoint+"weightRangeService/"+dataWeightRangeService.service_WeightRangeService_id,
+				url: SaNPoint+"weightRangeService/"+weightRangeService_id,
 			    dataType: "json",
 				data: JSON.stringify(dataWeightRangeService),
 				method:"PUT"
@@ -340,9 +341,9 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 			}).fail(function(jqXHR){
 				console.log("Error deleteWeightRangeService:", jqXHR);
 			})
-		}
+		}*/
 		
 		
 		
-	}
-})
+	};
+});
