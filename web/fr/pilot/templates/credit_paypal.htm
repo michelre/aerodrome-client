@@ -9,10 +9,14 @@
 		<script src="../../common/vendor/js/jquery-2.1.js"></script>
 		<script src="js/skel.min.js"></script>
 		<script src="js/init.js"></script>
+		<script src="js/messi.min.js"></script>
+		
 		<noscript>
 			<link rel="stylesheet" href="css/skel-noscript.css" />
 			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/messi.min.css" />
 		</noscript>
+		
 		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
 		
 		<script type="text/javascript">
@@ -54,28 +58,22 @@
 			});
 
 		});
+		//--------------------------------------
 		function creditBasket(dataCredit,callback){
 			var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
 			$.ajax({
 				url: SaNPoint+"pilot/"+dataCredit.pilotAccount_id+"/credit",
 				dataType: "json",
 				data: JSON.stringify(dataCredit),
-				method:"PUT"
-			}).success(function(data)
+				method:"PUT",
+				success: function(){
+					$("#payment_done").show();
+					Messi.ask('<img src="../images/paypal_logo.png" alt="paypal_logo">Paiement Paypal d\'un montant de <li id="montant"></li> effectué !', function(val) { history.go(-1); return false; });
+				},
+			}).done(function(data)
 			{
-				$( "#payment-done" ).dialog({
-				  modal: true,
-				  buttons: {
-					Ok: function() {
-					  $( this ).dialog( "close" );
-						history.go(-2); return false
-					}
-				  }
-				});
 				if(callback)
-				{
 					callback(data)
-				}
 			}).fail(function(jqXHR){
 				console.log("Error crediterCompte:", jqXHR);
 			});
@@ -117,13 +115,6 @@
 							</div>
 						</form>
 					</p>
-				<div style="display:none;" id="payment-done" title="Paiement effectué">
-				  <p>
-					<span class="ui-icon ui-icon-circle-check" style="float:left; margin:0 7px 50px 0;"></span>
-					<img src="../images/paypal_logo.png" alt="paypal_logo">
-					Paiement Paypal d'un montant de <li id='montant'></li> effectué !
-				  </p>
-				</div>
 				</div>
 			</section>
 			
