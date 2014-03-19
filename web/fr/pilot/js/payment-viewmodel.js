@@ -51,7 +51,6 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
                 self.servicesForfaitSelected.removeAll();
                 self.servicesTonnageSelected.removeAll();
                 services.getServicesByAirbase(id, function(data){
-                    console.log(data)
                     for(var i = 0; i < data.length; i++){
                         if(data[i].service_type === "forfait"){
                             self.servicesForfait.push(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,
@@ -62,7 +61,6 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax-bis", "pilot/bind
                                 data[i].service_desc, data[i].service_aircraftTypeCode, data[i].services_weightRangeServices));
                         }
                     }
-                    console.log(self.servicesTonnage()[0].weightRangeServices()[0])
                     if(callback)
                         callback();
                 });
