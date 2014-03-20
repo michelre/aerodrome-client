@@ -21,7 +21,11 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 				for(var i = 0 ; i < data.length; i++){
 					self.managerAirbases.push(new airbase(data[i].airbase_id, data[i].airbase_name, data[i].airbase_address, data[i].airbaseManager_firstname,self.currentAirbaseManager()));
 				}
-				self.chosenAirbase([eval(baseVM.currentAirbaseId)]);
+				if(baseVM.currentAirbaseId===null || baseVM.currentAirbaseId===undefined){
+					self.chosenAirbase(null);
+				}else{
+					self.chosenAirbase([eval(baseVM.currentAirbaseId)]);
+				}
 			});
 			   
 		};
