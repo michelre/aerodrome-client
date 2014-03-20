@@ -36,17 +36,21 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
 		self.crediterCompte = function(){
 			if(self.allValidator())
 			{		
+				//Test value to make sure it doesn't equal 0
 				if(self.montantCredit() == "0")
 					alert(msg_higherThan0);
+				//Confirm that the radio Box is Checked for the Payment Mode
 				else if ($('input[type=radio]:checked').length == 0)
 					alert(msg_radioBoxChecked);
 				else
 				{
+					//Paypal Choice
 					if (flag_paymentType == 1)
 					{
 						var url = "templates/credit_paypal.htm?pilotAccount_id=" + encodeURIComponent(self.pilotAccount().id()) + "&price=" + encodeURIComponent(self.montantCredit());
 						window.location.href = url;
 					}
+					//Credit Card
 					else
 					{
 						var url = "templates/credit_creditCard.htm?pilotAccount_id=" + encodeURIComponent(self.pilotAccount().id()) + "&price=" + encodeURIComponent(self.montantCredit());
