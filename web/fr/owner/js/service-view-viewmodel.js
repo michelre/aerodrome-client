@@ -60,7 +60,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 					};
 					for (var i = 0; i < self.serviceAccordingType().weightRangeServices().length; i++) {
 						newService.service_weightRangeService.push({
-							//service_id: self.serviceAccordingType().id(),
+							//service_id: self.serviceAccordingType().id(),	
 							weightRangeService_id: self.serviceAccordingType().weightRangeServices()[i].id(),
 							weightRangeService_tonMin: self.serviceAccordingType().weightRangeServices()[i].tonMin(),
 							weightRangeService_tonMax: self.serviceAccordingType().weightRangeServices()[i].tonMax(),
@@ -88,6 +88,11 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 			}
 			if(!errorForm){
 				console.log(ko.toJSON(newService));
+				for (var i = 0; i < newService.service_weightRangeService.length; i++) {
+					if(newService.service_weightRangeService[i].weightRangeService_id==="new"){
+						delete newService.service_weightRangeService[i].weightRangeService_id;
+					}
+				}
 				if(self.currentServiceId()==="new"){
 					delete newService.service_id;
 					if(newService.service_type==='tonnage'){
@@ -100,7 +105,6 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 					if(newService.service_type==='tonnage'){
 						servicesCurrent.updateService(newService);
 					}else{
-						//self.deleteAllWeightRange(newService);
 						servicesCurrent.updateService(newService);
 					}			
 					//window.location.hash="services";
