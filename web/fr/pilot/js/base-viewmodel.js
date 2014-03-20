@@ -22,13 +22,10 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
 			
 			self.clickDisconnect = function(){
 				services.disconnectAccount(function(){
-					console.log(document.cookie);
 					window.location.replace("/fr/login");
 				});
 			}
 			
-			
-
             //COMPUTED
             self.homeActiveClass = ko.computed(function () {
                return (self.currentPage() === "Accueil") ? "active" : "";
@@ -43,7 +40,7 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
             });
 
             self.factureActiveClass = ko.computed(function () {
-                return (self.currentPage() === "Historique") ? "active" : "";
+                return (self.currentPage() === "Archive") ? "active" : "";
             });
 
             self.plusActiveClass = ko.computed(function () {
@@ -54,7 +51,7 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
 				if(self.currentPage() === "Accueil") return "fa fa-home";
 				if(self.currentPage() === "Solde") return "fa fa-credit-card";
 				if(self.currentPage() === "Payer") return "fa fa-money";
-				if(self.currentPage() === "Historique") return "fa fa-inbox";
+				if(self.currentPage() === "Archive") return "fa fa-inbox";
 				if(self.currentPage() === "Plus") return "fa fa-plus";
                 if(self.currentPage() === "help") return "fa fa-question";
 			});
@@ -73,7 +70,7 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
                 if(self.currentPage() === "Accueil") self.activeTemplate("home-pilot-template");
                 if(self.currentPage() === "Solde") self.activeTemplate("credit-pilot-template");
                 if(self.currentPage() === "Payer") self.activeTemplate("payment-pilot-template");
-                if(self.currentPage() === "Historique") self.activeTemplate("facture-pilot-template");
+                if(self.currentPage() === "Archive") self.activeTemplate("facture-pilot-template");
                 if(self.currentPage() === "Plus") self.activeTemplate("plus-pilot-template");
 				if(self.currentPage() === "Gestion du compte") self.activeTemplate("account-pilot-template");
                 if(self.currentPage() === "Aide") self.activeTemplate("help-pilot-template");

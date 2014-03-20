@@ -62,10 +62,12 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 		},
 		deletePilotAccount: function(idPilot, callback){
 			$.ajax({
-				url: SaNPoint+"pilot/delete/"+idPilot,
+				url: SaNPoint+"pilot/"+idPilot,
 				dataType: "json",
 				method:"DELETE"
 			}).done(function(data){
+				$.removeCookie("id", { path: '/' });
+				$.removeCookie("role", { path: '/' });
                     if(callback)
                         callback(data)
 			}).fail(function(jqXHR){
@@ -90,7 +92,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 					$.cookie("role",data.role,{path:'/'});
 				}
                     if(callback)
-                        callback(data, textStatus, jqXHR)
+                        callback(data,jqXHR.status)
 			}).fail(function(jqXHR,status){
 				  if(callback){
 					 console.log("Error connectAccount:", jqXHR);
@@ -266,7 +268,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 			});
 		},
 		
-		createService:function (dataService,callback){
+		createService:function (dataService,callback,airbaseId){
 			$.ajax({
 				url: SaNPoint+"service/",
 				dataType: "json",
@@ -274,7 +276,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				method:"POST"
 			}).done(function(data,textstatus,jqXHR){
                     if(callback)
-                        callback(data,jqXHR.status);
+                        callback(data,jqXHR.status,airbaseId);
 					return data.id; //besoin de l'id pour creation des weight range service
 			}).fail(function(jqXHR){
 				console.log("Error createService:", jqXHR);
