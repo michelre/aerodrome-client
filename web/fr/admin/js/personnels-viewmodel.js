@@ -1,4 +1,4 @@
-define(["knockout", "common/model/manager", "common/js/mock/services-ajax"], function (ko, manager, services) {
+define(["knockout", "common/model/manager", "common/js/services-ajax"], function (ko, manager, services) {
     return function personnelVM(baseVM) {
         var self = this;
 		var baseVM = baseVM;
