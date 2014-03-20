@@ -51,7 +51,6 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                 self.servicesForfaitSelected.removeAll();
                 self.servicesTonnageSelected.removeAll();
                 services.getServicesByAirbase(id, function(data){
-                    console.log(data)
                     for(var i = 0; i < data.length; i++){
                         if(data[i].service_type === "forfait"){
                             self.servicesForfait.push(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,

@@ -60,10 +60,19 @@ define(["knockout"], function (ko) {
         self.totalPrice = ko.computed(function(){
             return self.quantity() * self.price();
         });
-		
+
 		self.fixPriceDecimal = ko.computed(function(){
 			if(self.checkPrice()===noErrorClass) self.price(parseFloat(self.price()).toFixed(2));
 		});
-		
-    };
+
+        self.formatedTotalPrice = ko.computed(function(){
+            if(self.totalPrice())
+                return self.totalPrice().toFixed(2)
+        })
+
+        self.formatedPrice = ko.computed(function(){
+            //if(self.price())
+                return self.price().toFixed(2);
+        });
+    }
 });

@@ -2,6 +2,8 @@
 	<section id="contenu">
 		<section class="row account">
 			<section class="col-md-offset-3 col-md-6" id="connect-account">
+			<p class="msg-client alert alert-danger hidden" data-bind="css: displayErrorConnexion">Email ou mot de passe incorrect.</p>
+			
 				<h2>Se connecter</h2>
 				<form class="form-horizontal" role="form">
 					<section class="form-group">
@@ -33,7 +35,10 @@
 			</section>
 			<section class="row account">
 				<section class="col-md-offset-3 col-md-6" id="create-account">
-					<h2>Créer le nouveau compte</h2>
+				<p class="msg-client alert alert-success hidden" data-bind="css: displaySuccessCreate">La création du compte a bien été effectuée</p>
+				<p class="msg-client alert alert-warning hidden" data-bind="css: displayWarningCreate">Veuillez compléter le formulaire en entier</br>Saisissez une adresse mail valide ainsi qu'un mot de passe de plus de 6 caractères.</p>
+				<p class="msg-client alert alert-danger hidden" data-bind="css: displayErrorCreate">L'email existe déjà.</p>
+					<h2>Créer un nouveau compte</h2>
 					<form class="form-horizontal" role="form">
 						<section data-bind="css: mailValidator" class="form-group has-feedback">
 							<label class="col-sm-3 control-label" for="mail">Email</label>
