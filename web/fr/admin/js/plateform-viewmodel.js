@@ -1,7 +1,7 @@
 define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "admin/binding/autocomplete-manager", "common/model/airbase" , "common/model/manager"], function (ko, services, servicesMock, autocompleteManager, airbase, manager) {
     return function (baseVM, _airbase, managers) {
             var self = this;
-            var servicesCurrent = servicesMock;
+            var servicesCurrent = services;
             self.baseVM = baseVM;
 
             //OBSERVABLES
@@ -9,6 +9,7 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
             self.managers = ko.observableArray([]);
             self.selectedManagerUpdate = ko.observable(undefined);
             self.manager = ko.observable("");
+			self.currentAdmin = ko.observable(baseVM.currentAdmin);
 
             //NOT OBSERVABLES
             self.managerJSON = [];

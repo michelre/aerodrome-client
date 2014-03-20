@@ -1,9 +1,6 @@
 define(["knockout"], function (ko) {
-    return function accueilVM(baseVM) {
+    return function helpVM() {
         var self = this;
-		var baseVM = baseVM;
-		
-		self.currentAdmin = ko.observable(baseVM.currentAdmin);
 
         //OBSERVABLES
 

@@ -5,14 +5,15 @@ define(["jquery", "knockout", "sammy", "admin/js/base-viewmodel",
         "text!admin/templates/personnel-create.html",
 		"text!admin/templates/airbase.html",
 		"text!admin/templates/airbase-create.html",
-		"text!admin/templates/airbase-view.html"
+		"text!admin/templates/airbase-view.html",
+        "text!admin/templates/help.html"
         ],
-    function ($, ko, Sammy, baseVM, navTpl, homeTpl, personnelsTpl, personnelCreateTpl, aerodromeTpl ,aerodromeCreateTpl,aerodromeViewTpl) {
+    function ($, ko, Sammy, baseVM, navTpl, homeTpl, personnelsTpl, personnelCreateTpl, aerodromeTpl ,aerodromeCreateTpl,aerodromeViewTpl, helpTpl) {
 
-       	$("body").append(navTpl).append(homeTpl).append(personnelsTpl).append(personnelCreateTpl).append(aerodromeTpl).append(aerodromeCreateTpl).append(aerodromeViewTpl);
+       	$("body").append(navTpl).append(homeTpl).append(personnelsTpl).append(personnelCreateTpl).append(aerodromeTpl).append(aerodromeCreateTpl).append(aerodromeViewTpl).append(helpTpl);
 
         var viewModel = new baseVM();
-
+		viewModel.initAdmin($.cookie("id"),function(){
 
         Sammy(function () {
             this.get('home', function () {
@@ -47,6 +48,9 @@ define(["jquery", "knockout", "sammy", "admin/js/base-viewmodel",
                     })
                 })
             });
+            this.get('help', function () {
+                viewModel.currentPage("Aide");
+            });
 
             this.notFound = function () {
                 viewModel.currentPage("Accueil");
@@ -55,5 +59,5 @@ define(["jquery", "knockout", "sammy", "admin/js/base-viewmodel",
         }).run();
 
         ko.applyBindings(viewModel);
-
+		});
     });

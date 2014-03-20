@@ -82,7 +82,8 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 					$.cookie("id",data.pilotAccount.pilotAccount_id,{path:'/'})
 					$.cookie("role",data.role,{path:'/'});
 				}else if (data.role=="superAdmin"){
-					
+					$.cookie("id",data.superAdmin.superAdmin_id,{path:'/'})
+					$.cookie("role",data.role,{path:'/'});
 				}else if (data.role=="airbaseManager"){
 					$.cookie("id",data.airbaseManager.airbaseManager_id,{path:'/'})
 					$.cookie("role",data.role,{path:'/'});
@@ -306,6 +307,18 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
                     console.log("Error getAirbasesByManager:", jqXHR);
                 })
         },
+		
+		getAdminAccount :function (id,callback) {
+            $.ajax({
+                url: SaNPoint+"superAdmin/"+id,
+				method:"GET"
+            }).done(function (data) {
+                    if(callback)
+                        callback(data)
+            }).fail(function (jqXHR) {
+                    console.log("Error getAirbaseManager:", jqXHR);
+            })
+        }
 		
 		/*updateWeightRangeService:function (weightRangeService_id,dataWeightRangeService,callback){
 			console.log(dataWeightRangeService);
