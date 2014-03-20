@@ -25,6 +25,12 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
 				})
 			};
 			
+			self.clickDisconnect = function(){
+				services.disconnectAccount(function(){
+					window.location.replace("/fr/login");
+				});
+			}
+			
             self.getAirbase = function (id, callback) {
                 services.getAirbase(id, function (data) {
                     self.airbaseToUpdate = data;
