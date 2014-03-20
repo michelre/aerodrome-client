@@ -88,12 +88,12 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
 
         self.formatedTotalPrice = ko.computed(function () {
             if (self.totalPrice())
-                return self.totalPrice().toFixed(2);
+                return parseFloat(self.totalPrice()).toFixed(2);
         });
 
         self.formatedPrice = ko.computed(function () {
             if (self.price())
-                return self.price().toFixed(2);
+                return parseFloat(self.price()).toFixed(2);
         });
 
         self.init();
