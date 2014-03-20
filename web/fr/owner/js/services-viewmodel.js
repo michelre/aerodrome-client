@@ -1,12 +1,12 @@
 define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","common/model/airbase","common/model/service-forfait","common/model/service-tonnage"], function (ko,servicesMock,services,airbase,serviceForfait,serviceTonnage) {
-    return function servicesVM() {
+    return function servicesVM(baseVM) {
         var self = this;
 		var servicesCurrent = services;
 		
         //OBSERVABLES
 		self.managerAirbases = ko.observableArray([]);
         self.chosenAirbase = ko.observable("");
-
+		self.currentAirbaseManager = ko.observable(baseVM.currentAirebaseManager());
 
 		//services
 		self.airbaseServices = ko.observableArray([]);
@@ -16,9 +16,9 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 
 		self.getManagerAirbases = function(){
 			self.managerAirbases.removeAll();
-			servicesCurrent.getAirbasesByManager(1,function(data){
+			servicesCurrent.getAirbasesByManager(self.currentAirbaseManager().id(),function(data){
 				for(var i = 0 ; i < data.length; i++){
-					self.managerAirbases.push(new airbase(data[i].airbase_id, data[i].airbase_name, data[i].airbase_address, data[i].airbaseManager_firstname));
+					self.managerAirbases.push(new airbase(data[i].airbase_id, data[i].airbase_name, data[i].airbase_address, data[i].airbaseManager_firstname,self.currentAirbaseManager()));
 				}
 			});
 		};
@@ -44,7 +44,8 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 				servicesCurrent.getServicesByAirbase(self.chosenAirbase(),function(data){
 					for(var i = 0; i < data.length; i++){
 						if(data[i].service_type==="tonnage"){
-							self.airbaseServices.push(new serviceTonnage(data[i].service_id, data[i].service_name, data[i].service_price,data[i].service_desc,data[i].service_aircraftTypeCode,data[i].service_weightRangeServices));
+							console.log(data[i].service_weightRangeService);
+							self.airbaseServices.push(new serviceTonnage(data[i].service_id, data[i].service_name,data[i].service_desc,data[i].service_aircraftTypeCode,data[i].service_weightRangeService));
 						}else{
 							self.airbaseServices.push(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,data[i].service_desc,data[i].service_aircraftTypeCode));
 						}

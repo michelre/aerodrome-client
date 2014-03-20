@@ -1,5 +1,5 @@
 define(["knockout"], function (ko) {
-    return function Manager(id,firstName,lastName,address,phone,mail,pass,passConfirmation) {
+    return function Manager(id,firstName,lastName,address,phone,mail,pass) {
         var self = this;
 		self.id = ko.observable(id);
         self.firstName = ko.observable(firstName);
@@ -7,7 +7,6 @@ define(["knockout"], function (ko) {
 		self.address = ko.observable(address);
         self.phone = ko.observable(phone);
 		self.pass = ko.observable(pass);
-		self.passConfirmation = ko.observable(passConfirmation);
 		self.mail = ko.observable(mail);
 
         self.toJSON = function(){

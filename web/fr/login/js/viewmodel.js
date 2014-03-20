@@ -3,8 +3,14 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
             var self = this;
 			
 			//validator classes
-			var noErrorClasses = 'fa fa-check';
-			var errorClasses = 'fa fa-times';
+			
+			var noErrorIconClass = 'fa fa-check';
+			var errorIconClass = 'fa fa-times';
+			var emptyIconClass = '';
+		
+			var noErrorClass = 'has-success';
+			var errorClass = 'has-error';
+			var emptyClass = '';
 			
             //OBSERVABLES
 			//Création
@@ -42,8 +48,11 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 						alert("Email ou mot de passe incorrect");
 					}else{
 						if(data.role=="pilotAccount"){	
-							window.location.replace("/fr/pilot")
-						}
+							window.location.replace("/fr/pilot");
+						}else if(data.role=="airbaseManager"){	
+							window.location.replace("/fr/owner");
+						} 
+						
 					}
 					
 				});
@@ -61,10 +70,24 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 			 	
 				if(!hasError) { 
 				self.createAccountFormValidatorError(false);
-					return noErrorClasses; 
+					return noErrorClass; 
 				}else{
 					self.createAccountFormValidatorError(true);
-					return errorClasses; 
+					if(self.newAccount.mail() == ''){
+						return emptyClass; 
+					}
+					return errorClass; 
+					
+				}
+            });
+			self.mailValidatorIcon = ko.computed(function () {
+              
+				if(self.mailValidator()===noErrorClass) {
+					return noErrorIconClass; 
+				}else if(self.mailValidator()===emptyClass) {
+					return emptyIconClass; 
+				}else{
+					return errorIconClass; 
 				}
             });
             self.passValidator = ko.computed(function () {
@@ -75,26 +98,55 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 			 	
 				if(!hasError) { 
 				self.createAccountFormValidatorError(false);
-					return noErrorClasses; 
+					return noErrorClass; 
 				}else{
 					self.createAccountFormValidatorError(true);
-					return errorClasses; 
+					if(self.newAccount.pass() == '' || self.passConfirmation()=='' ){
+						return emptyClass; 
+					}
+					return errorClass; 
 				}
             });
+			
+			self.passValidatorIcon = ko.computed(function () {
+              
+				if(self.passValidator()===noErrorClass) {
+					return noErrorIconClass; 
+				}else if(self.passValidator()===emptyClass) {
+					return emptyIconClass; 
+				}else{
+					return errorIconClass; 
+				}
+            });
+			
 			self.firstNameValidator = ko.computed(function () {
                 var hasError = false;
 				if(self.newAccount.firstName().length==0) {
 				  hasError = true;
 				}
-			 	
 				if(!hasError) { 
 				self.createAccountFormValidatorError(false);
-					return noErrorClasses; 
+					return noErrorClass; 
 				}else{
 					self.createAccountFormValidatorError(true);
-					return errorClasses; 
+					if(self.newAccount.firstName() == ''){
+						return emptyClass; 
+					}
+					return errorClass; 
 				}
             });
+			
+			self.firstNameValidatorIcon = ko.computed(function () {
+              
+				if(self.firstNameValidator()===noErrorClass) {
+					return noErrorIconClass; 
+				}else if(self.firstNameValidator()===emptyClass) {
+					return emptyIconClass; 
+				}else{
+					return errorIconClass; 
+				}
+            });
+			
 			self.lastNameValidator = ko.computed(function () {
                 var hasError = false;
 				if(self.newAccount.lastName().length==0) {
@@ -103,12 +155,27 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 			 	
 				if(!hasError) { 
 				self.createAccountFormValidatorError(false);
-					return noErrorClasses; 
+					return noErrorClass; 
 				}else{
 					self.createAccountFormValidatorError(true);
-					return errorClasses; 
+					if(self.newAccount.lastName()=='' ){
+						return emptyClass; 
+					}
+					return errorClass; 
 				}
             });
+			
+			self.lastNameValidatorIcon = ko.computed(function () {
+              
+				if(self.lastNameValidator()===noErrorClass) {
+					return noErrorIconClass; 
+				}else if(self.lastNameValidator()===emptyClass) {
+					return emptyIconClass; 
+				}else{
+					return errorIconClass; 
+				}
+            });
+			
 			self.phoneValidator = ko.computed(function () {
                 var hasError = false;
 				var phoneRegexInternational =new RegExp("^(\ +[1-9]{2-3}[0-9]{7,11})|([0-9]{10,15})$");
@@ -118,19 +185,34 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 			 	
 				if(!hasError) { 
 					self.createAccountFormValidatorError(false);
-					return noErrorClasses; 
+					return noErrorClass; 
 				}else{
 					self.createAccountFormValidatorError(true);
-					return errorClasses; 
+					if(self.newAccount.phone()=='' ){
+						return emptyClass; 
+					}
+					return errorClass; 
 				}
             });
+			
+			self.phoneValidatorIcon = ko.computed(function () {
+              
+				if(self.phoneValidator()===noErrorClass) {
+					return noErrorIconClass; 
+				}else if(self.phoneValidator()===emptyClass) {
+					return emptyIconClass; 
+				}else{
+					return errorIconClass; 
+				}
+            });
+			
 			self.allValidator = ko.computed(function () {
-				if(self.phoneValidator()==noErrorClasses &&
-					self.firstNameValidator()==noErrorClasses &&
-					self.lastNameValidator()==noErrorClasses &&
-					self.mailValidator()==noErrorClasses &&
-					self.passValidator()==noErrorClasses &&
-					self.phoneValidator()==noErrorClasses){
+				if(self.phoneValidator()==noErrorClass &&
+					self.firstNameValidator()==noErrorClass &&
+					self.lastNameValidator()==noErrorClass &&
+					self.mailValidator()==noErrorClass &&
+					self.passValidator()==noErrorClass &&
+					self.phoneValidator()==noErrorClass){
 						return true
 					}else{
 						return false;

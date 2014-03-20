@@ -140,6 +140,13 @@ color:white;
 border-top: 2px solid gray;
 }
 
+#aerodrome-content section#contenu p.msg-client{
+	padding:10px;
+	font-size:16px;
+	font-weight:700;
+}
+
+
 #aerodrome-content .clear{
 	clear:both;
 }
@@ -148,7 +155,6 @@ border-top: 2px solid gray;
 	
 	#aerodrome-content header{
 		font-size:25px;
-		height:50px;
 	}
 	
 	#aerodrome-content nav ul li{
@@ -161,4 +167,10 @@ border-top: 2px solid gray;
 	#aerodrome-content nav ul li a i {
 		font-size:30px;
 	}
+	
+	#aerodrome-content section#contenu h2{
+		font-size:22px;
+	}
+	
+	
 }

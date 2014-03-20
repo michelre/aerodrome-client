@@ -20,11 +20,14 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
         self.quantity = ko.observable(1);
 
         //SERVICES
-        self.init = function () {
-            for (var i = 0; i < weightRangeServices.length; i++) {
-                self.weightRangeServices.push(new weightRange(weightRangeServices[i].weightRangeService_tonMin,
+        self.init = function(){
+			if(weightRangeServices===undefined){
+				weightRangeServices=[];
+			}
+            for(var i = 0; i < weightRangeServices.length; i++){
+                self.weightRangeServices.push(new weightRange(weightRangeServices[i].weightRangeService_id,weightRangeServices[i].weightRangeService_tonMin,
                     weightRangeServices[i].weightRangeService_tonMax, weightRangeServices[i].weightRangeService_priceFixed,
-                    weightRangeServices[i].weightRangeService_pricePerTon))
+                    weightRangeServices[i].weightRangeService_pricePerTon));
             }
         };
 
@@ -95,5 +98,5 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
 
         self.init();
 
-    }
+    };
 });

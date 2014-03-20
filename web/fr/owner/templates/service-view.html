@@ -1,11 +1,11 @@
 <script type="text/html" id="service-view-owner-template">
-	 <section id="contenu" data-bind="if:  serviceAccordingType">
+	 <section id="contenu" data-bind="if: serviceAccordingType">
 		 <h2 data-bind="text: displayCurrentServiceId"></h2>
 			 <section id="editors">    
 			 <section id="globalEditor">
 			 	<h3>Configuration du service</h3>
 				 <form role="form">
-				 	Type de service:
+				 	Type de service
 					<label><input type="radio" value="Forfait" data-bind="checked: radioSelectedServiceType" /> Forfait</label>
 		            <label><input type="radio" value="Tonnage" data-bind="checked: radioSelectedServiceType" /> Tonnage</label><br/>
 					<div class="form-group has-feedback" data-bind="css : serviceAccordingType().checkName">
@@ -44,7 +44,7 @@
 						</tr>
 					</thead>
 					<tbody data-bind="foreach : serviceAccordingType().weightRangeServices">
-						<tr data-bind="if : editionStatus!=='delete'">
+						<tr>
 							<td>
 								<div class="form-group has-feedback" data-bind="css : checkTonMin">
 									<input type="text" class="form-control" data-bind="value: tonMin"/>

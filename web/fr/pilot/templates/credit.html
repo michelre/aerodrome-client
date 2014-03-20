@@ -1,10 +1,10 @@
 <script type="text/html" id="credit-pilot-template">
 	 <section id="contenu">
         <h1>Créditer mon Compte</h1>
+
 		<!-- ko with: pilotAccount -->
-		<h2>Mon crédit : <span data-bind="text :  credit"><span></h2>
+		<h2>Mon crédit : <span id="credit" data-bind="text :  credit"><span></h2><h2 id="devise">€</h2>
 		<!-- /ko -->
-		<!-- <h2>Votre nouveau credit : <span data-bind="text :  nouveauCredit" ><span></h2>-->
 		
 		<form id="form" role="form">
 		 	<div class="form-group">

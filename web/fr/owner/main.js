@@ -2,6 +2,12 @@ requirejs.config({
 
     baseUrl: '.',
 	
+	 shim:{
+	'jquery-cookie': {
+            "deps": ["jquery"]
+        }
+	 },
+	
     paths: {
         "owner": ".",
 		"common": "../common",
@@ -9,7 +15,8 @@ requirejs.config({
         "typeahead": "../common/vendor/js/typeahead",
         "knockout": "../common/vendor/js/knockout",
         "sammy": "../common/vendor/js/sammy",
-        "text": "../common/vendor/js/text"
+        "text": "../common/vendor/js/text",
+		"jquery-cookie":"../common/vendor/js/jquery-cookie"
     }
 });
 require(["owner/js/owner"]);

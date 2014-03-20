@@ -1228,63 +1228,10 @@
 			#contact.inactive .box {
 				bottom: -30em;
 			}
-
-/*********************************************************************************/
-/* Footer                                                                        */
-/*********************************************************************************/
-	
-	#footer {
-		position: relative;
-		height: 5em;
-		line-height: 5em;
-		margin: 0;
-		background: #39454b;
-		color: #999;
-		color: rgba(185,186,187,0.5);
-		overflow: hidden;
-	}
-
-		#footer a {
-			color: #999;
-			color: rgba(185,186,187,0.5);
-		}
-
-			#footer a:hover {
-				color: #bbb;
-				color: rgba(185,186,187,1.0);
-			}
-	
-		#footer .actions {
-			position: absolute;
-			left: 1em;
-			top: 0.25em;
-			height: 5em;
-			line-height: 5em;
-			margin: 0;
-		}
-		
-			#footer .actions li {
-				font-size: 1.25em;
-				margin: 0;
-			}
 			
-				#footer .actions li a {
-					padding: 0.5em;
-				}
-		
-		#footer .menu {
-			position: absolute;
-			right: 2em;
-			top: 0;
-			height: 5em;
-			line-height: 5em;
-			margin: 0;
-		}
-		
-			#footer .menu li {
-				font-size: 0.9em;
+			#devise {
+				font-size: 0.4em;
 			}
-
 /*********************************************************************************/
 /* Poptrox                                                                       */
 /*********************************************************************************/
@@ -1431,6 +1378,8 @@
 			.poptrox-popup:hover .closer:hover {
 				opacity: 1.0;
 			}
+			
+
 			
 /*********************************************************************************/
 /* Touch Mode                                                                    */

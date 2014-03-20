@@ -1,5 +1,5 @@
 define(["knockout"], function (ko) {
-    return function WeightRange(tonMin, tonMax, priceFixed, pricePerTon, editionStatus) {
+    return function WeightRange(id,tonMin, tonMax, priceFixed, pricePerTon) {
 		var noErrorIconClass = 'fa fa-check';
 		var errorIconClass = 'fa fa-times';
 		
@@ -12,39 +12,47 @@ define(["knockout"], function (ko) {
         self.priceFixed = ko.observable(priceFixed);
         self.pricePerTon = ko.observable(pricePerTon);
 		
-		self.editionStatus = ko.observable(editionStatus);//delete update ou create
+		/*self.editionStatus = ko.observable(editionStatus);//delete update ou create
+		
+		self.visible = ko.computed(function(){
+			console.log(self.editionStatus());
+			return self.editionStatus()==='delete' ? false : true;	
+		});*/
 		
 		//Validators
+		self.isPositiveNumber = function(value){
+			return (""+value).length>0 && !isNaN(value)	&& eval(value)>=0;
+		};
 		self.checkTonMin = ko.computed(function(){
-			return (""+self.tonMin()).length>0 && !isNaN(self.tonMin()) ? noErrorClass : errorClass;
+			return self.isPositiveNumber(self.tonMin()) ? noErrorClass : errorClass;
 		});
 		
 		self.checkTonMinIcon = ko.computed(function(){
-			return (""+self.tonMin()).length>0 && !isNaN(self.tonMin()) ? noErrorIconClass : errorIconClass;
+			return self.isPositiveNumber(self.tonMin()) ? noErrorIconClass : errorIconClass;
 		});
 		
 		self.checkTonMax = ko.computed(function(){
-			return (""+self.tonMax()).length>0 && !isNaN(self.tonMax()) ? noErrorClass : errorClass;
+			return self.isPositiveNumber(self.tonMax()) ? noErrorClass : errorClass;
 		});
 		
 		self.checkTonMaxIcon = ko.computed(function(){
-			return (""+self.tonMax()).length>0 &&!isNaN(self.tonMax()) ? noErrorIconClass : errorIconClass;
+			return self.isPositiveNumber(self.tonMax()) ? noErrorIconClass : errorIconClass;
 		});
 		
 		self.checkPriceFixed = ko.computed(function(){
-			return (""+self.priceFixed()).length>0 &&!isNaN(self.priceFixed()) ? noErrorClass : errorClass;
+			return self.isPositiveNumber(self.priceFixed()) ? noErrorClass : errorClass;
 		});
 		
 		self.checkPriceFixedIcon = ko.computed(function(){
-			return (""+self.priceFixed()).length>0 &&!isNaN(self.priceFixed()) ? noErrorIconClass : errorIconClass;
+			return self.isPositiveNumber(self.priceFixed()) ? noErrorIconClass : errorIconClass;
 		});
 		
 		self.checkPricePerTon = ko.computed(function(){
-			return (""+self.pricePerTon()).length>0 &&!isNaN(self.pricePerTon()) ? noErrorClass : errorClass;
+			return self.isPositiveNumber(self.pricePerTon()) ? noErrorClass : errorClass;
 		});
 		
 		self.checkPricePerTonIcon = ko.computed(function(){
-			return (""+self.pricePerTon()).length>0 &&!isNaN(self.pricePerTon()) ? noErrorIconClass : errorIconClass;
+			return self.isPositiveNumber(self.pricePerTon()) ? noErrorIconClass : errorIconClass;
 		});
-    }
+    };
 });

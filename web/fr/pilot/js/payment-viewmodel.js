@@ -1,4 +1,4 @@
-define(["knockout", "typeahead", "common/js/mock/services-ajax", "pilot/binding/autocomplete-airbase" ,"common/model/airbase", "common/model/plane", "common/model/service-forfait", "common/model/service-tonnage", "common/model/landing", "common/js/utils"],
+define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autocomplete-airbase" ,"common/model/airbase", "common/model/plane", "common/model/service-forfait", "common/model/service-tonnage", "common/model/landing", "common/js/utils"],
     function (ko, typeahead, services, autocompleteAirbase, airbase, plane, serviceForfait, serviceTonnage, landing, utils) {
     return function paymentVM(baseVM) {
             var self = this;
@@ -118,7 +118,7 @@ define(["knockout", "typeahead", "common/js/mock/services-ajax", "pilot/binding/
             };
 
             self.payButton = function(){
-                console.log("paiement")
+				alert("hey");
             }
 
             self.previousStepPaiementButton = function(){
