@@ -36,6 +36,7 @@
 #payment-atterissage .loading-airbases{
     font-size: 50px;
 }
+ 
 
 #payment-atterissage .my-breadcrumb li a:before {
     content: " ";
@@ -62,6 +63,10 @@
 #payment-atterissage .my-breadcrumb li:nth-child(5) a       { background:        hsla(34,85%,75%,1); }
 #payment-atterissage .my-breadcrumb li:nth-child(5) a:after { border-left-color: hsla(34,85%,75%,1); }
 #payment-atterissage .my-breadcrumb li:last-child   a       { background:        hsla(34,85%,75%,1); }
+
+#payment-atterissage .my-breadcrumb li.active a       { background:        blue; }
+#payment-atterissage .my-breadcrumb li.active a:after { border-left-color: blue; }
+
 
 #payment-atterissage .my-breadcrumb i{
     margin-right: 2px;
@@ -201,15 +206,14 @@
 /* Small devices (tablets, 768px and up) */
 @media (max-width: 768px) {
     #payment-atterissage .my-breadcrumb li a{
-        padding: 10px 0 10px 13px;
-        font-size: 6px;
+        padding: 7px 5px 7px 20px;
+		font-size:14px;
     }
 	
-    #payment-atterissage .my-breadcrumb li a i{
-        position: absolute;
-        top: 3;
-        left: 15;
+	 #payment-atterissage .my-breadcrumb li:first-child a{
+        padding: 7px 5px 7px 10px;
     }
+	
 
     #payment-atterissage .selected-airbase{
         margin-top: 10px;
@@ -217,10 +221,16 @@
     }
 }
 
+
+
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-    #payment-atterissage .my-breadcrumb li a{
-        padding: 10px 0 10px 50px;
+@media (min-width: 768px) {
+     #payment-atterissage .my-breadcrumb li a{
+        padding: 15px 0 15px 50px;
+    }
+	
+	 #payment-atterissage .my-breadcrumb li:first-child a{
+        padding: 15px 0 15px 30px;
     }
 
     #payment-atterissage .selected-airbase{
@@ -239,7 +249,11 @@
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
     #payment-atterissage .my-breadcrumb li a{
-        padding: 10px 0 10px 65px;
+        padding: 15px 0 15px 90px;
+    }
+	
+	 #payment-atterissage .my-breadcrumb li:first-child a{
+        padding: 15px 0 15px 60px;
     }
 
     #payment-atterissage .btn-next div:first-child{
