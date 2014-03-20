@@ -223,9 +223,9 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 			    dataType: "json",
 				data: JSON.stringify(dataService),
 				method:"PUT"
-			}).done(function(data){
+			}).done(function(data,textstatus,jqXHR){
                     if(callback)
-                        callback(data)
+                        callback(data,jqXHR.status);
 			}).fail(function(jqXHR){
 				console.log("Error updateService:", jqXHR);
 			});
@@ -237,9 +237,9 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				dataType: "json",
 				data: JSON.stringify(dataService),
 				method:"POST"
-			}).done(function(data){
+			}).done(function(data,textstatus,jqXHR){
                     if(callback)
-                        callback(data)
+                        callback(data,jqXHR.status);
 					return data.id; //besoin de l'id pour creation des weight range service
 			}).fail(function(jqXHR){
 				console.log("Error createService:", jqXHR);

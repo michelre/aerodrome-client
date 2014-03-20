@@ -4,6 +4,13 @@
 			 <section id="editors">    
 			 <section id="globalEditor">
 			 	<h3>Configuration du service</h3>
+					<p class="msg-client alert alert-success hidden" data-bind="css: displaySuccess">Le service a bien été mis à jour.</p>
+					<p class="msg-client alert alert-warning hidden" data-bind="css: displayWarning">Veuillez compléter le formulaire en entier.</p>
+					<p class="msg-client alert alert-danger hidden" data-bind="css: displayError">Erreur lors de la mise à jour du service.</p>
+					
+					<p class="msg-client alert alert-success hidden" data-bind="css: displaySuccessCreate">Le service a bien été créé.</p>
+					<p class="msg-client alert alert-warning hidden" data-bind="css: displayWarningCreate">Veuillez compléter le formulaire en entier.</p>
+					<p class="msg-client alert alert-danger hidden" data-bind="css: displayErrorCreate">Erreur lors de la création du service.</p>
 				 <form role="form">
 				 	Type de service
 					<label><input type="radio" value="Forfait" data-bind="checked: radioSelectedServiceType" /> Forfait</label>
