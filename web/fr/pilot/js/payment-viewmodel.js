@@ -7,20 +7,16 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
             self.pilot           = ko.observable(baseVM.currentPilot());
             self.currentStep     = ko.observable("atterissage");
             self.airbases        = ko.observableArray([]);
-            self.servicesForfait = ko.observableArray([]);
-            self.servicesTonnage = ko.observableArray([]);
             self.plane           = ko.observable();
             self.landing         = ko.observable();
             self.airbaseInput    = ko.observable("");
-
-            self.servicesForfaitSelected = ko.observableArray([]);
-            self.servicesTonnageSelected = ko.observableArray([]);
 
             self.errorForm       = ko.observable(false);
             self.total           = ko.observable(20000);
             self.paymentType     = ko.observable("paypal");
             self.initAirbasesDone        = ko.observable(false);
-
+            self.services = ko.observableArray([]);
+            self.selectedServices = ko.observableArray([]);
 
 
             //NOT OBSERVABLES
@@ -45,18 +41,16 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
             };
 
             self.getServicesByAirbase = function(id, callback){
-                self.servicesForfait.removeAll();
-                self.servicesTonnage.removeAll();
-                self.servicesForfaitSelected.removeAll();
-                self.servicesTonnageSelected.removeAll();
+                self.services.removeAll();
+                self.selectedServices.removeAll();
                 services.getServicesByAirbase(id, function(data){
                     for(var i = 0; i < data.length; i++){
                         if(data[i].service_type === "forfait"){
-                            self.servicesForfait.push(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,
+                            self.services.push(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,
                                 data[i].service_desc, data[i].service_aircraftType_code, data[i].airbase_id));
                         }
                         if(data[i].service_type === "tonnage"){
-                            self.servicesTonnage.push(new serviceTonnage(data[i].service_id, data[i].service_name,
+                            self.services.push(new serviceTonnage(data[i].service_id, data[i].service_name,
                                 data[i].service_desc, data[i].aircraftType_code, data[i].airbase_id, data[i].service_weightRangeService));
                         }
                     }
@@ -88,8 +82,9 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                 if(self.plane().allInputsFilled()){
                     self.errorForm(false);
                     self.currentStep("services");
-                    for(var i = 0; i < self.servicesTonnage().length; i++){
-                        self.servicesTonnage()[i].aircraftWeight(self.plane().weight());
+                    for(var i = 0; i < self.services().length; i++){
+                        if(self.services()[i].type() === "tonnage")
+                            self.services()[i].aircraftWeight(self.plane().weight());
                     }
                 }else{
                     self.errorForm(true);
@@ -101,6 +96,9 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
             };
 
             self.nextStepServicesButton = function(){
+                self.selectedServices.sort(function(left, right){
+                    return left.name() == right.name() ? 0 : (left.name() < right.name() ? -1 : 1)
+                })
                 self.currentStep("validation")
             };
 
@@ -109,7 +107,7 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
             };
 
             self.nextStepValidationButton = function(){
-                self.currentStep("paiement")
+                self.currentStep("paiement");
             };
 
             self.previousStepValidationButton = function(){
@@ -165,11 +163,8 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
 
             self.totalPrice = ko.computed(function(){
                 var total = 0;
-                for(var i = 0; i < self.servicesForfaitSelected().length; i++){
-                    total += self.servicesForfaitSelected()[i].totalPrice();
-                }
-                for(var i = 0; i < self.servicesTonnageSelected().length; i++){
-                    total += self.servicesTonnageSelected()[i].totalPrice();
+                for(var i = 0; i < self.selectedServices().length; i++){
+                    total += self.selectedServices()[i].totalPrice();
                 }
                 self.total(total);
             });
@@ -193,22 +188,6 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
 
             self.totalEuros = ko.computed(function(){
                 return self.total().toFixed(2)+"€";
-            });
-
-            self.totalForfait = ko.computed(function(){
-                var total = 0;
-                for(var i = 0; i < self.servicesForfaitSelected().length; i++){
-                    total += self.servicesForfaitSelected()[i].totalPrice();
-                }
-                return total;
-            });
-
-            self.totalTonnage = ko.computed(function(){
-                var total = 0;
-                for(var i = 0; i < self.servicesTonnageSelected().length; i++){
-                    total += self.servicesTonnageSelected()[i].totalPrice();
-                }
-                return total;
             });
 
             self.init()

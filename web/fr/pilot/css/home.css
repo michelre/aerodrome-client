@@ -2,3 +2,25 @@
     padding: 20px;
     font-weight: bolder;
 }
+
+#home .meteo-widget{
+    background-image: url("../img/widget-meteo.png");
+    width: 284px;
+    height: 192px;
+    border-radius: 5px;
+    border: 1px solid #a0a0a0;
+    box-shadow: 1px 1px 8px #bcbcbc;
+    background-repeat: no-repeat;
+    margin-top: 15px;
+}
+
+#home .date-widget{
+    background-image: url("../img/date-widget.png");
+    width: 339px;
+    height: 168px;
+    border-radius: 5px;
+    border: 1px solid #a0a0a0;
+    box-shadow: 1px 1px 8px #bcbcbc;
+    background-repeat: no-repeat;
+    margin-top: 15px;
+}
