@@ -1,5 +1,5 @@
-define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "pilot/js/payment-viewmodel", "pilot/js/facture-viewmodel", "pilot/js/plus-viewmodel","pilot/js/account-viewmodel","common/js/services-ajax","common/js/mock/services-ajax", "common/model/pilot"],
-    function (ko, accueilVM, creditVM, paymentVM, factureVM, plusVM, accountVM,servicesAjax,servicesAjaxMock, pilot) {
+define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "pilot/js/payment-viewmodel", "pilot/js/facture-viewmodel", "pilot/js/plus-viewmodel","pilot/js/account-viewmodel", "pilot/js/help-viewmodel","common/js/services-ajax","common/js/mock/services-ajax", "common/model/pilot"],
+    function (ko, accueilVM, creditVM, paymentVM, factureVM, plusVM, accountVM, helpVM, servicesAjax,servicesAjaxMock, pilot) {
     return function(){
             var self = this;
 			var services = servicesAjaxMock;
@@ -56,6 +56,7 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
 				if(self.currentPage() === "Payer") return "fa fa-money";
 				if(self.currentPage() === "Historique") return "fa fa-inbox";
 				if(self.currentPage() === "Plus") return "fa fa-plus";
+                if(self.currentPage() === "help") return "fa fa-question";
 			});
 
             self.setCurrentVM = ko.computed(function(){
@@ -65,6 +66,7 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
                 if(self.activeTemplate() === "facture-pilot-template") self.currentVM(new factureVM(self));
                 if(self.activeTemplate() === "plus-pilot-template") self.currentVM(new plusVM(self));
                 if(self.activeTemplate() === "account-pilot-template") self.currentVM(new accountVM(self));
+                if(self.activeTemplate() === "help-pilot-template") self.currentVM(new helpVM(self));
             });
 
             self.setActiveTemplate = ko.computed(function(){
@@ -74,6 +76,7 @@ define(["knockout", "pilot/js/accueil-viewmodel" ,"pilot/js/credit-viewmodel", "
                 if(self.currentPage() === "Historique") self.activeTemplate("facture-pilot-template");
                 if(self.currentPage() === "Plus") self.activeTemplate("plus-pilot-template");
 				if(self.currentPage() === "Gestion du compte") self.activeTemplate("account-pilot-template");
+                if(self.currentPage() === "Aide") self.activeTemplate("help-pilot-template");
             });
 
         }
