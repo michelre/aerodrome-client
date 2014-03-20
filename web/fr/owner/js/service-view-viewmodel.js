@@ -44,7 +44,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 		};
 		self.getService();
 		self.clicCancelService = function(){
-			window.location.hash="services";
+			window.location.hash="servicesbyairbase/"+self.currentAirbaseId();
 		};
 		
 		self.clicUpdateService = function(){
@@ -107,9 +107,9 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 					}					
 				}else{	
 					if(newService.service_type==='tonnage'){
-						servicesCurrent.updateService(newService,self.redirectOnUpdate);
+						servicesCurrent.updateService(newService,self.redirectOnUpdate,self.currentAirbaseId());
 					}else{
-						servicesCurrent.updateService(newService,self.redirectOnUpdate);
+						servicesCurrent.updateService(newService,self.redirectOnUpdate,self.currentAirbaseId());
 					}
 				}
 			}else{
@@ -117,14 +117,14 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 			}
 		};
 		
-		self.redirectOnUpdate = function(data,status){
+		self.redirectOnUpdate = function(data,status,id_airbase){
 			if(status===200){
 				self.warningForm(false);
 				self.errorForm(false);
 				self.successForm(true);
 					setTimeout(function() {
 						self.successForm(false);
-						window.location.hash="services";
+						window.location.hash="servicesbyairbase/"+id_airbase;
 					}, 2000);
 			}else{
 				self.warningForm(false);
@@ -139,7 +139,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 				self.successFormCreate(true);
 					setTimeout(function() {
 						self.successFormCreate(false);
-						window.location.hash="services";
+						window.location.hash="servicesbyairbase/"+data.service.id_airbase;
 					}, 2000);
 			}else{
 				self.warningFormCreate(false);
