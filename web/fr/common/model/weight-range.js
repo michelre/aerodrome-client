@@ -49,8 +49,12 @@ define(["knockout"], function (ko) {
 			return self.isPositiveNumber(self.pricePerTon()) ? noErrorIconClass : errorIconClass;
 		});
 		
-		self.fixDecimal = ko.computed(function(){
+		self.fixPriceFixedDecimal = ko.computed(function(){
 			if(self.checkPriceFixed()===noErrorClass) self.priceFixed(parseFloat(self.priceFixed()).toFixed(2));
+		});
+		
+		self.fixPricePerTonDecimal = ko.computed(function(){
+			if(self.checkPriceFixed()===noErrorClass) self.pricePerTon(parseFloat(self.pricePerTon()).toFixed(2));
 		});
     };
 });
