@@ -117,9 +117,11 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
             self.previousStepValidationButton = function(){
                 self.currentStep("services");
             };
-
+			//Paiement
             self.payButton = function(){
-				alert("hey");
+				
+				//payer(montant);
+				//alert(self.pilotAccount + self.creditEuros() + self.totalEuros());
             }
 
             self.previousStepPaiementButton = function(){
