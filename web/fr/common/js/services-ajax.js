@@ -62,10 +62,12 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 		},
 		deletePilotAccount: function(idPilot, callback){
 			$.ajax({
-				url: SaNPoint+"pilot/delete/"+idPilot,
+				url: SaNPoint+"pilot/"+idPilot,
 				dataType: "json",
 				method:"DELETE"
 			}).done(function(data){
+				$.removeCookie("id", { path: '/' });
+				$.removeCookie("role", { path: '/' });
                     if(callback)
                         callback(data)
 			}).fail(function(jqXHR){
