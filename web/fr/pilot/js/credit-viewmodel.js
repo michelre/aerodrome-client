@@ -1,5 +1,7 @@
 define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
     return function creditVM(baseVM) {
+		$.ajaxSetup({ cache: false });
+		
         var self = this;
 		var baseVM = baseVM;
 		var flag_paymentType = 0;

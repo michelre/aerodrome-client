@@ -153,9 +153,9 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		
 		self.passValidatorWithConfirm = ko.computed(function () {
 			var hasError = false;
-			var motDePasse = new regex("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}$");
+			var motDePasseRegex = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}$");
 			
-			if(self.newMdp().length <6 || (self.passConfirmation()!=self.newMdp())) {
+			if(self.newMdp().length ==0 || (self.passConfirmation()!=self.newMdp()) || !motDePasseRegex.test(self.newMdp())) {
 			  hasError = true;
 			}
 			

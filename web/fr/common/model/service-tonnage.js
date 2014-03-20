@@ -21,6 +21,7 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
 
         //SERVICES
         self.init = function(){
+            console.log(weightRangeServices)
 			if(weightRangeServices===undefined){
 				weightRangeServices=[];
 			}
