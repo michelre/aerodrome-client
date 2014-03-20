@@ -1,10 +1,12 @@
 define(["knockout", "common/model/manager", "common/js/utils", "common/js/mock/services-ajax"], function (ko, manager, utils, services) {
-    return function personnelVM() {
+    return function personnelVM(baseVM) {
         var self = this;
-
+		var baseVM = baseVM;
+		
         self.newManager = ko.observable(undefined);
         self.checkForm = ko.observable(false);
         self.creationOK = ko.observable(false);
+		self.currentAdmin = ko.observable(baseVM.currentAdmin);
 
         //OBSERVABLES
 

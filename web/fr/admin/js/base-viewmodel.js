@@ -2,7 +2,7 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
     function (ko, plateformsVM, plateformVM, accueilVM, personnelsVM, personnelCreateVM, helpVM, servicesAjax, servicesAjaxMock,admin) {
         return function baseVM() {
             var self = this;
-            var services = servicesAjaxMock;
+            var services = servicesAjax;
 
             //OBSERVABLES
             self.currentPage = ko.observable();
@@ -24,6 +24,12 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
 						callback();
 				})
 			};
+			
+			self.clickDisconnect = function(){
+				services.disconnectAccount(function(){
+					window.location.replace("/fr/login");
+				});
+			}
 			
             self.getAirbase = function (id, callback) {
                 services.getAirbase(id, function (data) {

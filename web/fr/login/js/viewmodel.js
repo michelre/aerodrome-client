@@ -73,7 +73,9 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 							window.location.replace("/fr/pilot");
 						}else if(data.role=="airbaseManager"){	
 							window.location.replace("/fr/owner");
-						} 
+						}else if(data.role=="superAdmin"){	
+							window.location.replace("/fr/admin");
+						}  
 						
 					}
 					

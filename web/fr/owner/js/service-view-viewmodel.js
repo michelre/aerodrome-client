@@ -12,9 +12,15 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 		self.currentAirbaseId = ko.observable(baseVM.currentAirbaseId);
 		self.radioSelectedServiceType = ko.observable();
 		
+		self.successForm = ko.observable();
+		self.warningForm = ko.observable();
+		self.errorForm = ko.observable();
+		
+		self.successFormCreate = ko.observable();
+		self.warningFormCreate = ko.observable();
+		self.errorFormCreate = ko.observable();
         //SERVICES	
 		self.getService = function(){
-			console.log("Load:"+self.currentServiceId());
 			if(self.currentServiceId()!==null && self.currentServiceId()!=="new" && self.currentServiceId()!==undefined){
 				servicesCurrent.getService(self.currentServiceId(),function(data){ //edit service
 					//init all service types
@@ -87,7 +93,6 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 				}
 			}
 			if(!errorForm){
-				console.log(ko.toJSON(newService));
 				for (var i = 0; i < newService.service_weightRangeService.length; i++) {
 					if(newService.service_weightRangeService[i].weightRangeService_id==="new"){
 						delete newService.service_weightRangeService[i].weightRangeService_id;
@@ -96,21 +101,49 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 				if(self.currentServiceId()==="new"){
 					delete newService.service_id;
 					if(newService.service_type==='tonnage'){
-						servicesCurrent.createService(newService);
+						servicesCurrent.createService(newService,self.redirectOnCreate);
 					}else{
-						servicesCurrent.createService(newService);
-					}
-					//window.location.hash="services";					
+						servicesCurrent.createService(newService,self.redirectOnCreate);
+					}					
 				}else{	
 					if(newService.service_type==='tonnage'){
-						servicesCurrent.updateService(newService);
+						servicesCurrent.updateService(newService,self.redirectOnUpdate);
 					}else{
-						servicesCurrent.updateService(newService);
-					}			
-					//window.location.hash="services";
+						servicesCurrent.updateService(newService,self.redirectOnUpdate);
+					}
 				}
 			}else{
 				alert("Veuillez compléter le formulaire en entier.");
+			}
+		};
+		
+		self.redirectOnUpdate = function(data,status){
+			if(status===200){
+				self.warningForm(false);
+				self.errorForm(false);
+				self.successForm(true);
+					setTimeout(function() {
+						self.successForm(false);
+						window.location.hash="services";
+					}, 2000);
+			}else{
+				self.warningForm(false);
+				self.errorForm(true);
+			}
+		};
+		
+		self.redirectOnCreate = function(data,status){
+			if(status===200){
+				self.warningFormCreate(false);
+				self.errorFormCreate(false);
+				self.successFormCreate(true);
+					setTimeout(function() {
+						self.successFormCreate(false);
+						window.location.hash="services";
+					}, 2000);
+			}else{
+				self.warningFormCreate(false);
+				self.errorFormCreate(true);
 			}
 		};
 		
@@ -134,5 +167,29 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 		self.displayCurrentServiceId = ko.computed(function(){
 			return 	"Edition du service #"+self.currentServiceId();
 		});	
+		
+		self.displaySuccess  = ko.computed(function(){
+			return self.successForm() ? "show" : "hidden";
+		});
+
+		self.displayError  = ko.computed(function(){
+			return self.errorForm() ? "show" : "hidden";
+		});
+
+		self.displayWarning  = ko.computed(function(){
+			return self.warningForm() ? "show" : "hidden";
+		});
+		
+		self.displaySuccessCreate  = ko.computed(function(){
+			return self.successFormCreate() ? "show" : "hidden";
+		});
+
+		self.displayErrorCreate  = ko.computed(function(){
+			return self.errorFormCreate() ? "show" : "hidden";
+		});
+
+		self.displayWarningCreate  = ko.computed(function(){
+			return self.warningFormCreate() ? "show" : "hidden";
+		});
 	};
 });

@@ -13,7 +13,7 @@ define(["jquery", "knockout", "sammy", "admin/js/base-viewmodel",
        	$("body").append(navTpl).append(homeTpl).append(personnelsTpl).append(personnelCreateTpl).append(aerodromeTpl).append(aerodromeCreateTpl).append(aerodromeViewTpl).append(helpTpl);
 
         var viewModel = new baseVM();
-
+		viewModel.initAdmin($.cookie("id"),function(){
 
         Sammy(function () {
             this.get('home', function () {
@@ -59,5 +59,5 @@ define(["jquery", "knockout", "sammy", "admin/js/base-viewmodel",
         }).run();
 
         ko.applyBindings(viewModel);
-
+		});
     });
