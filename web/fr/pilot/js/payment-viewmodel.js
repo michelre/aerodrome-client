@@ -76,8 +76,12 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                 self.landing(new landing(undefined, utils.getCurrentDate(), utils.getCurrentTime()));
                 self.getAirbases();
 
-                $.cookie('currentStep', "atterissage", { expires: 7, path: '/' });
-                self.currentStep($.cookie('currentStep'))
+                if(!$.cookie('currentStep'))
+					$.cookie('currentStep', "atterissage", { path: '/' });
+
+				
+				self.currentStep($.cookie('currentStep'));
+				
             }
 
             self.getAirbases = function (callback) {
@@ -209,10 +213,37 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                 self.currentStep($.cookie('currentStep'));
             };
             //Paiement
-            self.payButton = function () {
-
-                //payer(montant);
-                //alert(self.pilotAccount + self.creditEuros() + self.totalEuros());
+            self.payButton = function(){
+				var totalToPay = self.totalEuros().replace('€', '');
+				var credit = self.pilot().creditEuros().replace('€', '');
+				
+				totalToPayNegative = "-"+totalToPay
+				var remainingCredit = credit - totalToPay;
+				var remainingCreditWithEuroSymbol = remainingCredit + " €.";
+				var newCredit = {
+                        pilot_id: self.pilot().id(),
+                        price: totalToPayNegative
+                    }
+					
+				services.payLanding(newCredit, function(){
+					$("#newCredit").append(remainingCreditWithEuroSymbol);
+                    $("#dialog_message").show();
+					$("#dialog_message").dialog({
+						width: 'auto', 
+						maxWidth: 600,
+						height: 'auto',
+						modal: true,
+						fluid: true, //new option
+						resizable: false,
+						buttons: {
+							Ok: function () {
+								$(this).dialog("close");
+								window.location.reload();
+							}
+						}
+					});
+                });
+				
             }
 
             self.previousStepPaiementButton = function () {
