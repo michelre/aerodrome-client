@@ -73,6 +73,9 @@ skel.init(_settings.skel);
 // jQuery
 $(function () {
 
+	//Disable Cache
+	$.ajaxSetup({ cache: false });
+	
     var $window = $(window),
         $body = $('body'),
         $header = $('#header'),
