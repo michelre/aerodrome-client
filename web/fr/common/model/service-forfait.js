@@ -1,5 +1,5 @@
 define(["knockout"], function (ko) {
-    return function ServiceForfait(id, name, price, desc, aircraftTypeCode) {
+    return function ServiceForfait(id, name, price, desc, aircraftTypeCode, airbaseId) {
         var self = this;
 		
 		var noErrorIconClass = 'fa fa-check';
@@ -14,6 +14,7 @@ define(["knockout"], function (ko) {
         self.price = ko.observable(price);
         self.desc = ko.observable(desc);
         self.aircraftTypeCode = ko.observable(aircraftTypeCode);
+        self.airbaseId = ko.observable(airbaseId);
 
         self.checked = ko.observable(false);
         self.quantity = ko.observable(1);

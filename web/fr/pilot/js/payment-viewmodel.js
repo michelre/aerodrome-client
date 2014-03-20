@@ -28,7 +28,6 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
 
             //SERVICES
             self.init = function(){
-                self.getServicesByAirbase(2)
                 self.plane(new plane("", ""));
                 self.landing(new landing(undefined, utils.getCurrentDate(), utils.getCurrentTime()));
                 self.getAirbases();
@@ -54,11 +53,11 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                     for(var i = 0; i < data.length; i++){
                         if(data[i].service_type === "forfait"){
                             self.servicesForfait.push(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,
-                                data[i].service_desc, data[i].service_aircraftTypeCode));
+                                data[i].service_desc, data[i].service_aircraftType_code, data[i].airbase_id));
                         }
                         if(data[i].service_type === "tonnage"){
                             self.servicesTonnage.push(new serviceTonnage(data[i].service_id, data[i].service_name,
-                                data[i].service_desc, data[i].service_aircraftTypeCode, data[i].services_weightRangeServices));
+                                data[i].service_desc, data[i].aircraftType_code, data[i].airbase_id, data[i].service_weightRangeService));
                         }
                     }
                     if(callback)
