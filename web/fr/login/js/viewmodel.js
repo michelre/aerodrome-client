@@ -146,7 +146,6 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 				if(self.newAccount.firstName().length==0) {
 				  hasError = true;
 				}
-			 	
 				if(!hasError) { 
 				self.createAccountFormValidatorError(false);
 					return noErrorClass; 

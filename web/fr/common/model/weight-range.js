@@ -11,13 +11,7 @@ define(["knockout"], function (ko) {
         self.tonMax = ko.observable(tonMax);
         self.priceFixed = ko.observable(priceFixed);
         self.pricePerTon = ko.observable(pricePerTon);
-		
-		/*self.editionStatus = ko.observable(editionStatus);//delete update ou create
-		
-		self.visible = ko.computed(function(){
-			console.log(self.editionStatus());
-			return self.editionStatus()==='delete' ? false : true;	
-		});*/
+		self.id = ko.observable(id);
 		
 		//Validators
 		self.isPositiveNumber = function(value){
@@ -53,6 +47,10 @@ define(["knockout"], function (ko) {
 		
 		self.checkPricePerTonIcon = ko.computed(function(){
 			return self.isPositiveNumber(self.pricePerTon()) ? noErrorIconClass : errorIconClass;
+		});
+		
+		self.fixDecimal = ko.computed(function(){
+			if(self.checkPriceFixed()===noErrorClass) self.priceFixed(parseFloat(self.priceFixed()).toFixed(2));
 		});
     };
 });
