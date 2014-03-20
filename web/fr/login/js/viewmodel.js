@@ -11,6 +11,12 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 			var noErrorClass = 'has-success';
 			var errorClass = 'has-error';
 			var emptyClass = '';
+		
+			self.warningFormConnexion = ko.observable();
+			self.errorFormConnexion = ko.observable();
+			self.successFormCreate = ko.observable();
+			self.warningFormCreate = ko.observable();
+			self.errorFormCreate = ko.observable();
 			
             //OBSERVABLES
 			//Création
@@ -31,10 +37,26 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 						pilotAccount_firstName:self.newAccount.firstName(),
 						pilotAccount_phone:self.newAccount.phone()
 					};
-					console.log(newPilot);
-					services.createPilotAccount(newPilot);	
+					services.createPilotAccount(newPilot,function(data,status){
+						console.log(status);
+						if(status==200){
+							self.warningFormCreate(false);
+							self.errorFormCreate(false);
+							self.successFormCreate(true);
+								setTimeout(function() {
+									self.successFormCreate(false);
+								}, 2000);
+						}else{
+							console.log("error");
+							self.warningFormCreate(false);
+							self.errorFormCreate(true);
+
+						}
+				
+					});	
 				}else{
-					alert("Veuillez compléter le formulaire en entier.\n Saisissez une adresse mail valide ainsi qu'un mot de passe de plus de 6 caractères.");	
+					self.errorFormCreate(false);
+					self.warningFormCreate(true);
 				}
 			}
 			self.clickConnectAccount = function(){
@@ -44,8 +66,8 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 				}
 				console.log(account);
 				services.connectAccount(account,function(data,status,jqXHR){
-					if(status==401){
-						alert("Email ou mot de passe incorrect");
+					if(status==401 || status==500){
+						self.errorFormConnexion(true);
 					}else{
 						if(data.role=="pilotAccount"){	
 							window.location.replace("/fr/pilot");
@@ -219,5 +241,23 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 						return false;
 					}
 			});
-        }
+			
+			self.displaySuccessCreate  = ko.computed(function(){
+                return self.successFormCreate() ? "show" : "hidden";
+         	});
+			
+			self.displayErrorCreate  = ko.computed(function(){
+                return self.errorFormCreate() ? "show" : "hidden";
+         	});
+		 
+		 	self.displayWarningCreate  = ko.computed(function(){
+                return self.warningFormCreate() ? "show" : "hidden";
+         	});
+			
+			self.displayErrorConnexion  = ko.computed(function(){
+                return self.errorFormConnexion() ? "show" : "hidden";
+         	});
+			
+			
+ 	  }
 });

@@ -48,11 +48,15 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				dataType: "json",
 				data: JSON.stringify(dataPilot),
 				method:"POST"
-			}).done(function(data){
+			}).done(function(data,textStatus,jqXHR){
                     if(callback)
-                        callback(data)
+                        callback(data,jqXHR.status)
 			}).fail(function(jqXHR){
-				console.log("Error createAccountPilot:", jqXHR);
+				if(callback)
+				{
+                        callback(null,jqXHR.status);
+						console.log("Error createAccountPilot:", jqXHR);
+				}
 			})
 		},
 		deletePilotAccount: function(idPilot, callback){
