@@ -66,17 +66,17 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
 				}
 				console.log(account);
 				services.connectAccount(account,function(data,status,jqXHR){
-					if(status==401 || status==500){
-						self.errorFormConnexion(true);
-					}else{
+					if(status==200){
+						
 						if(data.role=="pilotAccount"){	
 							window.location.replace("/fr/pilot");
 						}else if(data.role=="airbaseManager"){	
 							window.location.replace("/fr/owner");
 						}else if(data.role=="superAdmin"){	
 							window.location.replace("/fr/admin");
-						}  
-						
+						} 
+					}else{ 
+						self.errorFormConnexion(true);
 					}
 					
 				});

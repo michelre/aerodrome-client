@@ -92,7 +92,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 					$.cookie("role",data.role,{path:'/'});
 				}
                     if(callback)
-                        callback(data, textStatus, jqXHR)
+                        callback(data,jqXHR.status)
 			}).fail(function(jqXHR,status){
 				  if(callback){
 					 console.log("Error connectAccount:", jqXHR);
