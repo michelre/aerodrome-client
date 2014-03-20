@@ -35,6 +35,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 		
 		self.deleteService = function(data){
 			servicesCurrent.deleteService(data.id());	
+			self.airbaseServices.remove(data);
 		};
 		
         //COMPUTED
@@ -44,7 +45,6 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 				servicesCurrent.getServicesByAirbase(self.chosenAirbase(),function(data){
 					for(var i = 0; i < data.length; i++){
 						if(data[i].service_type==="tonnage"){
-							console.log(data[i].service_weightRangeService);
 							self.airbaseServices.push(new serviceTonnage(data[i].service_id, data[i].service_name,data[i].service_desc,data[i].service_aircraftTypeCode,data[i].service_weightRangeService));
 						}else{
 							self.airbaseServices.push(new serviceForfait(data[i].service_id, data[i].service_name, data[i].service_price,data[i].service_desc,data[i].service_aircraftTypeCode));
