@@ -8,6 +8,7 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
         var noErrorClass = 'has-success';
         var errorClass = 'has-error';
 
+		
         //OBSERVABLES
         self.id = ko.observable(id);
         self.name = ko.observable(name);
