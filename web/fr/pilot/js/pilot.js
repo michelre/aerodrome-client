@@ -6,11 +6,12 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
         "text!pilot/templates/facture.html",
         "text!pilot/templates/plus.html",
         "text!pilot/templates/account.html",
+        "text!pilot/templates/help.html",
 		"jquery-cookie"
         ],
-    function ($, ko, Sammy, baseVM, navTpl, homeTpl, creditTpl, paymentTpl, factureTpl, plusTpl,accountTpl) {
+    function ($, ko, Sammy, baseVM, navTpl, homeTpl, creditTpl, paymentTpl, factureTpl, plusTpl,accountTpl, helpTpl) {
 
-       	$("body").append(navTpl).append(homeTpl).append(creditTpl).append(paymentTpl).append(factureTpl).append(plusTpl).append(accountTpl);
+       	$("body").append(navTpl).append(homeTpl).append(creditTpl).append(paymentTpl).append(factureTpl).append(plusTpl).append(accountTpl).append(helpTpl);
         var viewModel = new baseVM();
 		
 		viewModel.initPilot($.cookie("id"),function(){
@@ -33,6 +34,9 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
 			this.get('account', function () {
 				viewModel.currentPage("Gestion du compte");
 			});
+            this.get('help', function () {
+                    viewModel.currentPage("Aide");
+                });
 			this.notFound = function () {
 				viewModel.currentPage("Accueil");
 				window.location.hash = "#home"

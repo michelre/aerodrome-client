@@ -6,9 +6,11 @@
         <link rel="stylesheet" href="../common/vendor/css/bootstrap.min.css">
         <link rel="stylesheet" href="../common/vendor/css/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" media="all" href="../common/css/design.css"/>
+        <link rel="stylesheet" type="text/css" media="all" href="css/home.css"/>
         <link rel="stylesheet" type="text/css" media="all" href="css/payment.css"/>
         <link rel="stylesheet" type="text/css" media="all" href="css/account.css"/>
         <link rel="stylesheet" type="text/css" media="all" href="css/historique.css"/>
+        <link rel="stylesheet" type="text/css" media="all" href="css/plus.css"/>
         <script type="text/javascript" src="../common/vendor/js/require.js" data-main="main.js"></script>
     </head>
     <body>
@@ -18,7 +20,7 @@
          <p data-bind="text: currentPage"></p>
         <section id="menu" data-bind="if: currentPage() !== 'Paydrome'">
             <ul>
-                <li><i class="fa fa-question"></i></li>
+                <li><a href="#help"><i class="fa fa-question"></i></a></li>
                 <li><a href="#account"><i class="fa fa-gear"></i></a></li>
                 <li data-bind="click: clickDisconnect"><i class="fa fa-power-off"></i></li>
             </ul>
