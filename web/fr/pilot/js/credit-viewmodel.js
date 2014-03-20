@@ -6,6 +6,15 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
 		var msg_higherThan0 = "Merci de Saisir un montant supérieur à 0";
 		var msg_radioBoxChecked = "Merci de choisir l'un des 2 modes de paiement";
 		
+		//validator classes
+		var noErrorIconClass = 'fa fa-check';
+		var errorIconClass = 'fa fa-times';
+		var emptyIconClass = '';
+	
+		var noErrorClass = 'has-success';
+		var errorClass = 'has-error';
+		var emptyClass = '';
+			
         /******************
 		 OBSERVABLES
 		******************/
@@ -62,16 +71,6 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
 				alert("Les champs n'ont pas tous été saisis");
 			};
 		}
-
-        //COMPUTED
-		 self.nouveauCredit=ko.computed(function(){
-		 	var newCredit = parseInt(self.pilotAccount().credit()) + parseInt(self.montantCredit());
-			if(isNaN(newCredit)){
-				newCredit=parseInt(self.pilotAccount().credit());
-			}
-			return newCredit;
-		 
-		 });
 		 
 		 self.allValidator = ko.computed(function(){
 			 return true;
