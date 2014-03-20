@@ -273,7 +273,7 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
             });
 
             self.enoughCredit = ko.computed(function(){
-                return (parseFloat(self.pilot().credit()) >= parseFloat(self.total())) ? true : false;
+                return (parseFloat(self.pilot().credit()) > parseFloat(self.total())) ? true : false;
             });
 
             self.notEnoughCreditClass = ko.computed(function(){
