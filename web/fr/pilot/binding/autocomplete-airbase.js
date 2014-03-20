@@ -3,8 +3,6 @@ define(["jquery", "knockout", "typeahead"], function ($, ko, typeahead) {
         init: function (element, valueAccessor, allBindings) {
             ko.unwrap(valueAccessor());
 
-            console.log(valueAccessor())
-
             var data = new Bloodhound({
                 datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace( d.fullTextSearch ); },
                 queryTokenizer: Bloodhound.tokenizers.whitespace,
