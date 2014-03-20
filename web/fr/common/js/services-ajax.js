@@ -27,15 +27,18 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				console.log("Error getAccountPilot:", jqXHR);
 			})
 		},
-		modifyPilotMdpAccount: function(idPilot,dataPilot){
+		modifyPilotMdpAccount: function(idPilot,dataPilot,callback){
 			$.ajax({
 				url: SaNPoint+"pilot/"+idPilot+"/updatePassword",
 				dataType: "json",
 				data: JSON.stringify(dataPilot),
 				method:"PUT"
-			}).done(function(data){
-                  console.log(data);
+			}).done(function(data,textStatus,jqXHR){ 
+					if(callback)
+                        callback(data,jqXHR.status)
 			}).fail(function(jqXHR){
+				if(callback)
+                        callback(null,jqXHR.status)
 				console.log("Error modifMdpPilot:", jqXHR);
 			})
 		},

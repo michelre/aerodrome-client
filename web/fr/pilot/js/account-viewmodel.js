@@ -5,11 +5,21 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		var baseVM = baseVM;
      	//ACCOUNT SETTINGS
 		//validator classes
-		var noErrorClasses = 'fa fa-check';
-		var errorClasses = 'fa fa-times';
+			var noErrorIconClass = 'fa fa-check';
+			var errorIconClass = 'fa fa-times';
+			var emptyIconClass = '';
+		
+			var noErrorClass = 'has-success';
+			var errorClass = 'has-error';
+			var emptyClass = '';
 		//OBSERVABLES
 		
-		self.successForm = ko.observable();
+		self.successFormUpdate = ko.observable();
+		self.warningFormUpdate = ko.observable();
+		self.successFormUpdateMdp = ko.observable();
+		self.warningFormUpdateMdp = ko.observable();
+		self.errorFormUpdateMdp = ko.observable();
+		
 		
 		//Modification
 		self.pilotAccount = ko.observable(baseVM.currentPilot());
@@ -31,24 +41,41 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 					pilotAccount_phone:self.pilotAccount().phone()
 				}
 				services.modifyPilotAccount(self.pilotAccount().id(),modifiedPilot,function(){
-					console.log("OK");
-					self.successForm(true);
+					self.warningFormUpdate(false);
+					self.successFormUpdate(true);
+					setTimeout(function() {
+ 						self.successFormUpdate(false);
+					}, 2000);
 				});		
 			}else{
-				alert("Veuillez compléter le formulaire en entier.\n Saisissez une adresse mail valide");	
+				
+				self.warningFormUpdate(true);	
 			}
 		}
 		
 		self.clickModifyMdpAccount = function(){
-			if(self.passValidator()==noErrorClasses){
+			if(self.passValidator()==noErrorClass){
 				var modifiedPilot={
 					oldPassword:self.oldMdp(),
 				    newPassword:self.newMdp()
 				}
 				console.log(modifiedPilot);
-				services.modifyPilotMdpAccount(self.pilotAccount().id(),modifiedPilot);		
+				services.modifyPilotMdpAccount(self.pilotAccount().id(),modifiedPilot,function(data,status){
+					if (status==403 || status==400){
+						self.warningFormUpdateMdp(false);
+						self.errorFormUpdateMdp(true);
+					}else if(status==200){
+						self.errorFormUpdateMdp(false);
+						self.warningFormUpdateMdp(false);
+						self.successFormUpdateMdp(true);
+						setTimeout(function() {
+							self.successFormUpdateMdp(false);
+						}, 2000);
+					}
+				});		
 			}else{
-				alert("Veuillez compléter le formulaire en entier.\n Saisissez une adresse mail valide");	
+				self.errorFormUpdateMdp(false);
+				self.warningFormUpdateMdp(true);
 			}
 		}
 		
@@ -61,7 +88,7 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		}
 		
 		//COMPUTED
-		 self.mailValidator = ko.computed(function () {
+		self.mailValidator = ko.computed(function () {
 			var hasError = false;
 			var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 		 
@@ -72,12 +99,27 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 			
 			if(!hasError) { 
 			self.createAccountFormValidatorError(false);
-				return noErrorClasses; 
+				return noErrorClass; 
 			}else{
 				self.createAccountFormValidatorError(true);
-				return errorClasses; 
+				if(self.pilotAccount().mail() == ''){
+					return emptyClass; 
+				}
+				return errorClass; 
 			}
 		});
+		
+		self.mailValidatorIcon = ko.computed(function () {
+              
+				if(self.mailValidator()===noErrorClass) {
+					return noErrorIconClass; 
+				}else if(self.mailValidator()===emptyClass) {
+					return emptyIconClass; 
+				}else{
+					return errorIconClass; 
+				}
+        });
+		
 		self.passValidator = ko.computed(function () {
 			var hasError = false;
 			
@@ -87,13 +129,27 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 			
 			if(!hasError) { 
 			self.createAccountFormValidatorError(false);
-				return noErrorClasses; 
+				return noErrorClass; 
 			}else{
 				self.createAccountFormValidatorError(true);
-				return errorClasses; 
+				if(self.oldMdp() == ''){
+						return emptyClass; 
+					}
+				return errorClass; 
 			}
 			
 		});
+		
+		self.passValidatorIcon = ko.computed(function () {
+              
+				if(self.passValidator()===noErrorClass) {
+					return noErrorIconClass; 
+				}else if(self.passValidator()===emptyClass) {
+					return emptyIconClass; 
+				}else{
+					return errorIconClass; 
+				}
+        });
 		
 		self.passValidatorWithConfirm = ko.computed(function () {
 			var hasError = false;
@@ -104,13 +160,30 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 			
 			if(!hasError) { 
 			self.createAccountFormValidatorError(false);
-				return noErrorClasses; 
+				return noErrorClass; 
 			}else{
 				self.createAccountFormValidatorError(true);
-				return errorClasses; 
+				if(self.newMdp() == '' || self.passConfirmation()==''){
+					return emptyClass; 
+				}
+				return errorClass; 
 			}
 			
 		});
+		
+		self.passValidatorWithConfirmIcon = ko.computed(function () {
+              
+				if(self.passValidatorWithConfirm()===noErrorClass) {
+					return noErrorIconClass; 
+				}else if(self.passValidatorWithConfirm()===emptyClass) {
+					return emptyIconClass; 
+				}else{
+					return errorIconClass; 
+				}
+        });
+		
+		
+		
 		self.firstNameValidator = ko.computed(function () {
 			var hasError = false;
 			if(self.pilotAccount().firstName().length==0) {
@@ -119,12 +192,27 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 			
 			if(!hasError) { 
 			self.createAccountFormValidatorError(false);
-				return noErrorClasses; 
+				return noErrorClass; 
 			}else{
 				self.createAccountFormValidatorError(true);
-				return errorClasses; 
+				if(self.pilotAccount().firstName() == ''){
+					return emptyClass; 
+				}
+				return errorClass; 
 			}
 		});
+		
+		self.firstNameValidatorIcon = ko.computed(function () {
+              
+				if(self.firstNameValidator()===noErrorClass) {
+					return noErrorIconClass; 
+				}else if(self.firstNameValidator()===emptyClass) {
+					return emptyIconClass; 
+				}else{
+					return errorIconClass; 
+				}
+        });
+		
 		self.lastNameValidator = ko.computed(function () {
 			var hasError = false;
 			if(self.pilotAccount().lastName().length==0) {
@@ -133,12 +221,27 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 			
 			if(!hasError) { 
 			self.createAccountFormValidatorError(false);
-				return noErrorClasses; 
+				return noErrorClass; 
 			}else{
 				self.createAccountFormValidatorError(true);
-				return errorClasses; 
+				if(self.pilotAccount().lastName() == ''){
+					return emptyClass; 
+				}
+				return errorClass; 
 			}
 		});
+		
+		self.lastNameValidatorIcon = ko.computed(function () {
+              
+				if(self.lastNameValidator()===noErrorClass) {
+					return noErrorIconClass; 
+				}else if(self.lastNameValidator()===emptyClass) {
+					return emptyIconClass; 
+				}else{
+					return errorIconClass; 
+				}
+        });
+		
 		self.phoneValidator = ko.computed(function () {
 			var hasError = false;
 			var phoneRegexInternational =new RegExp("^(\ +[1-9]{2-3}[0-9]{7,11})|([0-9]{10,15})$");
@@ -148,26 +251,62 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 			
 			if(!hasError) { 
 				self.createAccountFormValidatorError(false);
-				return noErrorClasses; 
+				return noErrorClass; 
 			}else{
 				self.createAccountFormValidatorError(true);
-				return errorClasses; 
+				if(self.pilotAccount().phone() == ''){
+					return emptyClass; 
+				}
+				return errorClass; 
 			}
 		});
+		
+		self.phoneValidatorIcon = ko.computed(function () {
+              
+				if(self.phoneValidator()===noErrorClass) {
+					return noErrorIconClass; 
+				}else if(self.phoneValidator()===emptyClass) {
+					return emptyIconClass; 
+				}else{
+					return errorIconClass; 
+				}
+        });
+		
 		self.allValidator = ko.computed(function () {
-			if(self.phoneValidator()==noErrorClasses &&
-				self.firstNameValidator()==noErrorClasses &&
-				self.lastNameValidator()==noErrorClasses &&
-				self.mailValidator()==noErrorClasses &&
-				self.phoneValidator()==noErrorClasses){
+			if(self.phoneValidator()==noErrorClass &&
+				self.firstNameValidator()==noErrorClass &&
+				self.lastNameValidator()==noErrorClass &&
+				self.mailValidator()==noErrorClass &&
+				self.phoneValidator()==noErrorClass){
 					return true
 				}else{
 					return false;
 				}
 		});
 		
+		
+		
+		
+		
 		 self.displaySuccessUpdate  = ko.computed(function(){
-                return self.successForm() ? "show" : "hidden";
+                return self.successFormUpdate() ? "show" : "hidden";
          });
+		 
+		 self.displayWarningUpdate  = ko.computed(function(){
+                return self.warningFormUpdate() ? "show" : "hidden";
+         });
+		 
+		 self.displaySuccessUpdateMdp  = ko.computed(function(){
+                return self.successFormUpdateMdp() ? "show" : "hidden";
+         });
+		 
+		  self.displayWarningUpdateMdp  = ko.computed(function(){
+                return self.warningFormUpdateMdp() ? "show" : "hidden";
+         });
+		 
+		 self. displayErrorUpdateMdp  = ko.computed(function(){
+                return self.errorFormUpdateMdp() ? "show" : "hidden";
+         });
+		
     }
 });
