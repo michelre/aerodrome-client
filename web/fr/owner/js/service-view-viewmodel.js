@@ -42,6 +42,10 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 		};
 		
 		self.clicUpdateService = function(){
+			//escape []
+			self.serviceAccordingType().name(self.serviceAccordingType().name().replace(/[[]/g, '(').replace(/[\]]/g, ')'));
+			self.serviceAccordingType().desc(self.serviceAccordingType().desc().replace(/[[]/g, '(').replace(/[\]]/g, ')'));
+						
 			var errorForm = false;
 			if(self.serviceAccordingType().weightRangeServices!==undefined){//tonnage
 				if(self.serviceAccordingType().isValid()){
@@ -57,7 +61,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 					for (var i = 0; i < self.serviceAccordingType().weightRangeServices().length; i++) {
 						newService.service_weightRangeService.push({
 							//service_id: self.serviceAccordingType().id(),
-							//weightRangeService_id: self.serviceAccordingType().weightRangeServices()[i].id(),
+							weightRangeService_id: self.serviceAccordingType().weightRangeServices()[i].id(),
 							weightRangeService_tonMin: self.serviceAccordingType().weightRangeServices()[i].tonMin(),
 							weightRangeService_tonMax: self.serviceAccordingType().weightRangeServices()[i].tonMax(),
 							weightRangeService_priceFixed: self.serviceAccordingType().weightRangeServices()[i].priceFixed(),
@@ -105,50 +109,12 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 				alert("Veuillez compléter le formulaire en entier.");
 			}
 		};
-		/*self.deleteAllWeightRange = function(service){
-			for(var i = 0; i < service.weightRangeServices().length; i++){
-				if(service.weightRangeServices()[i].editionStatus()!=="create"){
-					service.weightRangeServices()[i].editionStatus("delete");
-				}else{
-					self.serviceAccordingType().weightRangeServices.remove(service.weightRangeServices()[i]);
-				}
-			}
-			self.updateCreateDeleteWeightRanger(newService,newService.service_id);
-		};*/
-		/*self.updateCreateDeleteWeightRanger = function(service,serviceId){
-			for (var i = 0; i < service.weightRangeServices().length; i++) {
-				service_weightRangeService={
-					service_id: serviceId,
-					weightRangeService_id: service.weightRangeServices()[i].id(),
-					weightRangeService_tonMin: service.weightRangeServices()[i].tonMin(),
-					weightRangeService_tonMax: service.weightRangeServices()[i].tonMax(),
-					weightRangeService_priceFixed: service.weightRangeServices()[i].priceFixed(),
-					weightRangeService_pricePerTon: service.weightRangeServices()[i].pricePerTon()
-				};
-				if(service.weightRangeServices()[i].editionStatus()==="create"){
-					delete service_weightRangeService.weightRangeService_id;
-					servicesCurrent.createWeightRangeService(service_weightRangeService);
-				}else if(service.weightRangeServices()[i].editionStatus()==="delete"){
-					servicesCurrent.deleteWeightRangeService(service_weightRangeService.weightRangeService_id);
-				}else{
-					var id= service_weightRangeService.weightRangeService_id;
-					delete service_weightRangeService.weightRangeService_id;
-					delete service_weightRangeService.service_id;
-					servicesCurrent.updateWeightRangeService(id,service_weightRangeService);
-				}
-			}
-		};*/
 		
 		self.addWeightRange = function(){
 			self.serviceAccordingType().weightRangeServices.push(new weightRange("new", 0, 0, 0, 0));
 		};
 		
 		self.deleteWeightRange = function(weightRange){
-			/*if(weightRangeData.editionStatus()!=="create"){
-				weightRangeData.editionStatus("delete");
-			}else{
-				self.serviceAccordingType().weightRangeServices.remove(weightRange);
-			}*/
 			self.serviceAccordingType().weightRangeServices.remove(weightRange);
 		};
 		
@@ -164,15 +130,5 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 		self.displayCurrentServiceId = ko.computed(function(){
 			return 	"Edition du service #"+self.currentServiceId();
 		});	
-		
-		/*self.allTonServiceValidator = function () {
-			var valid=true;
-			for (var i = 0; i < self.serviceTonnage.weightRangeServices().length; i++) {
-				typeof self.serviceTonnage.weightRangeServices()[i].tonMin()=== "number" ? valid=true  : valid=false;
-				typeof self.serviceTonnage.weightRangeServices()[i].tonMax()=== "number" ? valid=true  : valid=false;
-			}
-			return valid;
-		};*/
-
 	};
 });
