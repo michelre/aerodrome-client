@@ -77,7 +77,8 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                 self.plane(new plane("", ""));
                 self.landing(new landing(undefined, utils.getCurrentDate(), utils.getCurrentTime()));
                 self.getAirbases();
-				//$.cookie('currentStep', "atterissage", { expires: 7, path: '/' });
+				
+				$.cookie('currentStep', "atterissage", { expires: 7, path: '/' });
 				self.currentStep($.cookie('currentStep'))
             }
 
