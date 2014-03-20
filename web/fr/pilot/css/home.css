@@ -24,3 +24,14 @@
     background-repeat: no-repeat;
     margin-top: 15px;
 }
+
+#home .news-widget{
+    background-image: url("../img/news-widget.png");
+    width: 346px;
+    height: 259px;
+    border-radius: 5px;
+    border: 1px solid #a0a0a0;
+    box-shadow: 1px 1px 8px #bcbcbc;
+    background-repeat: no-repeat;
+    margin-top: 15px;
+}
