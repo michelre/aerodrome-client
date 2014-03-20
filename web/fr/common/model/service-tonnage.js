@@ -21,10 +21,12 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
 
         //SERVICES
         self.init = function(){
+            console.log(weightRangeServices)
 			if(weightRangeServices===undefined){
 				weightRangeServices=[];
 			}
             for(var i = 0; i < weightRangeServices.length; i++){
+                console.log(weightRangeServices[i])
                 self.weightRangeServices.push(new weightRange(weightRangeServices[i].weightRangeService_id,weightRangeServices[i].weightRangeService_tonMin,
                     weightRangeServices[i].weightRangeService_tonMax, weightRangeServices[i].weightRangeService_priceFixed,
                     weightRangeServices[i].weightRangeService_pricePerTon));

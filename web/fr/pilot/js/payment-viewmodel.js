@@ -57,6 +57,7 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                                 data[i].service_desc, data[i].service_aircraftTypeCode));
                         }
                         if(data[i].service_type === "tonnage"){
+                            console.log(data[i])
                             self.servicesTonnage.push(new serviceTonnage(data[i].service_id, data[i].service_name,
                                 data[i].service_desc, data[i].service_aircraftTypeCode, data[i].services_weightRangeServices));
                         }
