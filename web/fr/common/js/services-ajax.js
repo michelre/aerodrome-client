@@ -1,6 +1,7 @@
 define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 	var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
 	//var SaNPoint = "http://localhost/ws/";
+	$.ajaxSetup({ cache: false });
 	return {
 		getPilotAccount: function(idPilot, callback){
 			$.ajax({
@@ -203,6 +204,39 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
                     console.log("Error getAirbaseManager:", jqXHR);
                 })
         },
+		
+		createManager: function(dataManager, callback){
+			$.ajax({
+				url: SaNPoint+"airbaseManager/",
+				dataType: "json",
+				data: JSON.stringify(dataManager),
+				method:"POST"
+			}).done(function(data,textStatus,jqXHR){
+                    if(callback)
+                        callback(data,jqXHR.status)
+			}).fail(function(jqXHR){
+				if(callback)
+				{
+                        callback(null,jqXHR.status);
+						console.log("Error createManagerAccount:", jqXHR);
+				}
+			})
+		},
+		
+		deleteManager: function(idManager, callback){
+			$.ajax({
+				url: SaNPoint+"airbaseManager/"+idManager,
+				dataType: "json",
+				method:"DELETE"
+			}).done(function(data){
+                    if(callback)
+                        callback(data)
+			}).fail(function(jqXHR){
+				console.log("Error deleteAccount", jqXHR);
+			})
+		},
+		
+		
 		
 		crediterCompte: function (dataCredit,callback){
 			$.ajax({

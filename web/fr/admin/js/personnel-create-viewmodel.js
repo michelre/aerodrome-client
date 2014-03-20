@@ -25,8 +25,17 @@ define(["knockout", "common/model/manager", "common/js/utils", "common/js/servic
 
         self.clickAdd = function(){
             self.checkForm(true);
+			var newManager = {
+				airbaseManager_firstName : self.newManager().firstName(),
+				airbaseManager_lastName : self.newManager().lastName(),
+				airbaseManager_pass : self.newManager().pass(),
+				airbaseManager_mail : self.newManager().mail(),
+				airbaseManager_phone : self.newManager().phone(),
+				airbaseManager_address : self.newManager().address()
+			}
+			
             if(!self.errorForm()){
-                services.createManager(self.newManager().toJSON(), function(){
+                services.createManager(newManager, function(){
                     self.checkForm(false);
                     self.creationOK(true);
                 })
