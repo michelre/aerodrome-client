@@ -1,6 +1,7 @@
 define(["knockout"], function (ko) {
-    return function factureVM() {
+    return function factureVM(baseVM) {
         var self = this;
+		var baseVM=baseVM;
 
         //OBSERVABLES
 

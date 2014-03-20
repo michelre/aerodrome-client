@@ -3,11 +3,11 @@
 <div id="payment-atterissage">
 <div class="container-fluid">
     <ul class="my-breadcrumb">
-        <li  data-bind="css: currentStepAtterissageClass"><a href="#"><span>1. Plateforme</span></a></li>
-        <li data-bind="css: currentStepAvionClass"><a href="#"><span>2. Avion</span></a></li>
-        <li data-bind="css: currentStepServicesClass"><a href="#"><span>3. Services</span></a></li>
-        <li data-bind="css: currentStepValidationClass"><a href="#"><span>4. Validation</span></a></li>
-        <li  data-bind="css: currentStepPaiementClass"><a href="#"><span>5. Paiement</span></a></li>
+        <li  data-bind="css: currentStepAtterissageClass"><a href="#"><span class="number" >1</span><span class="etape">. Plateforme</span></a></li>
+        <li data-bind="css: currentStepAvionClass"><a href="#"><span class="number">2</span><span class="etape">. Avion</span></a></li>
+        <li data-bind="css: currentStepServicesClass"><a href="#"><span class="number">3</span><span class="etape">. Services</span></a></li>
+        <li data-bind="css: currentStepValidationClass"><a href="#"><span class="number">4</span><span class="etape">. Validation</span></a></li>
+        <li  data-bind="css: currentStepPaiementClass"><a href="#"><span class="number">5</span><span class="etape">. Paiement</span></a></li>
     </ul>
 </div>
 
@@ -332,6 +332,12 @@
         </div>
         <hr/>
         <form class="form-horizontal" role="form">
+		
+		<div>
+			<img src="images/paypal_logo.png" alt="paypal_logo"><input type="radio" name="payment" data-bind="checked: paypal, click:checkPaypal" checked> Paiement Paypal<br>
+			<img src="images/creditCard_logo.png" alt="creditCard_logo"><input id="creditCard" type="radio" name="payment" data-bind="checked: creditCard, click:checkCreditCard"> Paiement par CB<br>
+		</div>
+			<!--
             <div class="form-group">
                 <label class="col-md-1">CB</label>
                 <div class="col-md-1">
@@ -343,24 +349,28 @@
                 <div class="col-md-1">
                     <input type="radio" value="paypal" data-bind="checked: paymentType"/>
                 </div>
-            </div>
+            </div>-->
+			
+			
         </form>
 
         <!-- ko if: paymentType() === 'paypal' -->
         <form class="form-horizontal" role="form">
             <label for="credit-sum" class="col-md-2">Somme à créditer</label>
             <div class="col-md-3">
-                <input id="credit-sum" class="form-control" type="number"/>
+                <!--<input id="credit-sum" class="form-control" type="number"/>-->
+				<input data-bind="numeric: number, value: montantCredit" id="montantCredit" type="text" name="montantCredit" class="form-control" placeholder="Entrer montant"/>
             </div>
             <div class="col-md-3">
-                <button class="btn btn-default">Créditer</button>
+                <!--<button class="btn btn-default">Créditer</button>-->
+				<button data-bind="click: crediterCompte" class="btn btn-primary" >Créditer</button>
             </div>
         </form>
         <!-- /ko -->
     </div>
 
-    <p class="credit-ok bg-success" data-bind="css: enoughCreditClass">Votre nouveau crédit sera <b
-            data-bind="text: futureCredit"></b></p>
+    <!--<p class="credit-ok bg-success" data-bind="css: enoughCreditClass">Votre nouveau crédit sera <b
+            data-bind="text: futureCredit"></b></p>-->
 
     <div class="row btns">
         <div class="col-md-2 col-md-offset-8 col-md-push-2">

@@ -49,7 +49,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
         //COMPUTED
 		self.getServicesByAirbase = ko.computed(function(){
 			self.airbaseServices.removeAll();
-			if(self.chosenAirbase()!==undefined && self.chosenAirbase()!==null && self.chosenAirbase()!==""){
+			if(self.chosenAirbase()!==undefined && self.chosenAirbase()!==null && eval(self.chosenAirbase())>0){
 				servicesCurrent.getServicesByAirbase(self.chosenAirbase(),function(data){
 					for(var i = 0; i < data.length; i++){
 						if(data[i].service_type==="tonnage"){

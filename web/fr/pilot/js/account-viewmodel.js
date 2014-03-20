@@ -80,11 +80,11 @@ define(["knockout","common/js/mock/services-ajax","common/js/services-ajax","com
 		}
 		
 		self.clickDeleteAccount = function(){
-			var deletedPilote=self.idPilot();
-			console.log(deletedPilote);
-			services.deletePilotAccount(deletedPilote);
-			alert("Votre compte a bien été supprimé.");
-			//window.location="../login";
+			var deletedPilote=
+			services.deletePilotAccount(self.pilotAccount().id(),function(){
+				window.location="/fr/login";
+			});
+			
 		}
 		
 		//COMPUTED

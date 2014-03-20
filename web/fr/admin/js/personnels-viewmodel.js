@@ -33,8 +33,10 @@ define(["knockout", "common/model/manager", "common/js/services-ajax"], function
             console.log("modify manager")
         };
 
-        self.clickDeleteManager = function(){
-            console.log("delete manager")
+        self.clickDeleteManager = function(data){
+            services.deleteManager(data.id(), function(){
+                self.managers.remove(data);
+            });
         }
 
         //COMPUTED

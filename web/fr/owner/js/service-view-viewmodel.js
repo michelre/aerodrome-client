@@ -11,7 +11,6 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 		self.currentServiceId = ko.observable(baseVM.currentServiceId);
 		self.currentAirbaseId = ko.observable(baseVM.currentAirbaseId);
 		self.radioSelectedServiceType = ko.observable();
-		
 		self.successForm = ko.observable();
 		self.warningForm = ko.observable();
 		self.errorForm = ko.observable();
@@ -28,7 +27,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 					if(data.service_type==="tonnage"){
 						weightRange = data.service_weightRangeService;
 					}
-					self.serviceTonnage(new serviceTonnage(data.service_id, data.service_name,data.service_desc,data.service_aircraftTypeCode,weightRange));
+					self.serviceTonnage(new serviceTonnage(data.service_id, data.service_name,data.service_desc,data.service_aircraftTypeCode,data.airbase_id,weightRange));
 					self.serviceForfait(new serviceForfait(data.service_id, data.service_name, data.service_price,data.service_desc,data.service_aircraftTypeCode));
 					if(data.service_type==="tonnage"){
 						self.radioSelectedServiceType("Tonnage");
@@ -37,8 +36,8 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 					}
 				});	
 			}else{ //new service
-				self.serviceTonnage(new serviceTonnage(null, "","",null,[]));
-				self.serviceForfait(new serviceForfait(null, "", 0,"",null));
+				self.serviceTonnage(new serviceTonnage(null, "","",null,self.currentAirbaseId(),[]));
+				self.serviceForfait(new serviceForfait(null, "", 0,"",null,self.currentAirbaseId()));
 				self.radioSelectedServiceType("Forfait");
 			}
 		};
@@ -100,17 +99,9 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 				}
 				if(self.currentServiceId()==="new"){
 					delete newService.service_id;
-					if(newService.service_type==='tonnage'){
-						servicesCurrent.createService(newService,self.redirectOnCreate);
-					}else{
-						servicesCurrent.createService(newService,self.redirectOnCreate);
-					}					
-				}else{	
-					if(newService.service_type==='tonnage'){
-						servicesCurrent.updateService(newService,self.redirectOnUpdate,self.currentAirbaseId());
-					}else{
-						servicesCurrent.updateService(newService,self.redirectOnUpdate,self.currentAirbaseId());
-					}
+					servicesCurrent.createService(newService,self.redirectOnCreate,self.currentAirbaseId());				
+				}else{
+					servicesCurrent.updateService(newService,self.redirectOnUpdate,self.currentAirbaseId());
 				}
 			}else{
 				alert("Veuillez compléter le formulaire en entier.");
@@ -132,14 +123,14 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 			}
 		};
 		
-		self.redirectOnCreate = function(data,status){
+		self.redirectOnCreate = function(data,status,id_airbase){
 			if(status===200){
 				self.warningFormCreate(false);
 				self.errorFormCreate(false);
 				self.successFormCreate(true);
 					setTimeout(function() {
 						self.successFormCreate(false);
-						window.location.hash="servicesbyairbase/"+data.service.id_airbase;
+						window.location.hash="servicesbyairbase/"+id_airbase;
 					}, 2000);
 			}else{
 				self.warningFormCreate(false);
@@ -148,7 +139,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 		};
 		
 		self.addWeightRange = function(){
-			self.serviceAccordingType().weightRangeServices.push(new weightRange("new", 0, 0, 0, 0));
+			self.serviceAccordingType().weightRangeServices.push(new weightRange(self.currentServiceId(),"new", 0, 0, 0, 0));
 		};
 		
 		self.deleteWeightRange = function(weightRange){

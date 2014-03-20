@@ -1,6 +1,7 @@
 define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 	var SaNPoint = "http://tarikgilani.eweb702.discountasp.net/ws/";
 	//var SaNPoint = "http://localhost/ws/";
+	$.ajaxSetup({ cache: false });
 	return {
 		getPilotAccount: function(idPilot, callback){
 			$.ajax({
@@ -61,10 +62,12 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 		},
 		deletePilotAccount: function(idPilot, callback){
 			$.ajax({
-				url: SaNPoint+"pilot/delete/"+idPilot,
+				url: SaNPoint+"pilot/"+idPilot,
 				dataType: "json",
 				method:"DELETE"
 			}).done(function(data){
+				$.removeCookie("id", { path: '/' });
+				$.removeCookie("role", { path: '/' });
                     if(callback)
                         callback(data)
 			}).fail(function(jqXHR){
@@ -89,7 +92,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 					$.cookie("role",data.role,{path:'/'});
 				}
                     if(callback)
-                        callback(data, textStatus, jqXHR)
+                        callback(data,jqXHR.status)
 			}).fail(function(jqXHR,status){
 				  if(callback){
 					 console.log("Error connectAccount:", jqXHR);
@@ -204,6 +207,39 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
                 })
         },
 		
+		createManager: function(dataManager, callback){
+			$.ajax({
+				url: SaNPoint+"airbaseManager/",
+				dataType: "json",
+				data: JSON.stringify(dataManager),
+				method:"POST"
+			}).done(function(data,textStatus,jqXHR){
+                    if(callback)
+                        callback(data,jqXHR.status)
+			}).fail(function(jqXHR){
+				if(callback)
+				{
+                        callback(null,jqXHR.status);
+						console.log("Error createManagerAccount:", jqXHR);
+				}
+			})
+		},
+		
+		deleteManager: function(idManager, callback){
+			$.ajax({
+				url: SaNPoint+"airbaseManager/"+idManager,
+				dataType: "json",
+				method:"DELETE"
+			}).done(function(data){
+                    if(callback)
+                        callback(data)
+			}).fail(function(jqXHR){
+				console.log("Error deleteAccount", jqXHR);
+			})
+		},
+		
+		
+		
 		crediterCompte: function (dataCredit,callback){
 			$.ajax({
 				url: SaNPoint+"pilot/"+dataCredit.pilotAccount_id+"/credit",
@@ -232,7 +268,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 			});
 		},
 		
-		createService:function (dataService,callback){
+		createService:function (dataService,callback,airbaseId){
 			$.ajax({
 				url: SaNPoint+"service/",
 				dataType: "json",
@@ -240,7 +276,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				method:"POST"
 			}).done(function(data,textstatus,jqXHR){
                     if(callback)
-                        callback(data,jqXHR.status);
+                        callback(data,jqXHR.status,airbaseId);
 					return data.id; //besoin de l'id pour creation des weight range service
 			}).fail(function(jqXHR){
 				console.log("Error createService:", jqXHR);
