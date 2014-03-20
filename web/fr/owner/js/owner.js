@@ -14,7 +14,12 @@ define(["jquery", "knockout", "sammy", "owner/js/base-viewmodel",
             this.get('home', function () {
                 viewModel.currentPage("Accueil");
             });
-			this.get('services', function () {
+			this.get('servicesbyairbase/:idAirbase', function () {
+                var idAirbase = this.params['idAirbase'];
+				viewModel.currentAirbaseId=idAirbase;
+				viewModel.currentPage("Services");
+            });
+			this.get('servicesbyairbase', function () {
                 viewModel.currentPage("Services");
             });
 			this.get('services/:idService/:idAirbase', function () {
@@ -26,7 +31,7 @@ define(["jquery", "knockout", "sammy", "owner/js/base-viewmodel",
             });			
             this.notFound = function () {
 				console.log("not found");
-				window.location.hash = "#home";
+					window.location.hash = "#home";
             };
         }).run();
 
