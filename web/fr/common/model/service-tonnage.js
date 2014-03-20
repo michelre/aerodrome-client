@@ -1,5 +1,5 @@
 define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
-    return function ServiceTonnage(id, name, desc, aircraftTypeCode, weightRangeServices) {
+    return function ServiceTonnage(id, name, desc, aircraftTypeCode, airbaseId, weightRangeServices) {
         var self = this;
 
         var noErrorIconClass = 'fa fa-check';
@@ -14,6 +14,7 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
         self.desc = ko.observable(desc);
         self.aircraftTypeCode = ko.observable(aircraftTypeCode);
         self.weightRangeServices = ko.observableArray([]);
+        self.airbaseId = ko.observable(airbaseId);
 
         self.aircraftWeight = ko.observable(undefined);
 
@@ -21,13 +22,12 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
 
         //SERVICES
         self.init = function(){
-			if(weightRangeServices===undefined){
-				weightRangeServices=[];
-			}
-            for(var i = 0; i < weightRangeServices.length; i++){
-                self.weightRangeServices.push(new weightRange(weightRangeServices[i].weightRangeService_id,weightRangeServices[i].weightRangeService_tonMin,
-                    weightRangeServices[i].weightRangeService_tonMax, weightRangeServices[i].weightRangeService_priceFixed,
-                    weightRangeServices[i].weightRangeService_pricePerTon));
+            if(weightRangeServices){
+                for(var i = 0; i < weightRangeServices.length; i++){
+                    self.weightRangeServices.push(new weightRange(weightRangeServices[i].service_id, weightRangeServices[i].weightRangeService_id,weightRangeServices[i].weightRangeService_tonMin,
+                        weightRangeServices[i].weightRangeService_tonMax, weightRangeServices[i].weightRangeService_priceFixed,
+                        weightRangeServices[i].weightRangeService_pricePerTon));
+                }
             }
         };
 
@@ -60,8 +60,8 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
         self.price = ko.computed(function () {
             if (self.aircraftWeight()) {
                 var weightRange = self.findCorrectWeightRange(parseFloat(self.aircraftWeight()));
-                var diffWeightMax = self.aircraftWeight() - weightRange.tonMin();
-                return (weightRange.pricePerTon() > 0) ? Math.round((weightRange.priceFixed() + (diffWeightMax * weightRange.pricePerTon())) * 100) / 100 : weightRange.priceFixed();
+                var diffWeightMax = parseFloat(self.aircraftWeight()) - parseFloat(weightRange.tonMin());
+                return (parseFloat(weightRange.pricePerTon()) > 0) ? parseFloat(weightRange.priceFixed()) + (diffWeightMax * parseFloat(weightRange.pricePerTon())) : parseFloat(weightRange.priceFixed())
             }
             return null;
         });
