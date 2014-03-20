@@ -31,6 +31,7 @@ define(["jquery", "knockout", "sammy", "owner/js/base-viewmodel",
             });			
             this.notFound = function () {
 				console.log("not found");
+				viewModel.currentPage("Accueil");
 					window.location.hash = "#home";
             };
         }).run();
