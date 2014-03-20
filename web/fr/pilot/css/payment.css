@@ -174,44 +174,17 @@
     text-align: right;
 }
 
-/* Extra small devices (phones, less than 768px) */
-@media (max-width: 767px) {
-    #payment-atterissage .my-breadcrumb li a{
-        padding: 10px 0 10px 7px;
-        font-size: 8px;
-    }
-
-    #payment-atterissage .my-breadcrumb li a:after {
-        border-top: 20px solid transparent;           /* Go big on the size, and let overflow hide */
-        border-bottom: 20px solid transparent;
-        border-left: 10px solid hsla(34,85%,35%,1);
-        margin-top: -20px;
-    }
-
-    #payment-atterissage .my-breadcrumb li a:before {
-        border-top: 20px solid transparent;
-        border-bottom: 20px solid transparent;
-        border-left: 10px solid white;
-        margin-top: -20px;
-    }
-
-    #payment-atterissage .selected-airbase{
-        margin-top: 10px;
-        margin-left: 15px;
-    }
-
-
-}
 
 /* Small devices (tablets, 768px and up) */
-@media (max-width: 768px) {
+@media (max-width: 735px) {
     #payment-atterissage .my-breadcrumb li a{
-        padding: 7px 5px 7px 20px;
-		font-size:14px;
+        padding: 5px 1px 5px 50px;
+		font-size:10px;
     }
 	
 	 #payment-atterissage .my-breadcrumb li:first-child a{
-        padding: 7px 5px 7px 10px;
+        padding: 5px 1px 5px 35px;
+		font-size:10px;
     }
 	
 
@@ -224,7 +197,7 @@
 
 
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: 768px) {
+@media (min-width: 735px) {
      #payment-atterissage .my-breadcrumb li a{
         padding: 15px 0 15px 50px;
     }
