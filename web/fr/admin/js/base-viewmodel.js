@@ -2,7 +2,7 @@ define(["knockout", "admin/js/plateforms-viewmodel", "admin/js/plateform-viewmod
     function (ko, plateformsVM, plateformVM, accueilVM, personnelsVM, personnelCreateVM, servicesAjax, servicesAjaxMock,admin) {
         return function baseVM() {
             var self = this;
-            var services = servicesAjaxMock;
+            var services = servicesAjax;
 
             //OBSERVABLES
             self.currentPage = ko.observable();
