@@ -36,6 +36,7 @@
 #payment-atterissage .loading-airbases{
     font-size: 50px;
 }
+ 
 
 #payment-atterissage .my-breadcrumb li a:before {
     content: " ";
@@ -62,6 +63,10 @@
 #payment-atterissage .my-breadcrumb li:nth-child(5) a       { background:        hsla(34,85%,75%,1); }
 #payment-atterissage .my-breadcrumb li:nth-child(5) a:after { border-left-color: hsla(34,85%,75%,1); }
 #payment-atterissage .my-breadcrumb li:last-child   a       { background:        hsla(34,85%,75%,1); }
+
+#payment-atterissage .my-breadcrumb li.active a       { background:        blue; }
+#payment-atterissage .my-breadcrumb li.active a:after { border-left-color: blue; }
+
 
 #payment-atterissage .my-breadcrumb i{
     margin-right: 2px;
@@ -169,47 +174,19 @@
     text-align: right;
 }
 
-/* Extra small devices (phones, less than 768px) */
-@media (max-width: 767px) {
-    #payment-atterissage .my-breadcrumb li a{
-        padding: 10px 0 10px 7px;
-        font-size: 8px;
-    }
-
-    #payment-atterissage .my-breadcrumb li a:after {
-        border-top: 20px solid transparent;           /* Go big on the size, and let overflow hide */
-        border-bottom: 20px solid transparent;
-        border-left: 10px solid hsla(34,85%,35%,1);
-        margin-top: -20px;
-    }
-
-    #payment-atterissage .my-breadcrumb li a:before {
-        border-top: 20px solid transparent;
-        border-bottom: 20px solid transparent;
-        border-left: 10px solid white;
-        margin-top: -20px;
-    }
-
-    #payment-atterissage .selected-airbase{
-        margin-top: 10px;
-        margin-left: 15px;
-    }
-
-
-}
 
 /* Small devices (tablets, 768px and up) */
-@media (max-width: 768px) {
+@media (max-width: 735px) {
     #payment-atterissage .my-breadcrumb li a{
-        padding: 10px 0 10px 13px;
-        font-size: 6px;
+        padding: 5px 1px 5px 50px;
+		font-size:10px;
     }
 	
-    #payment-atterissage .my-breadcrumb li a i{
-        position: absolute;
-        top: 3;
-        left: 15;
+	 #payment-atterissage .my-breadcrumb li:first-child a{
+        padding: 5px 1px 5px 35px;
+		font-size:10px;
     }
+	
 
     #payment-atterissage .selected-airbase{
         margin-top: 10px;
@@ -217,10 +194,16 @@
     }
 }
 
+
+
 /* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-    #payment-atterissage .my-breadcrumb li a{
-        padding: 10px 0 10px 50px;
+@media (min-width: 735px) {
+     #payment-atterissage .my-breadcrumb li a{
+        padding: 15px 0 15px 50px;
+    }
+	
+	 #payment-atterissage .my-breadcrumb li:first-child a{
+        padding: 15px 0 15px 30px;
     }
 
     #payment-atterissage .selected-airbase{
@@ -239,7 +222,11 @@
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
     #payment-atterissage .my-breadcrumb li a{
-        padding: 10px 0 10px 65px;
+        padding: 15px 0 15px 90px;
+    }
+	
+	 #payment-atterissage .my-breadcrumb li:first-child a{
+        padding: 15px 0 15px 60px;
     }
 
     #payment-atterissage .btn-next div:first-child{

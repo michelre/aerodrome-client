@@ -182,7 +182,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 		
 		getManagers: function (callback) {
             $.ajax({
-                url: SaNPoint+"AirbaseManager",
+                url: SaNPoint+"airbaseManagers",
 				method:"GET"
             }).done(function (data) {
                     if(callback)
@@ -194,7 +194,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 		
 		getAirbaseManager: function (id,callback) {
             $.ajax({
-                url: SaNPoint+"AirbaseManager/"+id,
+                url: SaNPoint+"airbaseManager/"+id,
 				method:"GET"
             }).done(function (data) {
                     if(callback)
@@ -218,7 +218,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 			});
 		},
 		
-		updateService:function (dataService,callback){
+		updateService:function (dataService,callback,airbaseId){
 			$.ajax({
 				url: SaNPoint+"service/"+dataService.service_id,
 			    dataType: "json",
@@ -226,7 +226,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				method:"PUT"
 			}).done(function(data,textstatus,jqXHR){
                     if(callback)
-                        callback(data,jqXHR.status);
+                        callback(data,jqXHR.status,airbaseId);
 			}).fail(function(jqXHR){
 				console.log("Error updateService:", jqXHR);
 			});

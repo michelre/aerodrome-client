@@ -144,23 +144,23 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
             });
 
             self.currentStepAtterissageClass = ko.computed(function(){
-                return (self.currentStep() === 'atterissage') ? "fa fa-pencil" : "";
+                return (self.currentStep() === 'atterissage') ? "active" : "";
             });
 
             self.currentStepAvionClass = ko.computed(function(){
-                return (self.currentStep() === 'avion') ? "fa fa-pencil" : "";
+                return (self.currentStep() === 'avion') ? "active" : "";
             });
 
             self.currentStepServicesClass = ko.computed(function(){
-                return (self.currentStep() === 'services') ? "fa fa-pencil" : "";
+                return (self.currentStep() === 'services') ? "active" : "";
             });
 
             self.currentStepValidationClass = ko.computed(function(){
-                return (self.currentStep() === 'validation') ? "fa fa-pencil" : "";
+                return (self.currentStep() === 'validation') ? "active" : "";
             });
 
             self.currentStepPaiementClass = ko.computed(function(){
-                return (self.currentStep() === 'paiement') ? "fa fa-pencil" : "";
+                return (self.currentStep() === 'paiement') ? "active" : "";
             });
 
             self.totalPrice = ko.computed(function(){

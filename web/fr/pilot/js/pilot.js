@@ -25,8 +25,8 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
 			this.get('payer', function () {
 				viewModel.currentPage("Payer");
 			});
-			this.get('historique', function () {
-				viewModel.currentPage("Historique");
+			this.get('archive', function () {
+				viewModel.currentPage("Archive");
 			});
 			this.get('plus', function () {
 				viewModel.currentPage("Plus");

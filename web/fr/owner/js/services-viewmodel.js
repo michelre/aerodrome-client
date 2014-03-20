@@ -4,8 +4,9 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 		var servicesCurrent = services;
 		
         //OBSERVABLES
+		
 		self.managerAirbases = ko.observableArray([]);
-        self.chosenAirbase = ko.observable("");
+        self.chosenAirbase = ko.observable(null);
 		self.currentAirbaseManager = ko.observable(baseVM.currentAirebaseManager());
 
 		//services
@@ -16,11 +17,18 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
 
 		self.getManagerAirbases = function(){
 			self.managerAirbases.removeAll();
-			servicesCurrent.getAirbasesByManager(self.currentAirbaseManager().id(),function(data){
-				for(var i = 0 ; i < data.length; i++){
-					self.managerAirbases.push(new airbase(data[i].airbase_id, data[i].airbase_name, data[i].airbase_address, data[i].airbaseManager_firstname,self.currentAirbaseManager()));
-				}
-			});
+			if(self.currentAirbaseManager().id()){
+				servicesCurrent.getAirbasesByManager(self.currentAirbaseManager().id(),function(data){
+					for(var i = 0 ; i < data.length; i++){
+						self.managerAirbases.push(new airbase(data[i].airbase_id, data[i].airbase_name, data[i].airbase_address, data[i].airbaseManager_firstname,self.currentAirbaseManager()));
+					}
+					if(baseVM.currentAirbaseId===null || baseVM.currentAirbaseId===undefined){
+						self.chosenAirbase(null);
+					}else{
+						self.chosenAirbase([eval(baseVM.currentAirbaseId)]);
+					}
+				});
+			}   
 		};
 		
 		self.getManagerAirbases();
@@ -41,7 +49,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","com
         //COMPUTED
 		self.getServicesByAirbase = ko.computed(function(){
 			self.airbaseServices.removeAll();
-			if(self.chosenAirbase()!==null && self.chosenAirbase()!==""){
+			if(self.chosenAirbase()!==undefined && self.chosenAirbase()!==null && self.chosenAirbase()!==""){
 				servicesCurrent.getServicesByAirbase(self.chosenAirbase(),function(data){
 					for(var i = 0; i < data.length; i++){
 						if(data[i].service_type==="tonnage"){

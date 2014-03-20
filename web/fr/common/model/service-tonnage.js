@@ -8,6 +8,7 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
         var noErrorClass = 'has-success';
         var errorClass = 'has-error';
 
+
         //OBSERVABLES
         self.id = ko.observable(id);
         self.name = ko.observable(name);
@@ -21,10 +22,10 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
         self.quantity = ko.observable(1);
 
         //SERVICES
-        self.init = function(){
-            if(weightRangeServices){
-                for(var i = 0; i < weightRangeServices.length; i++){
-                    self.weightRangeServices.push(new weightRange(weightRangeServices[i].service_id, weightRangeServices[i].weightRangeService_id,weightRangeServices[i].weightRangeService_tonMin,
+        self.init = function () {
+            if (weightRangeServices) {
+                for (var i = 0; i < weightRangeServices.length; i++) {
+                    self.weightRangeServices.push(new weightRange(weightRangeServices[i].service_id, weightRangeServices[i].weightRangeService_id, weightRangeServices[i].weightRangeService_tonMin,
                         weightRangeServices[i].weightRangeService_tonMax, weightRangeServices[i].weightRangeService_priceFixed,
                         weightRangeServices[i].weightRangeService_pricePerTon));
                 }

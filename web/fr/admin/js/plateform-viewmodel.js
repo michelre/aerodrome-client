@@ -48,7 +48,7 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
                         airbase_address: self.modifiedAirbase().address(),
                         airbaseManager_id: self.selectedManagerUpdate().id(),
                     }
-                    servicesCurrent.updateAirbase(newAirbase.airbase_id, newAirbase, function(){
+                    servicesCurrent.updateAirbase(newAirbase, function(){
                         window.location.hash = "airbase"
                     })
                 } else {

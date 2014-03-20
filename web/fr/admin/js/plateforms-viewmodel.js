@@ -69,10 +69,9 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
                     airbase_address: self.address(),
                     airbaseManager_id: self.selectedManagerCreate().id(),
                 }
-                if (servicesCurrent.createAirbase(newAirbase)) {
+                servicesCurrent.createAirbase(newAirbase,function(){
                     window.location.hash = "airbase";
-                }
-                ;
+                });
 
             } else {
                 alert("Veuillez compléter le formulaire en entier.");
