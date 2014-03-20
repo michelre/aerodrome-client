@@ -1,12 +1,16 @@
 <script type="text/html" id="nav-owner-template">
-	<ul data-bind="css: homeActiveClass">
-		<li data-bind="css: homeActiveClass">
-			<i class="fa fa-home"></i>
-			<a href="#home">Accueil</a>
+	<ul class="row" data-bind="css: homeActiveClass">
+		<li class="col-xs-2 col-cm-2 col-md-2 col-lg-2" data-bind="css: homeActiveClass">
+			<a href="#home">
+				<i class="fa fa-home"></i>
+				<p>Accueil</p>
+			</a>
 		</li>
-		<li data-bind="css: servicesActiveClass">
-			<i class="fa fa-fighter-jet"></i>
-			<a href="#services">Services</a>
+		<li class="col-xs-2 col-cm-2 col-md-2 col-lg-2" data-bind="css: servicesActiveClass">
+			<a href="#services">
+				<i class="fa fa-fighter-jet"></i>
+				<p>Services</p>
+			</a>
 		</li>
 	</ul>
 </script>
