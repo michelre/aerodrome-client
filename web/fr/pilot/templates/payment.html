@@ -20,7 +20,7 @@
 <div class="content container-fluid" data-bind="if: currentStep() === 'atterissage' && initAirbasesDone ">
     <h2>Saisissez votre atterissage</h2>
 
-    <p class="error bg-danger" data-bind="css: displayErrorLanding">Veuillez renseigner tous les champs</p>
+    <p class="error alert-danger" data-bind="css: displayErrorLanding">Veuillez renseigner tous les champs</p>
 
     <form class="form-horizontal airbase-city" role="form">
         <div class="form-group">
@@ -65,7 +65,7 @@
 <div class="content plane container-fluid" data-bind="if: currentStep() === 'avion' ">
     <h2>Votre avion</h2>
 
-    <div class="error bg-danger" data-bind="css: displayErrorPlane">
+    <div class="error alert-danger" data-bind="css: displayErrorPlane">
         Veuillez renseigner tous les champs
     </div>
 
@@ -108,6 +108,7 @@
         <tr>
             <th>Nom</th>
             <th>Description</th>
+            <th>Type</th>
             <th>Prix Unitaire</th>
             <th>Quantité</th>
             <th>Prix Total</th>
@@ -119,7 +120,8 @@
         <tr>
             <td data-bind="text: name"></td>
             <td data-bind="text: desc"></td>
-            <td data-bind="text: price"></td>
+            <td>Forfait</td>
+            <td data-bind="text: formatedPrice"></td>
             <td>
                 <div class="row">
                     <div class="col-md-6">
@@ -127,7 +129,7 @@
                     </div>
                 </div>
             </td>
-            <td data-bind="text: totalPrice"></td>
+            <td data-bind="text: formatedTotalPrice"></td>
             <td><input type="checkbox" data-bind="checkedValue: $data, checked: $parent.servicesForfaitSelected"/></td>
         </tr>
         <!-- /ko -->
@@ -135,7 +137,8 @@
         <tr>
             <td data-bind="text: name"></td>
             <td data-bind="text: desc"></td>
-            <td data-bind="text: price"></td>
+            <td>Tonnage</td>
+            <td data-bind="text: formatedPrice"></td>
             <td>
                 <div class="row">
                     <div class="col-md-6">
@@ -143,7 +146,7 @@
                      </div>
                 </div>
             </td>
-            <td data-bind="text: totalPrice"></td>
+            <td data-bind="text: formatedTotalPrice"></td>
             <td><input type="checkbox" data-bind="checkedValue: $data, checked: $parent.servicesTonnageSelected"/></td>
         </tr>
         <!-- /ko -->
@@ -238,6 +241,7 @@
                 <tr>
                     <td>Nom</td>
                     <td>Description</td>
+                    <td>Type</td>
                     <td>Prix Unitaire</td>
                     <td>Quantité</td>
                     <td>Prix Total</td>
@@ -248,24 +252,27 @@
                 <tr>
                     <td data-bind="text: name"></td>
                     <td data-bind="text: desc"></td>
-                    <td data-bind="text: price"></td>
+                    <td>Forfait</td>
+                    <td data-bind="text: formatedPrice"></td>
                     <td data-bind="text: quantity"></td>
-                    <td data-bind="text: totalPrice"></td>
+                    <td data-bind="text: formatedTotalPrice"></td>
                 </tr>
                 <!-- /ko -->
                 <!-- ko foreach: servicesTonnageSelected -->
                 <tr>
                     <td data-bind="text: name"></td>
                     <td data-bind="text: desc"></td>
-                    <td data-bind="text: price"></td>
+                    <td>Tonnage</td>
+                    <td data-bind="text: formatedPrice"></td>
                     <td data-bind="text: quantity"></td>
-                    <td data-bind="text: totalPrice"></td>
+                    <td data-bind="text: formatedTotalPrice"></td>
                 </tr>
                 <!-- /ko -->
                 </tbody>
                 <tfoot>
                 <tr>
                     <td>Total</td>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
