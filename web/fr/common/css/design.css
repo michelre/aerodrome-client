@@ -54,6 +54,14 @@ a:hover{
 	border:none;
 }
 
+#aerodrome-content header section#menu ul li a{
+	color:white;
+}
+
+#aerodrome-content header section#menu ul li a:hover , #aerodrome-content header section#menu ul li:hover{
+	color:#357ebd;
+}
+
 #aerodrome-content header section#menu ul li a i{
 	
 	margin-right:10px;
