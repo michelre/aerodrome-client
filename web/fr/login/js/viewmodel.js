@@ -114,7 +114,8 @@ define(["knockout", "common/js/services-ajax", "common/model/pilot"], function (
             });
             self.passValidator = ko.computed(function () {
                 var hasError = false;
-				if(self.newAccount.pass().length <6 || (self.passConfirmation()!=self.newAccount.pass())) {
+				var motDePasseRegex = new RegExp("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{6,}$");
+				if(self.newAccount.pass().length ==0 || (self.passConfirmation()!=self.newAccount.pass()) || !motDePasseRegex.test(self.newAccount.pass())) {
 				  hasError = true;
 				}
 			 	
