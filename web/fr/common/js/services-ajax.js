@@ -182,7 +182,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 		
 		getManagers: function (callback) {
             $.ajax({
-                url: SaNPoint+"AirbaseManager",
+                url: SaNPoint+"airbaseManagers",
 				method:"GET"
             }).done(function (data) {
                     if(callback)
@@ -194,7 +194,7 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 		
 		getAirbaseManager: function (id,callback) {
             $.ajax({
-                url: SaNPoint+"AirbaseManager/"+id,
+                url: SaNPoint+"airbaseManager/"+id,
 				method:"GET"
             }).done(function (data) {
                     if(callback)
