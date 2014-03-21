@@ -253,19 +253,50 @@ define(["jquery", "common/js/mock/get","jquery-cookie"], function($, _get){
 				console.log("Error crediterCompte:", jqXHR);
 			});
 		},
+		
+		sendServiceTransaction: function (dataServiceTransaction,callback){
+			$.ajax({
+				url: SaNPoint+"transaction/services",
+			    dataType: "json",
+				data: JSON.stringify(dataServiceTransaction),
+				method:"POST"
+			}).done(function(data){
+                    if(callback)
+                        callback(data)
+			}).fail(function(jqXHR){
+				console.log("Error sendServiceTransaction:", jqXHR);
+			});
+		},
+		
 		payLanding: function (dataCredit,callback){
+			$.ajax({
+				url: SaNPoint+"transaction",
+			    dataType: "json",
+				data: JSON.stringify(dataCredit),
+				method:"POST"
+			}).done(function(data,textStatus,jqXHR){
+                    if(callback)
+                        callback(data,jqXHR.status)
+			}).fail(function(jqXHR){
+				 	if(callback)
+                        callback(null,jqXHR.status)
+				console.log("Error Payer Compte:", jqXHR);
+			});
+		},
+		
+		/*payLanding: function (dataCredit,callback){
 			$.ajax({
 				url: SaNPoint+"pilot/"+dataCredit.pilot_id+"/credit",
 			    dataType: "json",
 				data: JSON.stringify(dataCredit),
-				method:"PUT"
+				method:"POST"
 			}).done(function(data){
                     if(callback)
                         callback(data)
 			}).fail(function(jqXHR){
 				console.log("Error crediterCompte:", jqXHR);
 			});
-		},
+		},*/
 		updateService:function (dataService,callback,airbaseId){
 			$.ajax({
 				url: SaNPoint+"service/"+dataService.service_id,
