@@ -15,7 +15,7 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
 		******************/
 
 		self.pilotAccount = ko.observable(baseVM.currentPilot());
-		self.montantCredit=ko.observable();
+		self.montantCredit=ko.observable(0);
 		
 		self.paypal = ko.observable(false);
 		self.checkPaypal = function() {
@@ -27,31 +27,7 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
 		self.checkCreditCard = function() {
 				   flag_paymentType = 2;
 				   return true;
-				}  
-		
-		ko.bindingHandlers.numeric = {
-			init: function (element, valueAccessor) {
-				$(element).on("keydown", function (event) {
-					// Allow: backspace, delete, tab, escape, and enter
-					if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 ||
-						// Allow: Ctrl+A
-						(event.keyCode == 65 && event.ctrlKey === true) ||
-						// Allow: . ,
-						(event.keyCode == 188 || event.keyCode == 190 || event.keyCode == 110) ||
-						// Allow: home, end, left, right
-						(event.keyCode >= 35 && event.keyCode <= 39)) {
-						// let it happen, don't do anything
-						return;
-					}
-					else {
-						// Ensure that it is a number and stop the keypress
-						if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
-							event.preventDefault();
-						}
-					}
-				});
-			}
-		};
+				}
 
 		/******************
 		 NON-OBSERVABLES
@@ -87,6 +63,13 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
 				alert("Les champs n'ont pas tous été saisis");
 			};
 		}
+
+        self.checkMontantCredit = ko.computed(function(){
+            if(self.montantCredit() < 0) self.montantCredit(0);
+            if(isNaN(self.montantCredit())) self.montantCredit(0);
+            if(self.montantCredit() === "") self.montantCredit(0);
+
+        });
 		 
 		 self.allValidator = ko.computed(function(){
 			 return true;

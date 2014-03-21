@@ -113,8 +113,8 @@ background: #357ebd;
     background: linear-gradient(to right,  rgba(242,176,90,1) 0%,rgba(246,199,137,1) 100%,rgba(125,185,232,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2b05a', endColorstr='#7db9e8',GradientType=1 );
     color: white;
-    margin-top: 10px;
-    margin-left: 10px;
+    margin-top: 15px;
+	padding:15px;
     border-radius: 5px;
 }
 
@@ -198,6 +198,22 @@ background: #357ebd;
 		font-weight:700;
 		border-radius: 5px 0px 0px 5px;
     }
+	
+	#payment-atterissage .btn-next span{
+		display:none;
+	}
+	
+	#payment-atterissage .btns span{
+		display:none;
+	}
+		
+	#payment-atterissage .btn-next div:first-child{
+        text-align: right;
+    }
+
+    #payment-atterissage .btns div:nth-child(1){
+        text-align: right;
+    }
 }
 
 @media (min-width:600px) {
@@ -210,6 +226,14 @@ background: #357ebd;
         padding: 10px 1px 10px 30px;
 		font-size:10px;
 		border-radius: 5px 0px 0px 5px;
+    }
+	
+	#payment-atterissage .btn-next div:first-child{
+        text-align: right;
+    }
+
+    #payment-atterissage .btns div:nth-child(1){
+        text-align: right;
     }
 }
 
@@ -228,8 +252,19 @@ background: #357ebd;
 	
 
     #payment-atterissage .selected-airbase{
-        margin-top: 10px;
-        margin-left: 15px;
+        margin-top: 15px;
+    }
+	
+	#payment-atterissage .btn-next span{
+		
+	}
+	
+	#payment-atterissage .btn-next div:first-child{
+        text-align: right;
+    }
+
+    #payment-atterissage .btns div:nth-child(1){
+        text-align: right;
     }
 }
 
@@ -245,19 +280,17 @@ background: #357ebd;
         padding: 15px 0 15px 30px;
 		border-radius: 5px 0px 0px 5px;
 		
-    }
-
-    #payment-atterissage .selected-airbase{
-        margin-top: 0;
-    }
+	 }
 
     #payment-atterissage .btn-next div:first-child{
         text-align: right;
     }
 
-    #payment-atterissage .btns div:nth-child(2){
+    #payment-atterissage .btns div:nth-child(1){
         text-align: right;
     }
+	
+	
 }
 
 /* Large devices (large desktops, 1200px and up) */

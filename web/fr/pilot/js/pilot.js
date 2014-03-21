@@ -17,27 +17,35 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
 		viewModel.initPilot($.cookie("id"),function(){
 			Sammy(function () {
 			this.get('home', function () {
+                $.cookie("currentStep", "atterissage");
 				viewModel.currentPage("Accueil");
 			});
 			this.get('solde', function () {
+                $.cookie("currentStep", "atterissage");
 				viewModel.currentPage("Solde");
 			});
 			this.get('payer', function () {
+                $.cookie("currentStep", "atterissage");
 				viewModel.currentPage("Payer");
 			});
 			this.get('archive', function () {
+                $.cookie("currentStep", "atterissage");
 				viewModel.currentPage("Archive");
 			});
 			this.get('plus', function () {
+                $.cookie("currentStep", "atterissage");
 				viewModel.currentPage("Plus");
 			});
 			this.get('account', function () {
+                $.cookie("currentStep", "atterissage");
 				viewModel.currentPage("Gestion du compte");
 			});
             this.get('help', function () {
-                    viewModel.currentPage("Aide");
-                });
+                $.cookie("currentStep", "atterissage");
+                viewModel.currentPage("Aide");
+            });
 			this.notFound = function () {
+                $.cookie("currentStep", "atterissage");
 				viewModel.currentPage("Accueil");
 				window.location.hash = "#home"
 			}

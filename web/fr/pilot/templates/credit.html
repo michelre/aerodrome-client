@@ -1,20 +1,25 @@
 <script type="text/html" id="credit-pilot-template">
 	 <section id="contenu">
-        <h1>Créditer mon Compte</h1>
+        <h2>Créditer mon Compte</h2>
 
 		<!-- ko with: pilotAccount -->
-		<h2 >Mon crédit actuel: <span id="credit" data-bind="text :  credit"><span></h2>Euros
+        <div class="row">
+            <label class="col-md-2">Mon crédit actuel</label>
+            <div class="col-md-2">
+                <span data-bind="text: creditEuros"></span>
+            </div>
+        </div>
+
+		 <!--<span id="credit" data-bind="text: creditEuros"><span></h2>-->
 		<!-- /ko -->
 		<i id="msg" style="display:none;"><li font="red">Merci de saisir un montant correct</li></i>
-		<br />
-		<br />	
-		<br />	
-		<br />
-		<form id="form" role="form">
+		<form id="form" class="form-horizontal" role="form">
 		 	<div class="form-group">
-				<label for="name">Montant à créditer</label>
-				<input data-bind="numeric: number, value: montantCredit" id="montantCredit" type="text" name="montantCredit" class="form-control" placeholder="Entrer montant"/>
-				
+				<label class="col-md-2" for="montantCredit">Montant à créditer</label>
+                <div class="col-md-2">
+                        <input id="montantCredit" class="form-control" data-bind="value: montantCredit"  type="number" name="montantCredit" placeholder="Entrer montant"/>
+                </div>
+            </div>
 				<div>
 					<img src="images/paypal_logo.png" alt="paypal_logo"><input type="radio" name="payment" data-bind="checked: paypal, click:checkPaypal" checked> Paiement Paypal<br>
 					<img src="images/creditCard_logo.png" alt="creditCard_logo"><input id="creditCard" type="radio" name="payment" data-bind="checked: creditCard, click:checkCreditCard"> Paiement par CB<br>

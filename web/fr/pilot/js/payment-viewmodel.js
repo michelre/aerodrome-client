@@ -2,9 +2,7 @@
     function (ko, typeahead, services, autocompleteAirbase, airbase, plane, serviceForfait, serviceTonnage, landing, utils) {
         return function paymentVM(baseVM) {
             var self = this;
-            var flag_paymentType = 0;
-            var msg_higherThan0 = "Merci de Saisir un montant supérieur à 0";
-            var msg_radioBoxChecked = "Merci de choisir l'un des 2 modes de paiement";
+            //var flag_paymentType = 0;
 
 
             /******************
@@ -26,6 +24,7 @@
 
 
             //NOT OBSERVABLES
+            self.flag_paymentType = 0;
             self.montantCredit = ko.observable();
 
             self.paypal = ko.observable(false);
@@ -76,19 +75,15 @@
             //SERVICES
             self.crediterCompte = function () {
                 if (self.allValidator()) {    /*** [LA VERIF PAR ALERT DEGUEU JARTERA] ***/
-                    //Test value to make sure it doesn't equal 0
                     if (self.montantCredit() == "0" || self.montantCredit() == "" || self.montantCredit() == null)
                         alert(msg_higherThan0);
-                    //Confirm that the radio Box is Checked for the Payment Mode
                     else if ($('input[type=radio]:checked').length == 0)
                         alert(msg_radioBoxChecked);
                     else {
-                        //Paypal Choice [Placeholder]
                         if (flag_paymentType == 1) {
                             var url = "templates/credit_paypal.htm?pilotAccount_id=" + encodeURIComponent(self.pilot().id()) + "&price=" + encodeURIComponent(self.montantCredit());
                             window.location.href = url;
                         }
-                        //Credit Card [Placeholder]
                         else {
                             var url = "templates/credit_creditCard.htm?pilotAccount_id=" + encodeURIComponent(self.pilot().id()) + "&price=" + encodeURIComponent(self.montantCredit());
                             window.location.href = url;
@@ -135,7 +130,6 @@
                 if (self.landing().allInputsFilled()) {
                     self.getServicesByAirbase(self.landing().airbase().id(), function () {
                         self.errorForm(false);
-                       // $.cookie('currentStep', "avion", { expires: 7, path: '/' });
 							self.currentStep("avion");
                     });
                 } else {
@@ -151,7 +145,6 @@
                         if (self.services()[i].type() === "tonnage")
                             self.services()[i].aircraftWeight(self.plane().weight());
                     }
-                   // $.cookie('currentStep', "services", { expires: 7, path: '/' });
                       self.currentStep("services");
                 } else {
                     self.errorForm(true);
@@ -160,7 +153,6 @@
 
             self.previousStepPlaneButton = function () {
                 self.currentStep("atterissage");
-                  //$.cookie('currentStep', "atterissage", { expires: 7, path: '/' });
                   self.currentStep("atterissage");
             };
 
@@ -169,13 +161,11 @@
                     return left.name() == right.name() ? 0 : (left.name() < right.name() ? -1 : 1)
                 })
                 self.currentStep("validation");
-                //$.cookie('currentStep', "validation", { expires: 7, path: '/' });
                   self.currentStep("validation");
             };
 
             self.previousStepServicesButton = function () {
                 self.currentStep("avion");
-                //$.cookie('currentStep', "avion", { expires: 7, path: '/' });
                   self.currentStep("avion");
             };
 
@@ -187,7 +177,6 @@
 
             self.previousStepValidationButton = function () {
                 self.currentStep("services");
-                //$.cookie('currentStep', "services", { expires: 7, path: '/' });
                  self.currentStep("services");
             };
             //Paiement
@@ -227,9 +216,10 @@
 				
             }
 
-            self.previousStepPaiementButton = function () {
-                self.currentStep("validation");
-                self.currentStep("validation");
+            self.cancelPaiementButton = function () {
+                $.cookie("currentStep", "atterissage");
+                $.removeCookie("total");
+                window.location.reload();
             };
 
             self.updateAirbaseSelected = ko.computed(function () {
