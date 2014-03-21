@@ -180,40 +180,49 @@
                  self.currentStep("services");
             };
             //Paiement
-            self.payButton = function(){
-				var totalToPay = self.totalEuros().replace('€', '');
-				var credit = self.pilot().creditEuros().replace('€', '');
-				
-				totalToPayNegative = "-"+totalToPay
-				var remainingCredit = credit - totalToPay;
-				var remainingCreditWithEuroSymbol = remainingCredit + " €.";
-				var newCredit = {
-                        pilot_id: self.pilot().id(),
-                        price: totalToPayNegative
-                    }
-					
-				services.payLanding(newCredit, function(){
-					$("#newCredit").append(remainingCreditWithEuroSymbol);
-                    $("#dialog_message").show();
-					$("#dialog_message").dialog({
-						width: 'auto', 
-						maxWidth: 600,
-						height: 'auto',
-						modal: true,
-						fluid: true, //new option
-						resizable: false,
-						buttons: {
-							Ok: function () {
-                                $.cookie("currentStep", "atterissage", { "path" : "/"});
-                                self.currentStep("atterissage");
-								$(this).dialog("close");
-								window.location="/fr/pilot";
-								
-							}
+            self.payButton = function()
+			{
+				$("#dialog_message").show();
+				$("#dialog_message").dialog({
+					width: 'auto', 
+					maxWidth: 600,
+					height: 'auto',
+					modal: true,
+					fluid: true, //new option
+					resizable: false,
+					buttons: {
+						'Ok': function () {
+							
+							var totalToPay = self.totalEuros().replace('€', '');
+							var credit = self.pilot().creditEuros().replace('€', '');
+							
+							totalToPayNegative = "-"+totalToPay
+							var remainingCredit = credit - totalToPay;
+							var remainingCreditWithEuroSymbol = remainingCredit + " €.";
+							var newCredit = {
+									pilot_id: self.pilot().id(),
+									price: totalToPayNegative
+								}
+							
+							console.log(newCredit);
+							
+							services.payLanding(newCredit, function(){});
+							$("#credit").append(remainingCreditWithEuroSymbol);
+							setTimeout(function()
+							{	
+								$.cookie("currentStep", "atterissage", { "path" : "/"});
+								self.currentStep("atterissage");
+							},3000);
+							
+							$(this).dialog("close");
+							//window.location="/fr/pilot";
+						},
+						'Annuler': function()
+						{
+							$(this).dialog("close");
 						}
-					});
-                });
-				
+					}
+				});
             }
 
             self.cancelPaiementButton = function () {
