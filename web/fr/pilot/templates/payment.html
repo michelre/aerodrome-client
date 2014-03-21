@@ -17,6 +17,12 @@
 </div>
 <!-- /ko -->
 
+<div style="display:none;" id="dialog_message" title="Paiement effectué !">
+	  <p>
+			Votre crédit est désormais de  <i id="newCredit"></i> Paydrome vous remercie  !
+	  </p>
+</div>
+				
 <div class="content container-fluid" data-bind="if: currentStep() === 'atterissage' && initAirbasesDone ">
     <h2>Saisissez votre atterissage</h2>
 
@@ -116,11 +122,11 @@
         </tr>
         </thead>
         <tbody>
-        <!-- ko foreach: servicesForfait -->
+        <!-- ko foreach: services -->
         <tr>
             <td data-bind="text: name"></td>
             <td data-bind="text: desc"></td>
-            <td>Forfait</td>
+            <td data-bind="text: type"></td>
             <td>
                 <div class="row">
                     <div class="col-md-6 col-md-offset-6 align-right">
@@ -142,36 +148,7 @@
                     </div>
                 </div>
             </td>
-            <td><input type="checkbox" data-bind="checkedValue: $data, checked: $parent.servicesForfaitSelected"/></td>
-        </tr>
-        <!-- /ko -->
-        <!-- ko foreach: servicesTonnage -->
-        <tr>
-            <td data-bind="text: name"></td>
-            <td data-bind="text: desc"></td>
-            <td>Tonnage</td>
-            <td>
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-6">
-                        <span data-bind="text: formatedPrice"></span>
-                    </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-6">
-                        <input class="form-control" type="number" min="1" max="1000" data-bind="value: quantity"/>
-                     </div>
-                </div>
-            </td>
-            <td>
-                <div class="row">
-                    <div class="col-md-6 col-md-offset-6">
-                        <span data-bind="text: formatedTotalPrice"></span>
-                    </div>
-                </div>
-            </td>
-            <td><input type="checkbox" data-bind="checkedValue: $data, checked: $parent.servicesTonnageSelected"/></td>
+            <td><input type="checkbox" data-bind="checkedValue: $data, checked: $parent.selectedServices"/></td>
         </tr>
         <!-- /ko -->
         </tbody>
@@ -272,39 +249,11 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- ko foreach: servicesForfaitSelected -->
+                <!-- ko foreach: selectedServices -->
                 <tr>
                     <td data-bind="text: name"></td>
                     <td data-bind="text: desc"></td>
-                    <td>Forfait</td>
-                    <td>
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-6 align-right">
-                                <span data-bind="text: formatedPrice"></span>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-6 align-right">
-                                <span data-bind="text: quantity"></span>
-                            </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-6 align-right">
-                                <span data-bind="text: formatedTotalPrice"></span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <!-- /ko -->
-                <!-- ko foreach: servicesTonnageSelected -->
-                <tr>
-                    <td data-bind="text: name"></td>
-                    <td data-bind="text: desc"></td>
-                    <td>Tonnage</td>
+                    <td data-bind="text: type"></td>
                     <td>
                         <div class="row">
                             <div class="col-md-6 col-md-offset-6 align-right">
@@ -385,7 +334,7 @@
 
     <div class="credit-low bg-danger container" data-bind="css: notEnoughCreditClass">
         <div class="row">
-            <p class="col-md-12">Vous ne disposez pas d'un crédit suffisant</p>
+            <p class="col-md-12">Vous ne disposez pas d'un crédit suffisant, Merci de bien vouloir recharger votre compte à l'aide de l'un de ces 2 modes de paiement et de bien vouloir renouveler l'opération.</p>
         </div>
         <hr/>
         <form class="form-horizontal" role="form">

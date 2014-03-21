@@ -11,6 +11,7 @@ define(["knockout"], function (ko) {
         //OBSERVABLES
         self.id = ko.observable(id);
         self.name = ko.observable(name);
+        self.type = ko.observable("forfait");
         self.price = ko.observable(price);
         self.desc = ko.observable(desc);
         self.aircraftTypeCode = ko.observable(aircraftTypeCode);

@@ -54,6 +54,14 @@ a:hover{
 	border:none;
 }
 
+#aerodrome-content header section#menu ul li a{
+	color:white;
+}
+
+#aerodrome-content header section#menu ul li a:hover , #aerodrome-content header section#menu ul li:hover{
+	color:#357ebd;
+}
+
 #aerodrome-content header section#menu ul li a i{
 	
 	margin-right:10px;
@@ -171,6 +179,11 @@ border-top: 2px solid gray;
 	#aerodrome-content section#contenu h2{
 		font-size:22px;
 	}
+	
+	#aerodrome-content section#contenu {
+		padding:30px 0px;
+	}
+	
 	
 	
 }

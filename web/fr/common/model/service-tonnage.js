@@ -12,6 +12,7 @@ define(["knockout", "common/model/weight-range"], function (ko, weightRange) {
         //OBSERVABLES
         self.id = ko.observable(id);
         self.name = ko.observable(name);
+        self.type = ko.observable("tonnage");
         self.desc = ko.observable(desc);
         self.aircraftTypeCode = ko.observable(aircraftTypeCode);
         self.weightRangeServices = ko.observableArray([]);
