@@ -31,7 +31,7 @@
 <div class="content container-fluid" data-bind="if: currentStep() === 'atterissage' && initAirbasesDone ">
     <h2>Saisissez votre atterissage</h2>
 
-    <p class="error alert alert-danger" data-bind="css: displayErrorLanding">Veuillez renseigner tous les champs</p>
+    <p class="msg-client error alert alert-warning" data-bind="css: displayErrorLanding">Veuillez renseigner tous les champs</p>
 
     <form class="form-horizontal airbase-city" role="form">
         <div class="row form-group">
@@ -81,9 +81,9 @@
 <div class="content plane container-fluid" data-bind="if: currentStep() === 'avion' ">
     <h2>Votre avion</h2>
 
-    <div class="error alert-danger" data-bind="css: displayErrorPlane">
+    <p class="msg-client error alert alert-warning" data-bind="css: displayErrorPlane">
         Veuillez renseigner tous les champs
-    </div>
+    </p>
 
     <form class="form-horizontal" role="form">
         <!-- ko with: plane -->
@@ -131,7 +131,7 @@
             <th class="hiddenMedia">Description</th>
             <th class="hiddenMedia">Type</th>
             <th>Prix Unitaire</th>
-            <th>Quantité</th>
+            <th><span class="hiddenMedia">Quantité</span><span class="showMedia">Qté</span></th>
             <th>Prix Total</th>
             <th></th>
         </tr>
@@ -140,7 +140,7 @@
         <!-- ko foreach: services -->
         <tr>
             <td data-bind="text: name"></td>
-            <td data-bind="text: desc" class="hiddenMedia"></td>
+            <td data-bind="text: desc" class="col-md-4 hiddenMedia"></td>
             <td data-bind="text: type" class="hiddenMedia"></td>
             <td>
                 <div class="row">
@@ -261,7 +261,7 @@
                     <th class="hiddenMedia">Description</th>
                     <th class="hiddenMedia">Type</th>
                     <th>Prix Unitaire</th>
-                    <th>Quantité</th>
+                    <th><span class="hiddenMedia">Quantité</span><span class="showMedia">Qté</span></th>
                     <th>Prix Total</th>
                 </tr>
                 </thead>
@@ -269,7 +269,7 @@
                 <!-- ko foreach: selectedServices -->
                 <tr>
                     <td data-bind="text: name"></td>
-                    <td data-bind="text: desc" class="hiddenMedia"></td>
+                    <td data-bind="text: desc" class="col-md-4 hiddenMedia"></td>
                     <td data-bind="text: type" class="hiddenMedia"></td>
                     <td>
                         <div class="row">
