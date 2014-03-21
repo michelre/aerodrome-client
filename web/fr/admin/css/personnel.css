@@ -12,3 +12,14 @@
 #view-all-personnel .loading-icon{
     font-size: 50px;
 }
+
+.fix-error-bootstrap {
+    position: absolute !important;
+    top: 3px !important;
+    right: 10px !important;
+    display: block !important;
+    width: 30px !important;
+    height: 30px !important;
+    line-height: 30px !important;
+    text-align: center !important;
+}

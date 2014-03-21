@@ -16,6 +16,10 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
         self.selectedManagerUpdate = ko.observable(undefined);
 		self.currentAdmin = ko.observable(baseVM.currentAdmin);
 
+
+		self.successForm = ko.observable();
+		self.warningForm = ko.observable();
+		self.errorForm = ko.observable();
         //NOT OBSERVABLES
         self.managerJSON = [];
 
@@ -69,14 +73,27 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
                     airbase_address: self.address(),
                     airbaseManager_id: self.selectedManagerCreate().id(),
                 }
-                servicesCurrent.createAirbase(newAirbase,function(){
-                    window.location.hash = "airbase";
-                });
+                servicesCurrent.createAirbase(newAirbase,self.redirectOnCreate);
 
             } else {
-                alert("Veuillez compléter le formulaire en entier.");
+                self.warningForm(true);
             }
         }
+		
+		self.redirectOnCreate = function(data,status){
+			if(status===200){
+				self.warningForm(false);
+				self.errorForm(false);
+				self.successForm(true);
+					setTimeout(function() {
+						self.successForm(false);
+						window.location.hash="airbase";
+					}, 2000);
+			}else{
+				self.warningForm(false);
+				self.errorForm(true);
+			}
+		};
 
         self.findAirbaseById = function(id){
             for(var i = 0; i < self.airbases().length; i++){
@@ -109,7 +126,19 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
             else
                 self.selectedManagerCreate(undefined);
         });
+		
+		
+		self.displaySuccess  = ko.computed(function(){
+			return self.successForm() ? "show" : "hidden";
+		});
 
+		self.displayError  = ko.computed(function(){
+			return self.errorForm() ? "show" : "hidden";
+		});
+
+		self.displayWarning  = ko.computed(function(){
+			return self.warningForm() ? "show" : "hidden";
+		});
         self.init();
     }
 });

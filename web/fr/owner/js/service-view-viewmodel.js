@@ -104,8 +104,14 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 					servicesCurrent.updateService(newService,self.redirectOnUpdate,self.currentAirbaseId());
 				}
 			}else{
-				alert("Veuillez compléter le formulaire en entier.");
+				self.showWarning();
 			}
+		};
+		
+		self.showWarning = function(){
+				self.warningForm(true);
+				self.errorForm(false);
+				self.successForm(false);
 		};
 		
 		self.redirectOnUpdate = function(data,status,id_airbase){
@@ -125,6 +131,7 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 		
 		self.redirectOnCreate = function(data,status,id_airbase){
 			if(status===200){
+				self.warningForm(false);
 				self.warningFormCreate(false);
 				self.errorFormCreate(false);
 				self.successFormCreate(true);
