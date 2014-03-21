@@ -12,6 +12,6 @@ define(["knockout"], function (ko) {
         self.creditEuros = ko.computed(function(){
             if(self.credit())
                 return self.credit().toFixed(2)+"€";
-        })
+        });
     }
 });
