@@ -185,13 +185,17 @@ background: #357ebd;
 
 @media (max-width:600px) {
 	
+	.form-control {
+		padding:6px 3px;
+	}
+	
 	#payment-atterissage .my-breadcrumb li a .etape{
         display:none;
 		
     }
 	
 	#payment-atterissage .my-breadcrumb li a{
-        padding: 10px 1px 10px 40px;
+       padding: 11px 1px 12px 40px;
 		font-size:12px;
 		font-weight:700;
     }

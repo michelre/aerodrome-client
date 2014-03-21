@@ -12,6 +12,7 @@
             self.currentStep = ko.observable("");
             self.airbases = ko.observableArray([]);
             self.plane = ko.observable();
+			self.successPayment=ko.observable();
             self.landing = ko.observable();
             self.airbaseInput = ko.observable("");
 
@@ -153,7 +154,6 @@
 
             self.previousStepPlaneButton = function () {
                 self.currentStep("atterissage");
-                  self.currentStep("atterissage");
             };
 
             self.nextStepServicesButton = function () {
@@ -161,12 +161,10 @@
                     return left.name() == right.name() ? 0 : (left.name() < right.name() ? -1 : 1)
                 })
                 self.currentStep("validation");
-                  self.currentStep("validation");
             };
 
             self.previousStepServicesButton = function () {
                 self.currentStep("avion");
-                  self.currentStep("avion");
             };
 
             self.nextStepValidationButton = function () {
@@ -194,7 +192,6 @@
 
             self.previousStepValidationButton = function () {
                 self.currentStep("services");
-                 self.currentStep("services");
             };
             //Paiement
             self.payButton = function()
@@ -223,16 +220,24 @@
 							
 							console.log(newCredit);
 							
-							services.payLanding(newCredit, function(){});
-							$("#credit").append(remainingCreditWithEuroSymbol);
-							setTimeout(function()
-							{	
-								$.cookie("currentStep", "atterissage", { "path" : "/"});
-								self.currentStep("atterissage");
-							},3000);
-							
+							services.payLanding(newCredit, function(data, status){
+								if(status==200){
+									//$("#credit").append(remainingCreditWithEuroSymbol);
+									self.successPayment(true);
+									setTimeout(function()
+									{	self.successPayment(false);
+										$.cookie("currentStep", "atterissage", { "path" : "/"});
+										self.currentStep("atterissage");
+										window.location="/fr/pilot";
+									},2000);
+									
+								}else{
+									alert("un probleme est intervenue pendant la transation veuillez réessayer uterieurment.");
+								}
+							});
 							$(this).dialog("close");
-							//window.location="/fr/pilot";
+							
+							
 						},
 						'Annuler': function()
 						{
@@ -295,6 +300,10 @@
 
             self.enoughCredit = ko.computed(function () {
                 return (parseFloat(self.pilot().credit()) >= parseFloat(self.total())) ? true : false;
+            });
+			
+			self.displaySuccessPayment = ko.computed(function () {
+                return (self.successPayment()) ? "show" : "hidden"
             });
 
             self.notEnoughCreditClass = ko.computed(function () {

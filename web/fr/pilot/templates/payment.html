@@ -130,7 +130,7 @@
             <th>Nom</th>
             <th class="hiddenMedia">Description</th>
             <th class="hiddenMedia">Type</th>
-            <th>Prix Unitaire</th>
+            <th><span class="hiddenMedia">Prix Unitaire</span><span class="showMedia">PU</span></th>
             <th><span class="hiddenMedia">Quantité</span><span class="showMedia">Qté</span></th>
             <th>Prix Total</th>
             <th></th>
@@ -260,7 +260,7 @@
                     <th>Nom</th>
                     <th class="hiddenMedia">Description</th>
                     <th class="hiddenMedia">Type</th>
-                    <th>Prix Unitaire</th>
+                    <th><span class="hiddenMedia">Prix Unitaire</span><span class="showMedia">PU</span></th>
                     <th><span class="hiddenMedia">Quantité</span><span class="showMedia">Qté</span></th>
                     <th>Prix Total</th>
                 </tr>
@@ -331,6 +331,7 @@
 
 <div class="content validation container-fluid" data-bind="if: currentStep() === 'paiement' ">
     <h2>Paiement</h2>
+	 <p class="msg-client alert alert-success hidden" data-bind="css: displaySuccessPayment">Le paiement c'est bien effectué. Votre nouveau crédit est de <b data-bind="text: futureCredit"></b></p>
 
     <div class="form-horizontal" role="form">
         <div class="form-group">
@@ -385,9 +386,7 @@
         </form>
         <!-- /ko -->
     </div>
-
-    <!--<p class="credit-ok bg-success" data-bind="css: enoughCreditClass">Votre nouveau crédit sera <b
-            data-bind="text: futureCredit"></b></p>-->
+            
 
     <div class="row btns">
         <div class="col-xs-offset-2 col-xs-5 col-ms-offset-4 col-ms-4 col-md-offset-6 col-md-3 col-lg-offset-8 col-lg-2 col-xs-push-5 col-ms-push-4 col-md-push-3 col-lg-push-2">

@@ -27,7 +27,7 @@ define(["jquery", "knockout", "sammy", "pilot/js/base-viewmodel",
 				viewModel.currentPage("Solde");
 			});
 			this.get('payer', function () {
-                $.cookie("currentStep", "atterissage");
+                //$.cookie("currentStep", "atterissage");
 				viewModel.currentPage("Payer");
 			});
 			this.get('archive', function () {
