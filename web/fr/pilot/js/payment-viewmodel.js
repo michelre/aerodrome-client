@@ -226,8 +226,7 @@
 									self.successPayment(true);
 									setTimeout(function()
 									{	self.successPayment(false);
-										$.cookie("currentStep", "atterissage", { "path" : "/"});
-										self.currentStep("atterissage");
+										$.deleteCookie("currentStep");
 										window.location="/fr/pilot";
 									},2000);
 									
@@ -248,7 +247,7 @@
             }
 
             self.cancelPaiementButton = function () {
-                $.cookie("currentStep", "atterissage");
+                $.cookie("currentStep", "atterissage",{ expires: 7, path: '/' });
                 $.removeCookie("total");
                 window.location.reload();
             };
