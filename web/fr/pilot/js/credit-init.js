@@ -259,8 +259,9 @@ function creditBasket(dataCredit, callback) {
                 buttons: {
                     Ok: function () {
                         $(this).dialog("close");
-						deleteCookie('paiement');
-						window.location="/fr/pilot/#payer";
+						//deleteCookie('paiement');
+						//window.location="/fr/pilot/#payer";
+                        history.go(-1);
                         return false;
                     }
                 }

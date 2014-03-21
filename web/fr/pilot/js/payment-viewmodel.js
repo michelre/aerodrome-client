@@ -1,4 +1,4 @@
-define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autocomplete-airbase" , "common/model/airbase", "common/model/plane", "common/model/service-forfait", "common/model/service-tonnage", "common/model/landing", "common/js/utils"],
+ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autocomplete-airbase" , "common/model/airbase", "common/model/plane", "common/model/service-forfait", "common/model/service-tonnage", "common/model/landing", "common/js/utils"],
     function (ko, typeahead, services, autocompleteAirbase, airbase, plane, serviceForfait, serviceTonnage, landing, utils) {
         return function paymentVM(baseVM) {
             var self = this;
@@ -40,35 +40,6 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                 return true;
             }
 
-            ko.bindingHandlers.numeric = {
-                init: function (element, valueAccessor) {
-                    $(element).on("keydown", function (event) {
-                        // Allow: backspace, delete, tab, escape, and enter
-                        if (event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || event.keyCode == 13 ||
-                            // Allow: Ctrl+A
-                            (event.keyCode == 65 && event.ctrlKey === true) ||
-                            // Allow: . ,
-                            (event.keyCode == 188 || event.keyCode == 190 || event.keyCode == 110) ||
-                            // Allow: home, end, left, right
-                            (event.keyCode >= 35 && event.keyCode <= 39)) {
-                            // let it happen, don't do anything
-                            return;
-                        }
-                        else {
-                            // Ensure that it is a number and stop the keypress
-                            if (event.shiftKey || (event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105)) {
-                                event.preventDefault();
-                            }
-                        }
-                    });
-					$(element).on("keydown", function (event) {
-						$(this).val(function(index, oldVal) {
-							return oldVal.replace(/[^\d-]/g, '');
-						});
-					});
-                }
-            };
-
             /******************
              NON-OBSERVABLES
              ******************/
@@ -81,11 +52,13 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                 self.landing(new landing(undefined, utils.getCurrentDate(), utils.getCurrentTime()));
                 self.getAirbases();
 
-                if(!$.cookie('currentStep'))
-					$.cookie('currentStep', "atterissage", { path: '/' });
+                if($.cookie("currentStep") === "paiement")
+                    self.currentStep("paiement");
+                else
+                    self.currentStep("atterissage");
 
-				self.currentStep($.cookie('currentStep'));
-			
+                if($.cookie("total"))
+                    self.total(parseFloat($.cookie("total")));
 				
             }
 
@@ -207,15 +180,9 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
             };
 
             self.nextStepValidationButton = function () {
-                self.currentStep("paiement");
-
-				$/*.cookie.json = true;
-				var money = { totalToPay: self.totalEuros(), credit: self.pilot().creditEuros(), currentStep:"paiement" }
-				$.cookie('money', money,  { expires: 7, path: '/' });
-				console.log($.cookie('money', money));*/
-				
+                $.cookie('total', self.total(), { expires: 7, path: '/' });
 				$.cookie('currentStep', "paiement", { expires: 7, path: '/' });
-                self.currentStep($.cookie('currentStep'));
+                self.currentStep("paiement");
             };
 
             self.previousStepValidationButton = function () {
@@ -248,10 +215,10 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
 						resizable: false,
 						buttons: {
 							Ok: function () {
-								$.cookie('currentStep', "atterissage", { path: '/' });
-								self.currentStep($.cookie('currentStep'));
+                                $.cookie("currentStep", "atterissage", { "path" : "/"});
+                                self.currentStep("atterissage");
 								$(this).dialog("close");
-								window.location="/fr/login";
+								window.location="/fr/pilot";
 								
 							}
 						}
@@ -262,7 +229,6 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
 
             self.previousStepPaiementButton = function () {
                 self.currentStep("validation");
-                //$.cookie('currentStep', "validation", { expires: 7, path: '/' });
                 self.currentStep("validation");
             };
 
@@ -324,12 +290,15 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
             });
 
             self.futureCredit = ko.computed(function () {
-                var futureCredit = parseFloat(self.pilot().credit()) - parseFloat(self.total());
-                return futureCredit.toFixed(2) + "€";
+                if(self.total()){
+                    var futureCredit = parseFloat(self.pilot().credit()) - parseFloat(self.total());
+                    return futureCredit.toFixed(2) + "€";
+                }
             });
 
             self.totalEuros = ko.computed(function () {
-                return self.total().toFixed(2) + "€";
+                if(self.total())
+                    return self.total().toFixed(2) + "€";
             });
 
             self.init()
