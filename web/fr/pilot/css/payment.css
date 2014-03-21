@@ -214,6 +214,10 @@ background: #357ebd;
     #payment-atterissage .btns div:nth-child(1){
         text-align: right;
     }
+    
+    .hiddenMedia{
+        display:none;
+    }
 }
 
 @media (min-width:600px) {

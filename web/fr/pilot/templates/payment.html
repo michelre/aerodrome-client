@@ -128,8 +128,8 @@
         <thead>
         <tr>
             <th>Nom</th>
-            <th>Description</th>
-            <th>Type</th>
+            <th class="hiddenMedia">Description</th>
+            <th class="hiddenMedia">Type</th>
             <th>Prix Unitaire</th>
             <th>Quantité</th>
             <th>Prix Total</th>
@@ -140,8 +140,8 @@
         <!-- ko foreach: services -->
         <tr>
             <td data-bind="text: name"></td>
-            <td data-bind="text: desc"></td>
-            <td data-bind="text: type"></td>
+            <td data-bind="text: desc" class="hiddenMedia"></td>
+            <td data-bind="text: type" class="hiddenMedia"></td>
             <td>
                 <div class="row">
                     <div class="col-md-6 col-md-offset-6 align-right">
@@ -258,8 +258,8 @@
                 <thead>
                 <tr>
                     <th>Nom</th>
-                    <th>Description</th>
-                    <th>Type</th>
+                    <th class="hiddenMedia">Description</th>
+                    <th class="hiddenMedia">Type</th>
                     <th>Prix Unitaire</th>
                     <th>Quantité</th>
                     <th>Prix Total</th>
@@ -269,8 +269,8 @@
                 <!-- ko foreach: selectedServices -->
                 <tr>
                     <td data-bind="text: name"></td>
-                    <td data-bind="text: desc"></td>
-                    <td data-bind="text: type"></td>
+                    <td data-bind="text: desc" class="hiddenMedia"></td>
+                    <td data-bind="text: type" class="hiddenMedia"></td>
                     <td>
                         <div class="row">
                             <div class="col-md-6 col-md-offset-6 align-right">
@@ -299,8 +299,8 @@
                 <tr>
                     <td>Total</td>
                     <td></td>
-                    <td></td>
-                    <td></td>
+                    <td class="hiddenMedia"></td>
+                    <td class="hiddenMedia"></td>
                     <td></td>
                     <td>
                         <div class="row">
