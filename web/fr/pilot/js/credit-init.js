@@ -259,7 +259,8 @@ function creditBasket(dataCredit, callback) {
                 buttons: {
                     Ok: function () {
                         $(this).dialog("close");
-                        history.go(-1);
+						deleteCookie('paiement');
+						window.location="/fr/pilot/#payer";
                         return false;
                     }
                 }
@@ -272,6 +273,17 @@ function creditBasket(dataCredit, callback) {
         console.log("Error crediterCompte:", jqXHR);
     });
 }
+
+function deleteCookie(cookiename)
+    {
+        var d = new Date();
+        d.setDate(d.getDate() - 1);
+        var expires = ";expires="+d;
+        var name=cookiename;
+        alert(name);
+        var value="";
+        document.cookie = name + "=" + value + expires + "; path=/acc/html";                    
+    }
 //--------------------------------------
 //Fluid Dialog
 

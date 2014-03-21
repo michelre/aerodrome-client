@@ -61,6 +61,11 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                             }
                         }
                     });
+					$(element).on("keydown", function (event) {
+						$(this).val(function(index, oldVal) {
+							return oldVal.replace(/[^\d-]/g, '');
+						});
+					});
                 }
             };
 
@@ -79,8 +84,8 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                 if(!$.cookie('currentStep'))
 					$.cookie('currentStep', "atterissage", { path: '/' });
 
-				
 				self.currentStep($.cookie('currentStep'));
+			
 				
             }
 
@@ -157,8 +162,8 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                 if (self.landing().allInputsFilled()) {
                     self.getServicesByAirbase(self.landing().airbase().id(), function () {
                         self.errorForm(false);
-                        $.cookie('currentStep', "avion", { expires: 7, path: '/' });
-                        self.currentStep($.cookie('currentStep'));
+                       // $.cookie('currentStep', "avion", { expires: 7, path: '/' });
+							self.currentStep("avion");
                     });
                 } else {
                     self.errorForm(true);
@@ -173,8 +178,8 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                         if (self.services()[i].type() === "tonnage")
                             self.services()[i].aircraftWeight(self.plane().weight());
                     }
-                    $.cookie('currentStep', "services", { expires: 7, path: '/' });
-                    self.currentStep($.cookie('currentStep'));
+                   // $.cookie('currentStep', "services", { expires: 7, path: '/' });
+                      self.currentStep("services");
                 } else {
                     self.errorForm(true);
                 }
@@ -182,8 +187,8 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
 
             self.previousStepPlaneButton = function () {
                 self.currentStep("atterissage");
-                $.cookie('currentStep', "atterissage", { expires: 7, path: '/' });
-                self.currentStep($.cookie('currentStep'));
+                  //$.cookie('currentStep', "atterissage", { expires: 7, path: '/' });
+                  self.currentStep("atterissage");
             };
 
             self.nextStepServicesButton = function () {
@@ -191,26 +196,32 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
                     return left.name() == right.name() ? 0 : (left.name() < right.name() ? -1 : 1)
                 })
                 self.currentStep("validation");
-                $.cookie('currentStep', "validation", { expires: 7, path: '/' });
-                self.currentStep($.cookie('currentStep'));
+                //$.cookie('currentStep', "validation", { expires: 7, path: '/' });
+                  self.currentStep("validation");
             };
 
             self.previousStepServicesButton = function () {
                 self.currentStep("avion");
-                $.cookie('currentStep', "avion", { expires: 7, path: '/' });
-                self.currentStep($.cookie('currentStep'));
+                //$.cookie('currentStep', "avion", { expires: 7, path: '/' });
+                  self.currentStep("avion");
             };
 
             self.nextStepValidationButton = function () {
                 self.currentStep("paiement");
-                $.cookie('currentStep', "paiement", { expires: 7, path: '/' });
+
+				$/*.cookie.json = true;
+				var money = { totalToPay: self.totalEuros(), credit: self.pilot().creditEuros(), currentStep:"paiement" }
+				$.cookie('money', money,  { expires: 7, path: '/' });
+				console.log($.cookie('money', money));*/
+				
+				$.cookie('currentStep', "paiement", { expires: 7, path: '/' });
                 self.currentStep($.cookie('currentStep'));
             };
 
             self.previousStepValidationButton = function () {
                 self.currentStep("services");
-                $.cookie('currentStep', "services", { expires: 7, path: '/' });
-                self.currentStep($.cookie('currentStep'));
+                //$.cookie('currentStep', "services", { expires: 7, path: '/' });
+                 self.currentStep("services");
             };
             //Paiement
             self.payButton = function(){
@@ -237,8 +248,11 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
 						resizable: false,
 						buttons: {
 							Ok: function () {
+								$.cookie('currentStep', "atterissage", { path: '/' });
+								self.currentStep($.cookie('currentStep'));
 								$(this).dialog("close");
-								window.location.reload();
+								window.location="/fr/login";
+								
 							}
 						}
 					});
@@ -248,8 +262,8 @@ define(["knockout", "typeahead", "common/js/services-ajax", "pilot/binding/autoc
 
             self.previousStepPaiementButton = function () {
                 self.currentStep("validation");
-                $.cookie('currentStep', "validation", { expires: 7, path: '/' });
-                self.currentStep($.cookie('currentStep'));
+                //$.cookie('currentStep', "validation", { expires: 7, path: '/' });
+                self.currentStep("validation");
             };
 
             self.updateAirbaseSelected = ko.computed(function () {

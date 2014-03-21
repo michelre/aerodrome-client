@@ -3,9 +3,13 @@
         <h1>Créditer mon Compte</h1>
 
 		<!-- ko with: pilotAccount -->
-		<h2>Mon crédit : <span id="credit" data-bind="text :  credit"><span></h2>
+		<h2 >Mon crédit actuel: <span id="credit" data-bind="text :  credit"><span></h2>Euros
 		<!-- /ko -->
-		
+		<i id="msg" style="display:none;"><li font="red">Merci de saisir un montant correct</li></i>
+		<br />
+		<br />	
+		<br />	
+		<br />
 		<form id="form" role="form">
 		 	<div class="form-group">
 				<label for="name">Montant à créditer</label>
