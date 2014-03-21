@@ -9,7 +9,9 @@ define(["jquery", "knockout", "sammy", "admin/js/base-viewmodel",
         "text!admin/templates/help.html"
         ],
     function ($, ko, Sammy, baseVM, navTpl, homeTpl, personnelsTpl, personnelCreateTpl, aerodromeTpl ,aerodromeCreateTpl,aerodromeViewTpl, helpTpl) {
-
+		if(!$.cookie("id") || !$.cookie("role")){
+			window.location.replace("/fr/login");
+		}
        	$("body").append(navTpl).append(homeTpl).append(personnelsTpl).append(personnelCreateTpl).append(aerodromeTpl).append(aerodromeCreateTpl).append(aerodromeViewTpl).append(helpTpl);
 
         var viewModel = new baseVM();
