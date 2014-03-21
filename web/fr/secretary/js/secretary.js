@@ -3,7 +3,9 @@ define(["jquery", "knockout", "sammy", "secretary/js/viewmodel",
         "text!secretary/templates/home.html"
         ],
     function ($, ko, Sammy, VM, navTpl, homeTpl) {
-
+		if(!$.cookie("id") || !$.cookie("role")){
+			window.location.replace("/fr/login");
+		}
        	$("body").append(navTpl).append(homeTpl);
         var viewModel = new VM.viewModel();
 

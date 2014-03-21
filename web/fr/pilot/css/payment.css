@@ -179,6 +179,10 @@ background: #357ebd;
     text-align: right;
 }
 
+.showMedia{
+    display:none !important;
+}
+
 @media (max-width:600px) {
 	
 	#payment-atterissage .my-breadcrumb li a .etape{
@@ -188,7 +192,7 @@ background: #357ebd;
 	
 	#payment-atterissage .my-breadcrumb li a{
         padding: 10px 1px 10px 40px;
-		font-size:14px;
+		font-size:12px;
 		font-weight:700;
     }
 	
@@ -213,6 +217,14 @@ background: #357ebd;
 
     #payment-atterissage .btns div:nth-child(1){
         text-align: right;
+    }
+    
+    .hiddenMedia{
+        display:none !important;
+    }
+    
+    .showMedia{
+        display:inline  !important;
     }
 }
 

@@ -5,7 +5,9 @@ define(["jquery", "knockout", "sammy", "owner/js/base-viewmodel",
 		"text!owner/templates/service-view.html","jquery-cookie"
         ],
     function ($, ko, Sammy, baseVM, navTpl, homeTpl,servicesTpl,serviceViewTpl) {
-
+		if(!$.cookie("id") || !$.cookie("role")){
+			window.location.replace("/fr/login");
+		}
        	$("body").append(navTpl).append(homeTpl).append(servicesTpl).append(serviceViewTpl);
         var viewModel = new baseVM();
 		
