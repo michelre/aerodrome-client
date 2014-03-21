@@ -1,6 +1,9 @@
 <script type="text/html" id="airbase-view-admin-template">
 	 <section id="contenu">
 		 <h1 data-bind="text : modifiedAirbase().name"></h1>
+		 <p class="msg-client alert alert-success hidden" data-bind="css: displaySuccess">La plateforme a bien été mise à jour.</p>
+		 <p class="msg-client alert alert-warning hidden" data-bind="css: displayWarning">Veuillez compléter le formulaire en entier.</p>
+		 <p class="msg-client alert alert-danger hidden" data-bind="css: displayError">Erreur lors de la mise à jour de la plateforme.</p>
 		 <form role="form">
 		 	<div class="form-group">
 		 		<label for="name">Nom</label>
