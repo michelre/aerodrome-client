@@ -17,7 +17,7 @@ define(["knockout"], function (ko) {
                 "phone"    : self.phone(),
                 "mail"    : self.mail(),
                 "pass"     : self.pass()
-            }
+            };
         };
 
         self.fullName = ko.computed({
@@ -39,6 +39,6 @@ define(["knockout"], function (ko) {
             return (self.mail() !== "") ? self.mail() : "non renseigné";
         });
 
-    }
+    };
 });
  

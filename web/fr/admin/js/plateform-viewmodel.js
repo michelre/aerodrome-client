@@ -11,6 +11,9 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
             self.manager = ko.observable("");
 			self.currentAdmin = ko.observable(baseVM.currentAdmin);
 
+			self.successForm = ko.observable();
+			self.warningForm = ko.observable();
+			self.errorForm = ko.observable();
             //NOT OBSERVABLES
             self.managerJSON = [];
 
@@ -46,35 +49,61 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
                         airbase_id: self.modifiedAirbase().id(),
                         airbase_name: self.modifiedAirbase().name(),
                         airbase_address: self.modifiedAirbase().address(),
-                        airbaseManager_id: self.selectedManagerUpdate().id(),
-                    }
-                    servicesCurrent.updateAirbase(newAirbase, function(){
-                        window.location.hash = "airbase"
-                    })
+                        airbaseManager_id: self.selectedManagerUpdate().id()
+                    };
+                    servicesCurrent.updateAirbase(newAirbase,self.redirectOnUpdate);
                 } else {
-                    alert("Veuillez compléter le formulaire en entier.");
+                    self.warningForm(true);
                 }
-            }
+            };
 
-            self.allUpdateAirbaseValidator = ko.computed(function () {
-                if (self.modifiedAirbase() && self.modifiedAirbase().name().length != 0 &&
-                    self.modifiedAirbase().address().length != 0 &&
-                    self.modifiedAirbase().manager().length != 0
-                    ) {
-                    return true;
-                } else {
-                    return false;
-                }
+		self.redirectOnUpdate = function(data,status){
+			if(status===200){
+				self.warningForm(false);
+				self.errorForm(false);
+				self.successForm(true);
+					setTimeout(function() {
+						self.successForm(false);
+						window.location.hash="airbase";
+					}, 2000);
+			}else{
+				self.warningForm(false);
+				self.errorForm(true);
+			}
+		};
+			
+		self.allUpdateAirbaseValidator = ko.computed(function () {
+				if(self.selectedManagerUpdate()){
+				if (self.modifiedAirbase() && self.modifiedAirbase().name().length !== 0 &&
+					self.modifiedAirbase().address().length !== 0 &&
+					self.modifiedAirbase().manager().length !== 0 &&
+					self.selectedManagerUpdate().id().length !==0
+					) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		});
 
-            });
+		self.updateModifAirbaseSelectedInput = ko.computed(function () {
+			if (self.modifiedAirbase() && self.modifiedAirbase().manager())
+				self.selectedManagerUpdate(self.findManagerByFullName(self.modifiedAirbase().manager().fullName()));
+			else
+				self.selectedManagerUpdate(undefined);
+		});
+		self.displaySuccess  = ko.computed(function(){
+			return self.successForm() ? "show" : "hidden";
+		});
 
-            self.updateModifAirbaseSelectedInput = ko.computed(function () {
-                if (self.modifiedAirbase() && self.modifiedAirbase().manager())
-                    self.selectedManagerUpdate(self.findManagerByFullName(self.modifiedAirbase().manager().fullName()));
-                else
-                    self.selectedManagerUpdate(undefined);
-            });
+		self.displayError  = ko.computed(function(){
+			return self.errorForm() ? "show" : "hidden";
+		});
 
+		self.displayWarning  = ko.computed(function(){
+			return self.warningForm() ? "show" : "hidden";
+		});
+		
         self.init();
 
         }

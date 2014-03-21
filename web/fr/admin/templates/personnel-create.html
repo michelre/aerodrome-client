@@ -1,57 +1,58 @@
 <script type="text/html" id="personnel-create-admin-template">
     <section id="contenu">
-        <div id="add-manager">
+        <div id="add-manager" >
             <h1>Ajouter un gestionnaire</h1>
             <div class="bg-success error-form row" data-bind="css: creationOKClass">
-                <p class="col-md-5 col-md-offset-4">Gestionnaire correctement créé. <a href="#personnel">Retour</a></p>
+                <p class="col-md-5 col-md-offset-4">Gestionnaire correctement été créé.</p>
+            </div>
+			<div class="bg-success error-form row" data-bind="css: creationErrorClass">
+                <p class="col-md-5 col-md-offset-4">Erreur lors de la création du gestionnaire.</p>
             </div>
             <div class="bg-danger error-form row" data-bind="css: errorFormClass">
-                <p class="col-md-5 col-md-offset-4">Merci de renseigner l'ensemble des champs obligatoires</p>
+                <p class="col-md-5 col-md-offset-4">Merci de renseigner l'ensemble des champs obligatoires.</p>
             </div>
             <form class="form-horizontal">
                 <!-- ko with: newManager -->
-                <div class="form-group">
-                    <label class="col-md-2">Nom*</label>
-
+                <div class="form-group" data-bind="css: $parent.lastNameValidator" class="form-group has-feedback">
+                    <label class="control-label col-md-2" for="lastName">Nom</label>
+					<div class="col-md-4">
+						<input type="text" class="form-control" data-bind="value: lastName" name="lastName" id="lastName" placeholder="Durand..."/>
+						<i data-bind="css: $parent.lastNameValidatorIcon" class="fix-error-bootstrap form-control-feedback"></i>
+					</div>
+                </div>
+                <div class="form-group" data-bind="css: $parent.firstNameValidator" class="form-group has-feedback">
+                    <label class="control-label col-md-2" for="firstName">Prénom</label>
+					<div class="col-md-4">
+						<input type="text" class="form-control" data-bind="value: firstName" name="firstName" id="firstName" placeholder="Paul..."/>
+						<i data-bind="css: $parent.firstNameValidatorIcon" class="fix-error-bootstrap form-control-feedback"></i>
+					</div>
+                </div>
+                <div class="form-group" data-bind="css: $parent.addressValidator" class="form-group has-feedback">
+                    <label class="control-label col-md-2" for="address">Adresse</label>
                     <div class="col-md-4">
-                        <input class="form-control" type="text" placeholder="Durand..." data-bind="value: lastName"/>
+						<input type="text" class="form-control" data-bind="value: address" name="address" id="address" placeholder="6 Rue Lebrix 38000 Grenoble..."/>
+						<i data-bind="css: $parent.addressValidatorIcon" class="fix-error-bootstrap form-control-feedback"></i>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-2">Prénom*</label>
-
+                <div class="form-group" data-bind="css: $parent.phoneValidator" class="form-group has-feedback">
+                    <label class="control-label col-md-2" for="phone">Téléphone</label>
                     <div class="col-md-4">
-                        <input class="form-control" type="text" placeholder="Paul..." data-bind="value: firstName"/>
+						<input type="text" class="form-control" data-bind="value: phone" name="phone" id="phone" placeholder="0689098233..."/>
+						<i data-bind="css: $parent.phoneValidatorIcon" class="fix-error-bootstrap form-control-feedback"></i>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-2">Adresse*</label>
-
+                <div class="form-group" data-bind="css: $parent.mailValidator" class="form-group has-feedback">
+                    <label class="control-label col-md-2" for="mail">Mail</label>
                     <div class="col-md-4">
-                        <input class="form-control" type="text" placeholder="6 Rue Lebrix 38000 Grenoble..."
-                               data-bind="value: address"/>
+						<input type="text" class="form-control" data-bind="value: mail" name="mail" id="mail" placeholder="paul.durand@gmail.com..."/>
+						<i data-bind="css: $parent.mailValidatorIcon" class="fix-error-bootstrap form-control-feedback"></i>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label class="col-md-2">Téléphone</label>
-
+                <div class="form-group" data-bind="css: $parent.passValidator" class="form-group has-feedback">
+                    <label class="control-label col-md-2" for="pass">Mot de passe</label>
                     <div class="col-md-4">
-                        <input class="form-control" type="text" placeholder="0689098233..." data-bind="value: phone"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2">Mail</label>
-
-                    <div class="col-md-4">
-                        <input class="form-control" type="text" placeholder="paul.durand@gmail.com..."
-                               data-bind="value: mail"/>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-md-2">Mot de passe*</label>
-
-                    <div class="col-md-4">
-                        <input class="form-control" type="text" data-bind="value: pass"/>
+						<input type="text" class="form-control" data-bind="value: pass" name="pass" id="pass" />
+						<i data-bind="css: $parent.passValidatorIcon" class="fix-error-bootstrap form-control-feedback"></i>
                     </div>
                 </div>
                 <!-- /ko -->
