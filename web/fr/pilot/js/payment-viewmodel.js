@@ -170,6 +170,23 @@
             };
 
             self.nextStepValidationButton = function () {
+				var servicesJson=[];
+				self.selectedServices().forEach(function(entry) {
+					var serviceJson = {service_id : entry.id(),service_quantite : entry.quantity()}
+					servicesJson.push(serviceJson);
+			    });
+				
+				var transactionService = {
+					aircraft : { aircraft_tonnage:self.plane().weight(),
+					  			 aircraft_number:self.plane().immat()
+							   },
+					services : servicesJson							   
+				}
+				
+				console.log(transactionService);
+				services.sendServiceTransaction(transactionService,function(){
+				});
+				
                 $.cookie('total', self.total(), { expires: 7, path: '/' });
 				$.cookie('currentStep', "paiement", { expires: 7, path: '/' });
                 self.currentStep("paiement");
@@ -189,29 +206,33 @@
 				var remainingCreditWithEuroSymbol = remainingCredit + " €.";
 				var newCredit = {
                         pilot_id: self.pilot().id(),
-                        price: totalToPayNegative
+                        price: totalToPay
                     }
 					
-				services.payLanding(newCredit, function(){
-					$("#newCredit").append(remainingCreditWithEuroSymbol);
-                    $("#dialog_message").show();
-					$("#dialog_message").dialog({
-						width: 'auto', 
-						maxWidth: 600,
-						height: 'auto',
-						modal: true,
-						fluid: true, //new option
-						resizable: false,
-						buttons: {
-							Ok: function () {
-                                $.cookie("currentStep", "atterissage", { "path" : "/"});
-                                self.currentStep("atterissage");
-								$(this).dialog("close");
-								window.location="/fr/pilot";
-								
+				services.payLanding(newCredit, function(data,status){
+					if (status==200){
+						$("#newCredit").append(remainingCreditWithEuroSymbol);
+						$("#dialog_message").show();
+						$("#dialog_message").dialog({
+							width: 'auto', 
+							maxWidth: 600,
+							height: 'auto',
+							modal: true,
+							fluid: true, //new option
+							resizable: false,
+							buttons: {
+								Ok: function () {
+									$.cookie("currentStep", "atterissage", { "path" : "/"});
+									self.currentStep("atterissage");
+									$(this).dialog("close");
+									window.location="/fr/pilot";
+									
+								}
 							}
-						}
-					});
+						});
+					}else{
+						alert("erreur de paiement, veuillez rééssayer ulterieurment")
+					}
                 });
 				
             }
@@ -268,7 +289,7 @@
             });
 
             self.enoughCredit = ko.computed(function () {
-                return (parseFloat(self.pilot().credit()) > parseFloat(self.total())) ? true : false;
+                return (parseFloat(self.pilot().credit()) >= parseFloat(self.total())) ? true : false;
             });
 
             self.notEnoughCreditClass = ko.computed(function () {
