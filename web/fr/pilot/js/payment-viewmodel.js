@@ -218,8 +218,8 @@
 
             self.cancelPaiementButton = function () {
                 $.cookie("currentStep", "atterissage");
-                $.cookie("total", null);
-                window.location.hash = "#payer"
+                $.removeCookie("total");
+                window.location.reload();
             };
 
             self.updateAirbaseSelected = ko.computed(function () {
