@@ -215,18 +215,18 @@
 							var remainingCreditWithEuroSymbol = remainingCredit + " €.";
 							var newCredit = {
 									pilot_id: self.pilot().id(),
-									price: totalToPayNegative
+									price: totalToPay
 								}
 							
 							console.log(newCredit);
 							
 							services.payLanding(newCredit, function(data, status){
 								if(status==200){
-									//$("#credit").append(remainingCreditWithEuroSymbol);
+									$("#credit").append(remainingCreditWithEuroSymbol);
 									self.successPayment(true);
 									setTimeout(function()
 									{	self.successPayment(false);
-										$.deleteCookie("currentStep");
+										$.removeCookie("currentStep",{ path: '/' });
 										window.location="/fr/pilot";
 									},2000);
 									
@@ -247,8 +247,9 @@
             }
 
             self.cancelPaiementButton = function () {
-                $.cookie("currentStep", "atterissage",{ expires: 7, path: '/' });
-                $.removeCookie("total");
+				$.removeCookie("currentStep",{ path: '/' });
+                //$.cookie("currentStep", "atterissage",{ expires: 7, path: '/' });
+                $.removeCookie("total",{ path: '/' });
                 window.location.reload();
             };
 
@@ -286,6 +287,7 @@
             });
 
             self.currentStepPaiementClass = ko.computed(function () {
+				console.log("paiement");
                 return (self.currentStep() === 'paiement') ? "active" : "";
             });
 
