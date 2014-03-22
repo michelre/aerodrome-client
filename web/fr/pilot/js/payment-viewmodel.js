@@ -287,7 +287,6 @@
             });
 
             self.currentStepPaiementClass = ko.computed(function () {
-				console.log("paiement");
                 return (self.currentStep() === 'paiement') ? "active" : "";
             });
 
