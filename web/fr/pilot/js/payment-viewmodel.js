@@ -170,12 +170,12 @@
             self.nextStepValidationButton = function () {
 				var servicesJson=[];
 				self.selectedServices().forEach(function(entry) {
-					var serviceJson = {service_id : entry.id(),service_quantite : entry.quantity()}
+					var serviceJson = {service_id : entry.id(),service_quantite : parseInt(entry.quantity())}
 					servicesJson.push(serviceJson);
 			    });
 				
 				var transactionService = {
-					aircraft : { aircraft_tonnage:self.plane().weight(),
+					aircraft : { aircraft_ton:parseFloat(self.plane().weight()),
 					  			 aircraft_number:self.plane().immat()
 							   },
 					services : servicesJson							   
@@ -214,8 +214,8 @@
 							var remainingCredit = credit - totalToPay;
 							var remainingCreditWithEuroSymbol = remainingCredit + " €.";
 							var newCredit = {
-									pilot_id: self.pilot().id(),
-									price: totalToPay
+									pilotAccount_id: self.pilot().id(),
+									prix: parseFloat(totalToPay)
 								}
 							
 							console.log(newCredit);
