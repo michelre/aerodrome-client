@@ -11,6 +11,11 @@ a{
 a:hover{
 	text-decoration:none;
 }
+
+.btn{
+	font-weight:700;
+}
+
 #aerodrome-content header{
 	/*height:75px;*/
 	background-color:#333;
@@ -152,6 +157,10 @@ border-top: 2px solid gray;
 	padding:10px;
 	font-size:16px;
 	font-weight:700;
+}
+
+#aerodrome-content section#contenu .container-fluid{
+	padding:0px
 }
 
 

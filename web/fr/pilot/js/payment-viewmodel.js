@@ -12,7 +12,13 @@
             self.currentStep = ko.observable("");
             self.airbases = ko.observableArray([]);
             self.plane = ko.observable();
+			
 			self.successPayment=ko.observable();
+			self.warningEmptyInput = ko.observable();
+			self.warningSupNumber = ko.observable();
+			self.warningModePaiement = ko.observable();
+
+			
             self.landing = ko.observable();
             self.airbaseInput = ko.observable("");
 
@@ -22,23 +28,21 @@
             self.initAirbasesDone = ko.observable(false);
             self.services = ko.observableArray([]);
             self.selectedServices = ko.observableArray([]);
+			
+			self.reglementCB = ko.observable(false); 
+			self.reglementPaypal = ko.observable(false); 
 
 
             //NOT OBSERVABLES
-            self.flag_paymentType = 0;
+          
             self.montantCredit = ko.observable();
 
             self.paypal = ko.observable(false);
-            self.checkPaypal = function () {
-                flag_paymentType = 1;
-                return true;
-            }
 
             self.creditCard = ko.observable(false);
-            self.checkCreditCard = function () {
-                flag_paymentType = 2;
-                return true;
-            }
+            
+			
+			
 
             /******************
              NON-OBSERVABLES
@@ -74,28 +78,49 @@
             };
 
             //SERVICES
+			
+				self.checkCreditCard = function() {
+				   self.reglementCB(true);
+				   self.reglementPaypal(false);
+				   return true;
+				}
+				
+				self.checkPaypal = function() {
+				   self.reglementPaypal(true);
+				   self.reglementCB(false);
+				   return true;
+				}   
+				
             self.crediterCompte = function () {
                 if (self.allValidator()) {    /*** [LA VERIF PAR ALERT DEGUEU JARTERA] ***/
-                    if (self.montantCredit() == "0" || self.montantCredit() == "" || self.montantCredit() == null)
-                        alert(msg_higherThan0);
-                    else if ($('input[type=radio]:checked').length == 0)
-                        alert(msg_radioBoxChecked);
-                    else {
-                        if (flag_paymentType == 1) {
+                    if (self.montantCredit() == "0" || self.montantCredit() == "" || self.montantCredit() == null){
+                       	self.warningEmptyInput(false);
+						self.warningSupNumber(true);
+						self.warningModePaiement(false);
+					}else if (!self.reglementPaypal()&& !self.reglementCB()){
+                       	self.warningEmptyInput(false);
+						self.warningSupNumber(false);
+						self.warningModePaiement(true);
+				}else {
+                        if (self.reglementPaypal()) {
                             var url = "templates/credit_paypal.htm?pilotAccount_id=" + encodeURIComponent(self.pilot().id()) + "&price=" + encodeURIComponent(self.montantCredit());
                             window.location.href = url;
                         }
-                        else {
+                        else if ( self.reglementCB()) {
                             var url = "templates/credit_creditCard.htm?pilotAccount_id=" + encodeURIComponent(self.pilot().id()) + "&price=" + encodeURIComponent(self.montantCredit());
                             window.location.href = url;
                         }
                     }
 
                 } else {
-                    alert("Les champs n'ont pas tous été saisis");
+                     	self.warningEmptyInput(true);
+						self.warningSupNumber(false);
+						self.warningModePaiement(false);
                 }
-                ;
+                
             }
+			
+			
             self.allValidator = ko.computed(function () {
                 return true;
             });
@@ -245,6 +270,14 @@
 					}
 				});
             }
+			
+			 self.modeReglementPaypalCss= ko.computed(function(){
+				 return self.reglementPaypal() ? "active" : "";
+		  	 });
+		 
+		 	 self.modeReglementCBCss= ko.computed(function(){
+			 	return self.reglementCB() ? "active" : "";
+		 	});
 
             self.cancelPaiementButton = function () {
 				$.removeCookie("currentStep",{ path: '/' });
@@ -305,6 +338,18 @@
 			self.displaySuccessPayment = ko.computed(function () {
                 return (self.successPayment()) ? "show" : "hidden"
             });
+			
+			self.displayWarningEmptyInput  = ko.computed(function(){
+				return self.warningEmptyInput() ? "show" : "hidden";
+			});
+		
+			self.displayWarningSupNumber  = ko.computed(function(){
+				return self.warningSupNumber() ? "show" : "hidden";
+			});
+		
+			self.displayWarningModePaiement  = ko.computed(function(){
+				return self.warningModePaiement() ? "show" : "hidden";
+			});
 
             self.notEnoughCreditClass = ko.computed(function () {
                 return (!self.enoughCredit()) ? "show" : "hidden"

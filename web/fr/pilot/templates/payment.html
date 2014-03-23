@@ -331,7 +331,10 @@
 
 <div class="content validation container-fluid" data-bind="if: currentStep() === 'paiement' ">
     <h2>Paiement</h2>
-	 <p class="msg-client alert alert-success hidden" data-bind="css: displaySuccessPayment">Le paiement c'est bien effectué. Votre nouveau crédit est de <b data-bind="text: futureCredit"></b></p>
+	<p class="msg-client alert alert-warning hidden" data-bind="css: displayWarningEmptyInput">Veuillez compléter le formulaire en entier</p>
+	<p class="msg-client alert alert-warning hidden" data-bind="css: displayWarningSupNumber">Merci de Saisir un montant supérieur à 0</p>
+	<p class="msg-client alert alert-warning hidden" data-bind="css: displayWarningModePaiement">Merci de choisir l'un des 2 modes de paiement</p>
+	<p class="msg-client alert alert-success hidden" data-bind="css: displaySuccessPayment">Le paiement c'est bien effectué. Votre nouveau crédit est de <b data-bind="text: futureCredit"></b></p>
     <div class="form-horizontal" role="form">
         <div class="form-group">
             <label class="col-md-2">Votre crédit actuel</label>
@@ -358,7 +361,7 @@
         <hr/>
         <form class="form-horizontal" role="form">
 
-            <div>
+            <!--<div>
                 <img src="images/paypal_logo.png" alt="paypal_logo"><input type="radio" name="payment"
                                                                            data-bind="checked: paypal, click:checkPaypal"
                                                                            checked> Paiement Paypal<br>
@@ -366,22 +369,32 @@
                                                                                    name="payment"
                                                                                    data-bind="checked: creditCard, click:checkCreditCard">
                 Paiement par CB<br>
-            </div>
+            </div>-->
+			
+			<ul class="row modeReglements">
+				 	<li id="modePaypal" class="modeReglement" data-bind="css : modeReglementPaypalCss, click:checkPaypal">
+						<img id="paypalLogo" src="images/paypal_logo.png" alt="paypal"/>
+					</li>
+					<li id="modeCb"class="modeReglement" data-bind="css : modeReglementCBCss, click:checkCreditCard">
+						<img id="CBLogo" src="images/cb_logo.png" alt="cb"/>
+					</li>
+			 </ul>
+			
         </form>
 
         <!-- ko if: paymentType() === 'paypal' -->
         <form class="form-horizontal" role="form">
-            <label for="montantCredit" class="col-md-2">Somme à créditer</label>
+            <label id="montantCreditLabelPayment" for="montantCredit" class="col-xs-12 col-sm-12 col-md-2 control-label">Somme à créditer</label>
 
-            <div class="col-md-3">
-                <!--<input id="credit-sum" class="form-control" type="number"/>-->
+            <div id="montantCreditPayment" class="col-xs-12 col-sm-12 col-md-6">
                 <input data-bind="numeric: number, value: montantCredit" id="montantCredit" type="text"
                        name="montantCredit" class="form-control" placeholder="Entrer montant"/>
             </div>
-            <div class="col-md-3">
-                <!--<button class="btn btn-default">Créditer</button>-->
-                <button data-bind="click: crediterCompte" class="btn btn-primary">Créditer</button>
-            </div>
+			<section class="row actions">
+				<div id="creditBtn" class="col-xs-12 col-sm-12 col-md-2">
+					<button data-bind="click: crediterCompte" class="btn btn-primary">Créditer</button>
+				</div>
+			</section>
         </form>
         <!-- /ko -->
     </div>

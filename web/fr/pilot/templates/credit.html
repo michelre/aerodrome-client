@@ -1,36 +1,48 @@
 <script type="text/html" id="credit-pilot-template">
 	 <section id="contenu">
-        <h2>Créditer mon Compte</h2>
-
-		<!-- ko with: pilotAccount -->
-        <div class="row">
-            <label class="col-md-2">Mon crédit actuel</label>
-            <div class="col-md-2">
-                <span id="credit" data-bind="text: creditEuros"></span>
-            </div>
-        </div>
-
-		 <!--<span id="credit" data-bind="text: creditEuros"><span></h2>-->
+				<p class="msg-client alert alert-warning hidden" data-bind="css: displayWarningEmptyInput">Veuillez compléter le formulaire en entier</p>
+				<p class="msg-client alert alert-warning hidden" data-bind="css: displayWarningSupNumber">Merci de Saisir un montant supérieur à 0</p>
+				<p class="msg-client alert alert-warning hidden" data-bind="css: displayWarningModePaiement">Merci de choisir l'un des 2 modes de paiement</p>
+	 
+	 	<!-- ko with: pilotAccount -->
+            <h3>Mon crédit actuel : <span id="credit" data-bind="text: creditEuros"></span></h3>
 		<!-- /ko -->
+	 
+        <h2>Créditer mon Compte</h2>
 		<i id="msg" style="display:none;"><li font="red">Merci de saisir un montant correct</li></i>
 		<form id="form" class="form-horizontal" role="form">
 		 	<div class="form-group">
-				<label class="col-md-2" for="montantCredit">Montant à créditer</label>
-                <div class="col-md-2">
+				<label id="montantCreditLabel" class="col-md-2 control-label" for="montantCredit">Montant à créditer</label>
+                <div class="col-md-7">
                         <input id="montantCredit" class="form-control" data-bind="value: montantCredit"  type="number" name="montantCredit" placeholder="Entrer montant"/>
                 </div>
             </div>
+				<h3>Veuillez saisir votre mode de reglement</h3>
+				
+				<!-- 
 				<div>
 					<img src="images/paypal_logo.png" alt="paypal_logo"><input type="radio" name="payment" data-bind="checked: paypal, click:checkPaypal" checked> Paiement Paypal<br>
 					<img src="images/creditCard_logo.png" alt="creditCard_logo"><input id="creditCard" type="radio" name="payment" data-bind="checked: creditCard, click:checkCreditCard"> Paiement par CB<br>
 				</div>
+				 -->
+				 <ul class="row modeReglements">
+				 	<li id="modePaypal" class="modeReglement" data-bind="css : modeReglementPaypalCss, click:checkPaypal">
+						<img id="paypalLogo" src="images/paypal_logo.png" alt="paypal"/>
+					</li>
+					<li id="modeCb"class="modeReglement" data-bind="css : modeReglementCBCss, click:checkCreditCard">
+						<img id="CBLogo" src="images/cb_logo.png" alt="cb"/>
+					</li>
+				 </ul>
+				
 				<div id="result">
 				</div>
 			</div>
 		</form>
 		
-		<section class="actions">
-		 	<button data-bind="click: crediterCompte" class="btn btn-primary" >Créditer</button>
+		<section class="row actions">
+			<div id="creditBtn" class="col-md-12">
+		 		<button data-bind="click: crediterCompte" class="btn btn-primary" >Créditer</button>
+			</div>
 		 </section>
 	</section>
 </script>

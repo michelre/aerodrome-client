@@ -8,7 +8,8 @@ define(["knockout", "common/model/airbase"], function (ko, airbase) {
 
         self.dateFormat = ko.computed(function(){
             if(self.date() !== ""){
-                return new Date(self.date()).toDateString();
+				var options = {weekday: "long", year: "numeric", month: "long", day: "numeric"};
+                return new Date(self.date()).toLocaleDateString("fr-FR", options);
             }
         });
 

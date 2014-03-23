@@ -4,55 +4,70 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
 		
         var self = this;
 		var baseVM = baseVM;
-		var flag_paymentType = 0;
-		var msg_higherThan0 = "Merci de Saisir un montant supérieur à 0";
-		var msg_radioBoxChecked = "Merci de choisir l'un des 2 modes de paiement";
 		
 		
 			
         /******************
 		 OBSERVABLES
 		******************/
+		self.warningEmptyInput = ko.observable();
+		self.warningSupNumber = ko.observable();
+		self.warningModePaiement = ko.observable();
+
 
 		self.pilotAccount = ko.observable(baseVM.currentPilot());
 		self.montantCredit=ko.observable(0);
-		
 		self.paypal = ko.observable(false);
-		self.checkPaypal = function() {
-				   flag_paymentType = 1;
-				   return true;
-				}   
-		
 		self.creditCard = ko.observable(false);
-		self.checkCreditCard = function() {
-				   flag_paymentType = 2;
-				   return true;
-				}
+		
+		self.reglementCB = ko.observable(false); 
+		self.reglementPaypal = ko.observable(false); 
 
 		/******************
 		 NON-OBSERVABLES
 		******************/
 		
+		
+		
         //SERVICES
+		
+		self.checkCreditCard = function() {
+				   self.reglementCB(true);
+				   self.reglementPaypal(false);
+				   return true;
+				}
+				
+		self.checkPaypal = function() {
+				   self.reglementPaypal(true);
+				   self.reglementCB(false);
+				   return true;
+				}   
+		
 		self.crediterCompte = function(){
 			if(self.allValidator())
 			{		
 				//Test value to make sure it doesn't equal 0
-				if(self.montantCredit() == "0" || self.montantCredit() == "" || self.montantCredit() == null)
-					alert(msg_higherThan0);
+				if(self.montantCredit() == "0" || self.montantCredit() == "" || self.montantCredit() == null){
+				
+					self.warningEmptyInput(false);
+					self.warningSupNumber(true);
+					self.warningModePaiement(false);
+					
 				//Confirm that the radio Box is Checked for the Payment Mode
-				else if ($('input[type=radio]:checked').length == 0)
-					alert(msg_radioBoxChecked);
-				else
+				}else if (!self.reglementPaypal()&&!self.reglementCB()){
+					self.warningEmptyInput(false);
+					self.warningSupNumber(false);
+					self.warningModePaiement(true);
+				}else
 				{
 					//Paypal Choice
-					if (flag_paymentType == 1)
+					if (self.reglementPaypal())
 					{
 						var url = "templates/credit_paypal.htm?pilotAccount_id=" + encodeURIComponent(self.pilotAccount().id()) + "&price=" + encodeURIComponent(self.montantCredit());
 						window.location.href = url;
 					}
 					//Credit Card
-					else
+					else if(self.reglementCB())
 					{
 						var url = "templates/credit_creditCard.htm?pilotAccount_id=" + encodeURIComponent(self.pilotAccount().id()) + "&price=" + encodeURIComponent(self.montantCredit());
 						window.location.href = url;
@@ -60,7 +75,9 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
 				}
 				
 			}else{
-				alert("Les champs n'ont pas tous été saisis");
+				self.warningEmptyInput(true);
+				self.warningSupNumber(false);
+				self.warningModePaiement(false);
 			};
 		}
 
@@ -70,10 +87,32 @@ define(["knockout" ,"common/js/services-ajax"], function (ko ,services) {
             if(self.montantCredit() === "") self.montantCredit(0);
 
         });
+		
+		 self.modeReglementPaypalCss= ko.computed(function(){
+			 return self.reglementPaypal() ? "active" : "";
+		 });
+		 
+		  self.modeReglementCBCss= ko.computed(function(){
+			 return self.reglementCB() ? "active" : "";
+		 });
 		 
 		 self.allValidator = ko.computed(function(){
 			 return true;
 		 });
+
+		self.displayWarningEmptyInput  = ko.computed(function(){
+			return self.warningEmptyInput() ? "show" : "hidden";
+		});
+		
+		self.displayWarningSupNumber  = ko.computed(function(){
+			return self.warningSupNumber() ? "show" : "hidden";
+		});
+		
+		self.displayWarningModePaiement  = ko.computed(function(){
+			return self.warningModePaiement() ? "show" : "hidden";
+		});
+		
+	
 		 
     }
 });

@@ -167,6 +167,17 @@ background: #357ebd;
     margin-top: 25px;
 }
 
+#payment-atterissage .validation  #montantCreditLabelPayment{
+	text-align:left;
+	padding-left:0px;
+}
+
+#payment-atterissage .validation  #montantCreditPayment{
+	padding:0px;
+	margin-bottom:15px;
+}
+
+
 #payment-atterissage .twitter-typeahead{
 	display:block !important;
 }
