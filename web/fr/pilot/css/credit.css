@@ -18,8 +18,8 @@
 }
 
 #aerodrome-content #contenu ul li.modeReglement.active{
-	box-shadow:1px 1px 8px #3276b1;
-	border:1px #3276b1 solid;
+	box-shadow:1px 1px 15px #3276b1;
+	border:2px #3276b1 solid;
 }
 
 #aerodrome-content #contenu ul li.modeReglement img#paypalLogo{
