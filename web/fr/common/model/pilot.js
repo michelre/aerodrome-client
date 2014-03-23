@@ -10,7 +10,7 @@ define(["knockout"], function (ko) {
 		self.credit = ko.observable(credit);
 
         self.creditEuros = ko.computed(function(){
-            if(self.credit())
+            if(self.credit() || self.credit()==0)
                 return self.credit().toFixed(2)+"€";
         });
     }

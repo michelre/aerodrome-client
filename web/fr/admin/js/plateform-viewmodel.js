@@ -7,7 +7,7 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
             //OBSERVABLES
             self.modifiedAirbase = ko.observable(undefined);
             self.managers = ko.observableArray([]);
-            self.selectedManagerUpdate = ko.observable(undefined);
+            self.selectedManagerUpdate = ko.observable(new manager());
             self.manager = ko.observable("");
 			self.currentAdmin = ko.observable(baseVM.currentAdmin);
 
@@ -77,7 +77,7 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
 				if (self.modifiedAirbase() && self.modifiedAirbase().name().length !== 0 &&
 					self.modifiedAirbase().address().length !== 0 &&
 					self.modifiedAirbase().manager().length !== 0 &&
-					self.selectedManagerUpdate().id().length !==0
+					self.selectedManagerUpdate()
 					) {
 					return true;
 				} else {

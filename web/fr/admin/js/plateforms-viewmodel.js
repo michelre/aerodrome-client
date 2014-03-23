@@ -12,8 +12,8 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
         self.name = ko.observable("");
         self.address = ko.observable("");
         self.manager = ko.observable("");
-        self.selectedManagerCreate = ko.observable(undefined);
-        self.selectedManagerUpdate = ko.observable(undefined);
+        self.selectedManagerCreate = ko.observable(new manager());
+        self.selectedManagerUpdate = ko.observable(new manager());
 		self.currentAdmin = ko.observable(baseVM.currentAdmin);
 
 
@@ -112,7 +112,9 @@ define(["knockout", "common/js/services-ajax", "common/js/mock/services-ajax", "
 
         //COMPUTED
         self.allCreateAirbaseValidator = ko.computed(function () {
-            if (self.name().length != 0 && self.address().length != 0 && self.manager().length != 0){
+            if (self.name().length != 0 && 
+				self.address().length != 0 &&
+			    self.selectedManagerCreate()){
                 return true;
             } else {
                 return false;
