@@ -1,0 +1,48 @@
+#aerodrome-content #contenu ul.modeReglements{
+	padding:15px;
+}
+
+#aerodrome-content #contenu ul li.modeReglement{
+	height:75px;
+	border:1px gray solid;
+	border-radius:5px;
+	margin-right:15px;
+	box-shadow:1px 1px 8px gray;
+	padding:5px;
+	list-style:none;
+	width:150px;
+	display:inline-block;
+	margin-top:15px;
+	vertical-align:top;
+	background:white;
+}
+
+#aerodrome-content #contenu ul li.modeReglement.active{
+	box-shadow:1px 1px 8px #3276b1;
+	border:1px #3276b1 solid;
+}
+
+#aerodrome-content #contenu ul li.modeReglement img#paypalLogo{
+	width:135px;
+}
+
+#aerodrome-content #contenu ul li.modeReglement img#CBLogo{
+	width:138px;
+	height:63px;
+}
+
+#aerodrome-content #contenu span#credit{
+	font-weight:700;
+}
+
+#aerodrome-content #contenu #montantCreditLabel{
+	text-align:left;
+}
+
+#aerodrome-content #contenu #montantCredit{
+	text-align:right;
+}
+
+#aerodrome-content #contenu section.actions #creditBtn{
+	text-align:right;
+}
