@@ -163,7 +163,11 @@ define(["knockout","common/js/Mock/services-ajax","common/js/services-ajax","typ
 		});
 		
 		self.displayCurrentServiceId = ko.computed(function(){
-			return 	"Edition du service #"+self.currentServiceId();
+			if(self.currentServiceId()==="new"){
+				return "Création du nouveau service";
+			}else{
+				return "Edition du service #"+self.currentServiceId();
+			}
 		});	
 		
 		self.displaySuccess  = ko.computed(function(){
